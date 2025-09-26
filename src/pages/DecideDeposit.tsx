@@ -103,15 +103,25 @@ const DecideDeposit = () => {
             </p>
           </div>
 
-          {currentMonths <= 6 && (
-            <div className="bg-success/10 border border-success/20 rounded-lg p-3">
-              <div className="flex items-center justify-center">
-                <span className="text-xs text-success bg-success/20 px-2 py-1 rounded">
-                  AI Recommendation
-                </span>
-              </div>
+          <div 
+            className="bg-success/10 border border-success/20 rounded-lg p-3 cursor-pointer hover:bg-success/15 transition-colors"
+            onClick={() => setSliderValue([100])}
+          >
+            <div className="flex items-center justify-center">
+              <span className="text-xs text-success bg-success/20 px-2 py-1 rounded">
+                AI Recommendation
+              </span>
             </div>
-          )}
+            <div className="text-center mt-2 space-y-1">
+              <p className="text-xs">
+                Get 1 <span className="text-accent">"free"</span> Netflix{" "}
+                <span className="text-success">each month</span> by
+              </p>
+              <p className="text-xs">
+                depositing <span className="text-accent">USD 3,968.8</span> today
+              </p>
+            </div>
+          </div>
         </div>
 
         {/* Action Buttons */}
