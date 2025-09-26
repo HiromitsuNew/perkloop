@@ -1,11 +1,41 @@
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { Progress } from "@/components/ui/progress";
+import { Slider } from "@/components/ui/slider";
 import { ArrowLeft, Monitor } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 const DecideDeposit = () => {
   const navigate = useNavigate();
+  const [sliderValue, setSliderValue] = useState([50]); // Default to middle
+
+  // Calculate deposit amount and months based on slider value (0-100)
+  const calculateDeposit = (value: number) => {
+    const minDeposit = 159.27;
+    const maxDeposit = 3968.8;
+    return minDeposit + (value / 100) * (maxDeposit - minDeposit);
+  };
+
+  const calculateMonths = (value: number) => {
+    const minMonths = 1;
+    const maxMonths = 24;
+    // Inverse relationship: higher slider value = lower months
+    return Math.round(maxMonths - (value / 100) * (maxMonths - minMonths));
+  };
+
+  const formatTimeString = (months: number) => {
+    if (months === 1) return "1 month";
+    if (months < 12) return `${months} months`;
+    if (months === 12) return "1 year";
+    const years = Math.floor(months / 12);
+    const remainingMonths = months % 12;
+    if (remainingMonths === 0) return `${years} year${years > 1 ? 's' : ''}`;
+    return `${years} year${years > 1 ? 's' : ''} ${remainingMonths} month${remainingMonths > 1 ? 's' : ''}`;
+  };
+
+  const currentDeposit = calculateDeposit(sliderValue[0]);
+  const currentMonths = calculateMonths(sliderValue[0]);
+  const timeString = formatTimeString(currentMonths);
 
   return (
     <div className="min-h-screen bg-background text-foreground p-6">
@@ -45,42 +75,43 @@ const DecideDeposit = () => {
           </div>
         </Card>
 
-        {/* Progress */}
-        <div className="space-y-2">
-          <Progress value={60} className="h-2" />
+        {/* Deposit Slider */}
+        <div className="space-y-4">
+          <Slider
+            value={sliderValue}
+            onValueChange={setSliderValue}
+            max={100}
+            min={0}
+            step={1}
+            className="w-full"
+          />
+          <div className="flex justify-between text-xs text-muted-foreground">
+            <span>Min: $159.27</span>
+            <span>Max: $3,968.8</span>
+          </div>
         </div>
 
-        {/* Deposit Options */}
+        {/* Dynamic Deposit Information */}
         <div className="space-y-4">
           <div className="text-center space-y-2">
             <p className="text-sm">
               Get 1 <span className="text-accent">"free"</span> Netflix in{" "}
-              <span className="text-success">6 months</span> by
+              <span className="text-success">{timeString}</span> by
             </p>
             <p className="text-sm">
-              depositing <span className="text-accent">USD 1,319.8</span> today
+              depositing <span className="text-accent">USD {currentDeposit.toFixed(2)}</span> today
             </p>
           </div>
 
-          <div className="bg-success/10 border border-success/20 rounded-lg p-3">
-            <div className="flex items-center justify-center">
-              <span className="text-xs text-success bg-success/20 px-2 py-1 rounded">
-                AI Recommendation
-              </span>
+          {currentMonths <= 6 && (
+            <div className="bg-success/10 border border-success/20 rounded-lg p-3">
+              <div className="flex items-center justify-center">
+                <span className="text-xs text-success bg-success/20 px-2 py-1 rounded">
+                  AI Recommendation
+                </span>
+              </div>
             </div>
-          </div>
-
-          <Card className="bg-card border-2 border-primary p-4">
-            <div className="text-center space-y-2">
-              <p className="text-sm">
-                Get 1 <span className="text-accent">"free"</span> Netflix{" "}
-                <span className="text-success">each month</span> by
-              </p>
-              <p className="text-sm">
-                depositing <span className="text-accent">USD 3,968.8</span> today
-              </p>
-            </div>
-          </Card>
+          )}
         </div>
 
         {/* Action Buttons */}
