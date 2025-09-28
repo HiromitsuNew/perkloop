@@ -2,10 +2,14 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import { ArrowLeft, Monitor } from "lucide-react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 const PaymentMethod = () => {
   const navigate = useNavigate();
+  const location = useLocation();
+  
+  // Get the deposit details from the previous page, with fallback values
+  const { depositAmount = 3968.8, months = 1, timeString = "1 month", sliderValue = 100 } = location.state || {};
 
   return (
     <div className="min-h-screen bg-background text-foreground p-6">
@@ -47,17 +51,17 @@ const PaymentMethod = () => {
 
         {/* Progress */}
         <div className="space-y-2">
-          <Progress value={90} className="h-2" />
+          <Progress value={sliderValue} className="h-2" />
         </div>
 
         {/* Summary */}
         <div className="text-center space-y-2">
           <p className="text-sm">
-            Get 1 <span className="text-accent">"free"</span> Netflix{" "}
-            <span className="text-success">each month</span> by
+            Get 1 <span className="text-accent">"free"</span> Netflix in{" "}
+            <span className="text-success">{timeString}</span> by
           </p>
           <p className="text-sm">
-            depositing <span className="text-accent">USD 3,968.8</span> today
+            depositing <span className="text-accent">USD {depositAmount.toFixed(2)}</span> today
           </p>
         </div>
 

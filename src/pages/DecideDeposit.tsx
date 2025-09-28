@@ -127,7 +127,14 @@ const DecideDeposit = () => {
         {/* Action Buttons */}
         <div className="space-y-3">
           <Button 
-            onClick={() => navigate('/payment-method')}
+            onClick={() => navigate('/payment-method', { 
+              state: { 
+                depositAmount: currentDeposit,
+                months: currentMonths,
+                timeString: timeString,
+                sliderValue: sliderValue[0]
+              }
+            })}
             className="w-full h-12 text-base font-medium bg-primary hover:bg-primary/90"
           >
             Next step
