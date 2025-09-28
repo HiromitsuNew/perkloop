@@ -4,9 +4,12 @@ import { Slider } from "@/components/ui/slider";
 import { ArrowLeft, Monitor } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+import { useLanguage } from "@/contexts/LanguageContext";
+import LanguageSelector from "@/components/LanguageSelector";
 
 const DecideDeposit = () => {
   const navigate = useNavigate();
+  const { t } = useLanguage();
   const [sliderValue, setSliderValue] = useState([50]); // Default to middle
 
   // Calculate deposit amount and months based on slider value (0-100)
@@ -40,6 +43,11 @@ const DecideDeposit = () => {
   return (
     <div className="min-h-screen bg-background text-foreground p-6">
       <div className="max-w-md mx-auto space-y-6">
+        {/* Language Selector */}
+        <div className="flex justify-end">
+          <LanguageSelector />
+        </div>
+        
         {/* Header */}
         <div className="flex items-center space-x-4">
           <Button 
@@ -52,16 +60,16 @@ const DecideDeposit = () => {
           </Button>
           <div>
             <h1 className="text-lg font-medium">
-              Select a desirable good to
+              {t('decideDeposit.title1')}
             </h1>
             <h2 className="text-lg font-medium">
-              let your <span className="text-accent">money</span> work for you
+              {t('decideDeposit.title2')} <span className="text-accent">{t('decideDeposit.title2.money')}</span> {t('decideDeposit.title2.rest')}
             </h2>
           </div>
         </div>
 
         <div className="text-center">
-          <h3 className="text-base font-medium">Decide your deposit</h3>
+          <h3 className="text-base font-medium">{t('decideDeposit.decide')}</h3>
         </div>
 
         {/* Selected Item */}
@@ -69,7 +77,7 @@ const DecideDeposit = () => {
           <div className="text-center space-y-3">
             <Monitor className="w-8 h-8 mx-auto text-foreground" />
             <div>
-              <p className="font-medium">Netflix</p>
+              <p className="font-medium">{t('decideDeposit.netflix')}</p>
               <p className="text-sm text-muted-foreground">USD 12.99</p>
             </div>
           </div>
@@ -95,7 +103,7 @@ const DecideDeposit = () => {
         <div className="space-y-4">
           <div className="text-center space-y-2">
             <p className="text-sm">
-              Get 1 <span className="text-accent">"free"</span> Netflix in{" "}
+              Get 1 <span className="text-accent">"free"</span> {t('decideDeposit.netflix')} in{" "}
               <span className="text-success">{timeString}</span> by
             </p>
             <p className="text-sm">
@@ -109,16 +117,12 @@ const DecideDeposit = () => {
           >
             <div className="flex items-center justify-center">
               <span className="text-xs text-success bg-success/20 px-2 py-1 rounded">
-                AI Recommendation
+                {t('decideDeposit.aiRec')}
               </span>
             </div>
             <div className="text-center mt-2 space-y-1">
               <p className="text-xs">
-                Get 1 <span className="text-accent">"free"</span> Netflix{" "}
-                <span className="text-success">each month</span> by
-              </p>
-              <p className="text-xs">
-                depositing <span className="text-accent">USD 3,968.8</span> today
+                {t('decideDeposit.aiRecText')}
               </p>
             </div>
           </div>
@@ -137,14 +141,14 @@ const DecideDeposit = () => {
             })}
             className="w-full h-12 text-base font-medium bg-primary hover:bg-primary/90"
           >
-            Next step
+            {t('decideDeposit.nextStep')}
           </Button>
           
           <Button 
             variant="secondary" 
             className="w-full h-12 text-base font-medium"
           >
-            Add more recurring purchases
+            {t('decideDeposit.addMore')}
           </Button>
         </div>
       </div>
