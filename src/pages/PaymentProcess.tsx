@@ -3,15 +3,44 @@ import { Card } from "@/components/ui/card";
 import { ArrowLeft } from "lucide-react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { useInvestments } from "@/hooks/useInvestments";
+import { useToast } from "@/hooks/use-toast";
 import LanguageSelector from "@/components/LanguageSelector";
 
 const PaymentProcess = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const { t } = useLanguage();
+  const { createInvestment } = useInvestments();
+  const { toast } = useToast();
   
-  // Get the payment method and deposit amount from the previous page
-  const { paymentMethod, depositAmount = 3968.8 } = location.state || {};
+  const { paymentMethod, depositAmount, selectedProduct, investmentDays } = location.state || {};
+
+  const handleFinishPayment = async () => {
+    try {
+      if (depositAmount && selectedProduct && investmentDays && paymentMethod) {
+        await createInvestment({
+          product_name: selectedProduct,
+          deposit_amount: parseFloat(depositAmount),
+          investment_days: parseInt(investmentDays),
+          payment_method: paymentMethod,
+        });
+        
+        toast({
+          title: "Investment Created!",
+          description: `Your ${selectedProduct} investment has been created successfully.`,
+        });
+      }
+      
+      navigate('/');
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: "Failed to create investment. Please try again.",
+        variant: "destructive",
+      });
+    }
+  };
 
   const renderContent = () => {
     if (paymentMethod === 'stablecoin') {
@@ -64,13 +93,13 @@ const PaymentProcess = () => {
 
         {/* Finish Payment Button */}
         <div className="pt-8">
-          <Button 
-            variant="default" 
-            className="w-full h-12 text-base font-medium"
-            onClick={() => navigate('/')}
-          >
-            {t('paymentProcess.finishPayment')}
-          </Button>
+        <Button 
+          onClick={handleFinishPayment}
+          variant="default" 
+          className="w-full h-12 text-base font-medium"
+        >
+          {t('paymentProcess.finishPayment')}
+        </Button>
         </div>
       </div>
     </div>

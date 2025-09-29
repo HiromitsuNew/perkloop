@@ -1,21 +1,40 @@
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
-import { HelpCircle } from "lucide-react";
+import { HelpCircle, LogOut } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { useAuth } from "@/contexts/AuthContext";
+import { useInvestments } from "@/hooks/useInvestments";
 import LanguageSelector from "@/components/LanguageSelector";
 
 const Dashboard = () => {
   const navigate = useNavigate();
   const { t } = useLanguage();
+  const { signOut } = useAuth();
+  const { investments, totalInvestment } = useInvestments();
+
+  const handleSignOut = async () => {
+    await signOut();
+    navigate('/auth');
+  };
+
+  const latestInvestment = investments[0];
 
   return (
     <div className="min-h-screen bg-background text-foreground p-6">
       <div className="max-w-md mx-auto space-y-6">
-        {/* Language Selector */}
-        <div className="flex justify-end">
+        {/* Header with Language Selector and Logout */}
+        <div className="flex justify-between items-center">
           <LanguageSelector />
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={handleSignOut}
+            className="text-muted-foreground hover:text-foreground"
+          >
+            <LogOut className="w-4 h-4" />
+          </Button>
         </div>
         
         {/* Header */}
@@ -32,7 +51,7 @@ const Dashboard = () => {
         <Card className="bg-card border-border p-6 space-y-4">
           <div className="text-center space-y-2">
             <p className="text-sm text-muted-foreground">{t('dashboard.withdrawable')}</p>
-            <h3 className="text-4xl font-bold">$ 1531.02</h3>
+            <h3 className="text-4xl font-bold">$ {totalInvestment.toFixed(2)}</h3>
           </div>
 
           <div className="space-y-2">
@@ -41,15 +60,25 @@ const Dashboard = () => {
               <HelpCircle className="w-4 h-4 text-primary" />
             </div>
             
-            <div className="space-y-2">
-              <div className="flex items-center space-x-2">
-                <span className="text-success font-semibold">23 {t('dashboard.days')}</span>
-                <span className="text-sm text-muted-foreground">
-                  {t('dashboard.until')} <span className="text-accent">{t('dashboard.starbucks')}</span>
-                </span>
+            {latestInvestment ? (
+              <div className="space-y-2">
+                <div className="flex items-center space-x-2">
+                  <span className="text-success font-semibold">
+                    {latestInvestment.investment_days} {t('dashboard.days')}
+                  </span>
+                  <span className="text-sm text-muted-foreground">
+                    {t('dashboard.until')} <span className="text-accent">{latestInvestment.product_name}</span>
+                  </span>
+                </div>
+                <Progress value={5} className="h-2" />
               </div>
-              <Progress value={75} className="h-2" />
-            </div>
+            ) : (
+              <div className="py-4">
+                <p className="text-sm text-muted-foreground text-center">
+                  No ongoing investment. Select a desirable good to start having your money work for you.
+                </p>
+              </div>
+            )}
           </div>
         </Card>
 

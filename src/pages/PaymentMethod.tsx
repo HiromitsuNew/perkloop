@@ -13,6 +13,10 @@ const PaymentMethod = () => {
   
   // Get the deposit details from the previous page, with fallback values
   const { depositAmount = 3968.8, months = 1, timeString = "1 month", sliderValue = 100 } = location.state || {};
+  
+  // Set product info
+  const selectedProduct = "Netflix";
+  const investmentDays = months * 30; // Convert months to days
 
   return (
     <div className="min-h-screen bg-background text-foreground p-6">
@@ -79,7 +83,12 @@ const PaymentMethod = () => {
             variant="secondary" 
             className="w-full h-12 text-base font-medium justify-center"
             onClick={() => navigate('/payment-process', { 
-              state: { paymentMethod: 'bankwire', depositAmount } 
+              state: { 
+                paymentMethod: 'Bank Wire',
+                depositAmount,
+                selectedProduct,
+                investmentDays
+              } 
             })}
           >
             {t('paymentMethod.bankWire')}
@@ -89,7 +98,12 @@ const PaymentMethod = () => {
             variant="secondary" 
             className="w-full h-12 text-base font-medium justify-center"
             onClick={() => navigate('/payment-process', { 
-              state: { paymentMethod: 'stablecoin', depositAmount } 
+              state: { 
+                paymentMethod: 'Stablecoin',
+                depositAmount,
+                selectedProduct,
+                investmentDays
+              } 
             })}
           >
             {t('paymentMethod.stablecoin')}
@@ -99,7 +113,12 @@ const PaymentMethod = () => {
             variant="secondary" 
             className="w-full h-12 text-base font-medium justify-center"
             onClick={() => navigate('/payment-process', { 
-              state: { paymentMethod: 'creditcard', depositAmount } 
+              state: { 
+                paymentMethod: 'Credit Card',
+                depositAmount,
+                selectedProduct,
+                investmentDays
+              } 
             })}
           >
             {t('paymentMethod.creditCard')}

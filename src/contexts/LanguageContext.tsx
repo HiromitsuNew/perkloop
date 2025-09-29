@@ -23,7 +23,7 @@ const translations = {
     'dashboard.until': 'Until the next free',
     'dashboard.starbucks': 'Starbucks',
     'dashboard.withdraw': 'Withdraw Principle',
-    'dashboard.addPurchases': 'Add new purchases',
+    'dashboard.addPurchases': 'Add New Purchases',
     'dashboard.privacy': 'Privacy Policy',
     'dashboard.userAgreement': 'User Agreement',
     
