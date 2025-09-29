@@ -47,7 +47,7 @@ const translations = {
     'decideDeposit.deposit': 'Deposit',
     'decideDeposit.payback': 'Pay back in',
     'decideDeposit.aiRec': 'AI Recommendation',
-    'decideDeposit.aiRecText': 'We recommend maxing out the deposit to get the best offer for you.',
+    'decideDeposit.aiRecText': 'Depositing USD 3968.8 today to get a free Netflix in one month.',
     'decideDeposit.nextStep': 'Next step',
     'decideDeposit.addMore': 'Add more recurring purchases',
     
@@ -104,7 +104,7 @@ const translations = {
     'decideDeposit.deposit': '預金',
     'decideDeposit.payback': '返済期間',
     'decideDeposit.aiRec': 'AI推奨',
-    'decideDeposit.aiRecText': '最良のオファーを得るために、預金額を最大化することをお勧めします。',
+    'decideDeposit.aiRecText': '今日USD 3968.8を預けて、1ヶ月で無料のNetflixを手に入れましょう。',
     'decideDeposit.nextStep': '次のステップ',
     'decideDeposit.addMore': '定期購入を追加',
     
