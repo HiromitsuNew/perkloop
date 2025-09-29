@@ -47,7 +47,7 @@ const translations = {
     'decideDeposit.deposit': 'Deposit',
     'decideDeposit.payback': 'Pay back in',
     'decideDeposit.aiRec': 'AI Recommendation',
-    'decideDeposit.aiRecText': 'Depositing USD 3968.8 today to get a free Netflix in one month.',
+    'decideDeposit.aiRecText': 'Depositing USD 3968.8 today to get a free Netflix each month.',
     'decideDeposit.nextStep': 'Next step',
     'decideDeposit.addMore': 'Add more recurring purchases',
     
