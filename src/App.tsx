@@ -8,6 +8,7 @@ import Dashboard from "./pages/Dashboard";
 import PickPurchase from "./pages/PickPurchase";
 import DecideDeposit from "./pages/DecideDeposit";
 import PaymentMethod from "./pages/PaymentMethod";
+import PaymentProcess from "./pages/PaymentProcess";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -24,6 +25,7 @@ const App = () => (
             <Route path="/pick-purchase" element={<PickPurchase />} />
             <Route path="/decide-deposit" element={<DecideDeposit />} />
             <Route path="/payment-method" element={<PaymentMethod />} />
+            <Route path="/payment-process" element={<PaymentProcess />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>

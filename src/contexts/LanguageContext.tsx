@@ -64,9 +64,15 @@ const translations = {
     'paymentMethod.summary': 'Summary of your offer',
     'paymentMethod.summaryText': 'By depositing the above amount, you\'ll get Netflix every month for the above duration for free.',
     'paymentMethod.paymentTitle': 'How do you want to deposit?',
-    'paymentMethod.bankWire': 'Bank wire',
+    'paymentMethod.bankWire': 'Bank Wire',
     'paymentMethod.stablecoin': 'Stablecoin',
-    'paymentMethod.creditCard': 'Credit Card'
+    'paymentMethod.creditCard': 'Credit Card',
+    
+    // Payment Process
+    'paymentProcess.featureAvailable': 'Feature available soon.',
+    'paymentProcess.sendUsdc': 'Send',
+    'paymentProcess.usdcAmount': 'amount of USDC to the address below.',
+    'paymentProcess.finishPayment': 'Finish Payment',
   },
   ja: {
     // Dashboard
@@ -121,9 +127,15 @@ const translations = {
     'paymentMethod.summary': 'オファーの概要',
     'paymentMethod.summaryText': '上記金額を預けることで、上記期間中毎月無料でNetflixをご利用いただけます。',
     'paymentMethod.paymentTitle': 'どのように預金しますか？',
-    'paymentMethod.bankWire': '銀行振込',
+    'paymentMethod.bankWire': '銀行送金',
     'paymentMethod.stablecoin': 'ステーブルコイン',
-    'paymentMethod.creditCard': 'クレジットカード'
+    'paymentMethod.creditCard': 'クレジットカード',
+    
+    // Payment Process
+    'paymentProcess.featureAvailable': '機能は間もなく利用可能です。',
+    'paymentProcess.sendUsdc': '送信',
+    'paymentProcess.usdcAmount': 'USDCを以下のアドレスに送金してください。',
+    'paymentProcess.finishPayment': '支払いを完了',
   }
 };
 

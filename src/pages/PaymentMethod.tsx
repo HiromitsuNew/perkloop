@@ -78,6 +78,9 @@ const PaymentMethod = () => {
           <Button 
             variant="secondary" 
             className="w-full h-12 text-base font-medium justify-center"
+            onClick={() => navigate('/payment-process', { 
+              state: { paymentMethod: 'bankwire', depositAmount } 
+            })}
           >
             {t('paymentMethod.bankWire')}
           </Button>
@@ -85,6 +88,9 @@ const PaymentMethod = () => {
           <Button 
             variant="secondary" 
             className="w-full h-12 text-base font-medium justify-center"
+            onClick={() => navigate('/payment-process', { 
+              state: { paymentMethod: 'stablecoin', depositAmount } 
+            })}
           >
             {t('paymentMethod.stablecoin')}
           </Button>
@@ -92,6 +98,9 @@ const PaymentMethod = () => {
           <Button 
             variant="secondary" 
             className="w-full h-12 text-base font-medium justify-center"
+            onClick={() => navigate('/payment-process', { 
+              state: { paymentMethod: 'creditcard', depositAmount } 
+            })}
           >
             {t('paymentMethod.creditCard')}
           </Button>
