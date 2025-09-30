@@ -84,7 +84,7 @@ const PaymentMethod = () => {
             className="w-full h-12 text-base font-medium justify-center"
             onClick={() => navigate('/payment-process', { 
               state: { 
-                paymentMethod: 'Bank Wire',
+                paymentMethod: 'bank_wire',
                 depositAmount,
                 selectedProduct,
                 investmentDays
@@ -99,7 +99,7 @@ const PaymentMethod = () => {
             className="w-full h-12 text-base font-medium justify-center"
             onClick={() => navigate('/payment-process', { 
               state: { 
-                paymentMethod: 'Stablecoin',
+                paymentMethod: 'stablecoin',
                 depositAmount,
                 selectedProduct,
                 investmentDays
@@ -114,7 +114,7 @@ const PaymentMethod = () => {
             className="w-full h-12 text-base font-medium justify-center"
             onClick={() => navigate('/payment-process', { 
               state: { 
-                paymentMethod: 'Credit Card',
+                paymentMethod: 'credit_card',
                 depositAmount,
                 selectedProduct,
                 investmentDays
