@@ -62,6 +62,20 @@ export const useInvestments = () => {
     return data;
   };
 
+  const deleteAllInvestments = async () => {
+    if (!user) throw new Error('User not authenticated');
+
+    const { error } = await supabase
+      .from('investments')
+      .delete()
+      .eq('user_id', user.id);
+
+    if (error) throw error;
+    
+    // Refresh investments list
+    fetchInvestments();
+  };
+
   useEffect(() => {
     fetchInvestments();
   }, [user]);
@@ -72,6 +86,7 @@ export const useInvestments = () => {
     investments,
     loading,
     createInvestment,
+    deleteAllInvestments,
     fetchInvestments,
     totalInvestment,
   };

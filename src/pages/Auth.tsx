@@ -113,8 +113,8 @@ const Auth = () => {
         {/* Test Account Info */}
         <div className="text-center p-4 bg-muted rounded-lg">
           <p className="text-xs text-muted-foreground mb-2">Test Account:</p>
-          <p className="text-xs font-mono">test@perkloop.com</p>
-          <p className="text-xs font-mono">password123</p>
+          <p className="text-xs font-mono">test@perkloop.io</p>
+          <p className="text-xs font-mono">123456</p>
         </div>
       </Card>
     </div>

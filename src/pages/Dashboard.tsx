@@ -1,22 +1,51 @@
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
-import { HelpCircle, LogOut } from "lucide-react";
+import { HelpCircle, LogOut, RotateCcw } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { useAuth } from "@/contexts/AuthContext";
 import { useInvestments } from "@/hooks/useInvestments";
+import { useToast } from "@/hooks/use-toast";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
 import LanguageSelector from "@/components/LanguageSelector";
 
 const Dashboard = () => {
   const navigate = useNavigate();
   const { t } = useLanguage();
   const { signOut } = useAuth();
-  const { investments, totalInvestment } = useInvestments();
+  const { investments, totalInvestment, deleteAllInvestments } = useInvestments();
+  const { toast } = useToast();
 
   const handleSignOut = async () => {
     await signOut();
     navigate('/auth');
+  };
+
+  const handleReset = async () => {
+    try {
+      await deleteAllInvestments();
+      toast({
+        title: "Reset Complete",
+        description: "All investments have been cleared.",
+      });
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: "Failed to reset investments.",
+        variant: "destructive",
+      });
+    }
   };
 
   const latestInvestment = investments[0];
@@ -24,17 +53,42 @@ const Dashboard = () => {
   return (
     <div className="min-h-screen bg-background text-foreground p-6">
       <div className="max-w-md mx-auto space-y-6">
-        {/* Header with Language Selector and Logout */}
+        {/* Header with Language Selector and Actions */}
         <div className="flex justify-between items-center">
           <LanguageSelector />
-          <Button
-            variant="ghost"
-            size="sm"
-            onClick={handleSignOut}
-            className="text-muted-foreground hover:text-foreground"
-          >
-            <LogOut className="w-4 h-4" />
-          </Button>
+          <div className="flex gap-2">
+            <AlertDialog>
+              <AlertDialogTrigger asChild>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  className="text-muted-foreground hover:text-foreground"
+                >
+                  <RotateCcw className="w-4 h-4" />
+                </Button>
+              </AlertDialogTrigger>
+              <AlertDialogContent>
+                <AlertDialogHeader>
+                  <AlertDialogTitle>Reset All Investments?</AlertDialogTitle>
+                  <AlertDialogDescription>
+                    This will permanently delete all your investments and history. This action cannot be undone.
+                  </AlertDialogDescription>
+                </AlertDialogHeader>
+                <AlertDialogFooter>
+                  <AlertDialogCancel>Cancel</AlertDialogCancel>
+                  <AlertDialogAction onClick={handleReset}>Reset</AlertDialogAction>
+                </AlertDialogFooter>
+              </AlertDialogContent>
+            </AlertDialog>
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={handleSignOut}
+              className="text-muted-foreground hover:text-foreground"
+            >
+              <LogOut className="w-4 h-4" />
+            </Button>
+          </div>
         </div>
         
         {/* Header */}
