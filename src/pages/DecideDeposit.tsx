@@ -16,8 +16,15 @@ const DecideDeposit = () => {
   const { product = 'netflix', price = 12.99, icon = 'Monitor' } = location.state || {};
   const APY = 0.04;
   
-  // Slider represents days (1 to 365)
-  const [sliderValue, setSliderValue] = useState([7]); // Default to weekly (7 days)
+  // Define specific day intervals for the slider
+  const dayIntervals = [
+    120, // 4 months
+    90,  // 3 months
+    60,  // 2 months
+    ...Array.from({ length: 31 }, (_, i) => 31 - i) // 31 down to 1
+  ];
+
+  const [sliderValue, setSliderValue] = useState([dayIntervals.indexOf(7)]); // Default to 7 days (weekly)
 
   // Calculate deposit needed for a specific number of days
   const calculateDepositForDays = (days: number) => {
@@ -25,7 +32,7 @@ const DecideDeposit = () => {
     return (365 * price) / (days * APY);
   };
 
-  const minDeposit = calculateDepositForDays(365); // 1 year
+  const minDeposit = calculateDepositForDays(120); // 4 months
   const maxDeposit = calculateDepositForDays(1);   // daily
   const aiRecommendation = calculateDepositForDays(7); // weekly
 
@@ -41,7 +48,7 @@ const DecideDeposit = () => {
     return "1 year";
   };
 
-  const currentDays = sliderValue[0];
+  const currentDays = dayIntervals[sliderValue[0]];
   const currentDeposit = calculateDepositForDays(currentDays);
   const timeString = formatTimeString(currentDays);
 
@@ -97,8 +104,8 @@ const DecideDeposit = () => {
           <Slider
             value={sliderValue}
             onValueChange={setSliderValue}
-            max={365}
-            min={1}
+            max={dayIntervals.length - 1}
+            min={0}
             step={1}
             className="w-full"
           />
@@ -122,7 +129,7 @@ const DecideDeposit = () => {
           <div 
             className="bg-success/10 border border-success/20 rounded-lg p-3 cursor-pointer hover:bg-success/15 transition-colors"
             onClick={() => {
-              setSliderValue([7]); // Set to 7 days (weekly)
+              setSliderValue([dayIntervals.indexOf(7)]); // Set to 7 days (weekly)
             }}
           >
             <div className="flex items-center justify-center">
