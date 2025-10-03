@@ -16,38 +16,18 @@ const DecideDeposit = () => {
   const { product = 'netflix', price = 12.99, icon = 'Monitor' } = location.state || {};
   const APY = 0.04;
   
-  const [sliderValue, setSliderValue] = useState([50]); // Default to middle
+  // Slider represents days (1 to 365)
+  const [sliderValue, setSliderValue] = useState([7]); // Default to weekly (7 days)
 
-  // Calculate min/max deposits based on product
-  const getMinDeposit = () => {
-    // Min = 1 year of returns: price / APY
-    return price / APY;
+  // Calculate deposit needed for a specific number of days
+  const calculateDepositForDays = (days: number) => {
+    // deposit = (365 * price) / (days * APY)
+    return (365 * price) / (days * APY);
   };
 
-  const getMaxDeposit = () => {
-    // Max = daily returns for a year: (price * 365) / APY
-    return (price * 365) / APY;
-  };
-
-  const getAIRecommendation = () => {
-    // AI recommendation for weekly: (price * 52) / APY
-    return (price * 52) / APY;
-  };
-
-  const minDeposit = getMinDeposit();
-  const maxDeposit = getMaxDeposit();
-  const aiRecommendation = getAIRecommendation();
-
-  // Calculate deposit amount and days based on slider value (0-100)
-  const calculateDeposit = (value: number) => {
-    return minDeposit + (value / 100) * (maxDeposit - minDeposit);
-  };
-
-  const calculateDays = (depositAmount: number) => {
-    // days = (deposit * APY) / price
-    const itemsPerYear = (depositAmount * APY) / price;
-    return Math.round(365 / itemsPerYear);
-  };
+  const minDeposit = calculateDepositForDays(365); // 1 year
+  const maxDeposit = calculateDepositForDays(1);   // daily
+  const aiRecommendation = calculateDepositForDays(7); // weekly
 
   const formatTimeString = (days: number) => {
     if (days === 1) return "each day";
@@ -61,8 +41,8 @@ const DecideDeposit = () => {
     return "1 year";
   };
 
-  const currentDeposit = calculateDeposit(sliderValue[0]);
-  const currentDays = calculateDays(currentDeposit);
+  const currentDays = sliderValue[0];
+  const currentDeposit = calculateDepositForDays(currentDays);
   const timeString = formatTimeString(currentDays);
 
   // Get the icon component
@@ -117,8 +97,8 @@ const DecideDeposit = () => {
           <Slider
             value={sliderValue}
             onValueChange={setSliderValue}
-            max={100}
-            min={0}
+            max={365}
+            min={1}
             step={1}
             className="w-full"
           />
@@ -142,9 +122,7 @@ const DecideDeposit = () => {
           <div 
             className="bg-success/10 border border-success/20 rounded-lg p-3 cursor-pointer hover:bg-success/15 transition-colors"
             onClick={() => {
-              // Calculate slider value for AI recommendation
-              const aiSliderValue = ((aiRecommendation - minDeposit) / (maxDeposit - minDeposit)) * 100;
-              setSliderValue([Math.round(aiSliderValue)]);
+              setSliderValue([7]); // Set to 7 days (weekly)
             }}
           >
             <div className="flex items-center justify-center">
