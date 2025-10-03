@@ -39,6 +39,9 @@ const DecideDeposit = () => {
   const formatTimeString = (days: number) => {
     if (days === 1) return "each day";
     if (days === 7) return "each week";
+    if (days === 120) return "every 4 months";
+    if (days === 90) return "every 3 months";
+    if (days === 60) return "every 2 months";
     if (days < 30) return `every ${days} days`;
     if (days < 365) {
       const weeks = Math.round(days / 7);
