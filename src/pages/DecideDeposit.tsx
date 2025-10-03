@@ -1,44 +1,73 @@
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Slider } from "@/components/ui/slider";
-import { ArrowLeft, Monitor } from "lucide-react";
-import { useNavigate } from "react-router-dom";
+import { ArrowLeft, Monitor, Coffee } from "lucide-react";
+import { useNavigate, useLocation } from "react-router-dom";
 import { useState } from "react";
 import { useLanguage } from "@/contexts/LanguageContext";
 import LanguageSelector from "@/components/LanguageSelector";
 
 const DecideDeposit = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   const { t } = useLanguage();
+  
+  // Get product info from navigation state, default to Netflix
+  const { product = 'netflix', price = 12.99, icon = 'Monitor' } = location.state || {};
+  const APY = 0.04;
+  
   const [sliderValue, setSliderValue] = useState([50]); // Default to middle
 
-  // Calculate deposit amount and months based on slider value (0-100)
+  // Calculate min/max deposits based on product
+  const getMinDeposit = () => {
+    // Min = 1 year of returns: price / APY
+    return price / APY;
+  };
+
+  const getMaxDeposit = () => {
+    // Max = daily returns for a year: (price * 365) / APY
+    return (price * 365) / APY;
+  };
+
+  const getAIRecommendation = () => {
+    // AI recommendation for weekly: (price * 52) / APY
+    return (price * 52) / APY;
+  };
+
+  const minDeposit = getMinDeposit();
+  const maxDeposit = getMaxDeposit();
+  const aiRecommendation = getAIRecommendation();
+
+  // Calculate deposit amount and days based on slider value (0-100)
   const calculateDeposit = (value: number) => {
-    const minDeposit = 159.27;
-    const maxDeposit = 3968.8;
     return minDeposit + (value / 100) * (maxDeposit - minDeposit);
   };
 
-  const calculateMonths = (value: number) => {
-    const minMonths = 1;
-    const maxMonths = 24;
-    // Inverse relationship: higher slider value = lower months
-    return Math.round(maxMonths - (value / 100) * (maxMonths - minMonths));
+  const calculateDays = (depositAmount: number) => {
+    // days = (deposit * APY) / price
+    const itemsPerYear = (depositAmount * APY) / price;
+    return Math.round(365 / itemsPerYear);
   };
 
-  const formatTimeString = (months: number) => {
-    if (months === 1) return "1 month";
-    if (months < 12) return `${months} months`;
-    if (months === 12) return "1 year";
-    const years = Math.floor(months / 12);
-    const remainingMonths = months % 12;
-    if (remainingMonths === 0) return `${years} year${years > 1 ? 's' : ''}`;
-    return `${years} year${years > 1 ? 's' : ''} ${remainingMonths} month${remainingMonths > 1 ? 's' : ''}`;
+  const formatTimeString = (days: number) => {
+    if (days === 1) return "each day";
+    if (days === 7) return "each week";
+    if (days < 30) return `every ${days} days`;
+    if (days < 365) {
+      const weeks = Math.round(days / 7);
+      if (weeks === 1) return "each week";
+      return `every ${weeks} weeks`;
+    }
+    return "1 year";
   };
 
   const currentDeposit = calculateDeposit(sliderValue[0]);
-  const currentMonths = calculateMonths(sliderValue[0]);
-  const timeString = formatTimeString(currentMonths);
+  const currentDays = calculateDays(currentDeposit);
+  const timeString = formatTimeString(currentDays);
+
+  // Get the icon component
+  const IconComponent = icon === 'Coffee' ? Coffee : Monitor;
+  const productName = product === 'starbucks' ? t('decideDeposit.starbucks') : t('decideDeposit.netflix');
 
   return (
     <div className="min-h-screen bg-background text-foreground p-6">
@@ -75,10 +104,10 @@ const DecideDeposit = () => {
         {/* Selected Item */}
         <Card className="bg-card border-border p-6">
           <div className="text-center space-y-3">
-            <Monitor className="w-8 h-8 mx-auto text-foreground" />
+            <IconComponent className="w-8 h-8 mx-auto text-foreground" />
             <div>
-              <p className="font-medium">{t('decideDeposit.netflix')}</p>
-              <p className="text-sm text-muted-foreground">USD 12.99</p>
+              <p className="font-medium">{productName}</p>
+              <p className="text-sm text-muted-foreground">USD {price.toFixed(2)}</p>
             </div>
           </div>
         </Card>
@@ -94,8 +123,8 @@ const DecideDeposit = () => {
             className="w-full"
           />
           <div className="flex justify-between text-xs text-muted-foreground">
-            <span>Min: $159.27</span>
-            <span>Max: $3,968.8</span>
+            <span>Min: ${minDeposit.toFixed(0)}</span>
+            <span>Max: ${maxDeposit.toLocaleString()}</span>
           </div>
         </div>
 
@@ -103,8 +132,7 @@ const DecideDeposit = () => {
         <div className="space-y-4">
           <div className="text-center space-y-2">
             <p className="text-sm">
-              Get 1 <span className="text-accent">"free"</span> {t('decideDeposit.netflix')} in{" "}
-              <span className="text-success">{timeString}</span> by
+              Get 1 <span className="text-accent">"free"</span> {productName} {timeString} by
             </p>
             <p className="text-sm">
               depositing <span className="text-accent">USD {currentDeposit.toFixed(2)}</span> today
@@ -113,7 +141,11 @@ const DecideDeposit = () => {
 
           <div 
             className="bg-success/10 border border-success/20 rounded-lg p-3 cursor-pointer hover:bg-success/15 transition-colors"
-            onClick={() => setSliderValue([100])}
+            onClick={() => {
+              // Calculate slider value for AI recommendation
+              const aiSliderValue = ((aiRecommendation - minDeposit) / (maxDeposit - minDeposit)) * 100;
+              setSliderValue([Math.round(aiSliderValue)]);
+            }}
           >
             <div className="flex items-center justify-center">
               <span className="text-xs text-success bg-success/20 px-2 py-1 rounded">
@@ -122,7 +154,7 @@ const DecideDeposit = () => {
             </div>
             <div className="text-center mt-2 space-y-1">
               <p className="text-xs">
-                {t('decideDeposit.aiRecText')}
+                Depositing USD {aiRecommendation.toFixed(2)} today to get a free {productName} each week
               </p>
             </div>
           </div>
@@ -134,9 +166,10 @@ const DecideDeposit = () => {
             onClick={() => navigate('/payment-method', { 
               state: { 
                 depositAmount: currentDeposit,
-                months: currentMonths,
+                investmentDays: currentDays,
                 timeString: timeString,
-                sliderValue: sliderValue[0]
+                sliderValue: sliderValue[0],
+                selectedProduct: productName
               }
             })}
             className="w-full h-12 text-base font-medium bg-primary hover:bg-primary/90"

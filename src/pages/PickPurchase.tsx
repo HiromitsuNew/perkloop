@@ -35,7 +35,16 @@ const PickPurchase = () => {
 
         {/* Purchase Options */}
         <div className="grid grid-cols-2 gap-4">
-          <Card className="bg-card border-border p-6 cursor-pointer hover:bg-muted/50 transition-colors" onClick={() => navigate('/')}>
+          <Card 
+            className="bg-card border-border p-6 cursor-pointer hover:bg-muted/50 transition-colors" 
+            onClick={() => navigate('/decide-deposit', { 
+              state: { 
+                product: 'starbucks',
+                price: 5,
+                icon: 'Coffee'
+              }
+            })}
+          >
             <div className="text-center space-y-3">
               <Coffee className="w-8 h-8 mx-auto text-foreground" />
               <div>
@@ -45,7 +54,16 @@ const PickPurchase = () => {
             </div>
           </Card>
 
-          <Card className="bg-card border-border p-6 cursor-pointer hover:bg-muted/50 transition-colors" onClick={() => navigate('/decide-deposit')}>
+          <Card 
+            className="bg-card border-border p-6 cursor-pointer hover:bg-muted/50 transition-colors" 
+            onClick={() => navigate('/decide-deposit', { 
+              state: { 
+                product: 'netflix',
+                price: 12.99,
+                icon: 'Monitor'
+              }
+            })}
+          >
             <div className="text-center space-y-3">
               <Monitor className="w-8 h-8 mx-auto text-foreground" />
               <div>
