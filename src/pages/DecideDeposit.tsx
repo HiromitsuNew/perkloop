@@ -81,11 +81,11 @@ const DecideDeposit = () => {
             variant="ghost" 
             size="icon"
             onClick={() => navigate(-1)}
-            className="text-foreground"
+            className="text-foreground relative z-10 shrink-0 cursor-pointer"
           >
             <ArrowLeft className="w-5 h-5" />
           </Button>
-          <div>
+          <div className="flex-1">
             <h1 className="text-lg font-medium">
               {t('decideDeposit.title1')}
             </h1>
