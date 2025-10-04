@@ -39,7 +39,7 @@ const DecideDeposit = () => {
   const maxDeposit = calculateDepositForDays(dayIntervals[dayIntervals.length - 1]); // Min days (max deposit)
   const aiRecommendation = product === 'starbucks' 
     ? calculateDepositForDays(7) // weekly for Starbucks
-    : calculateDepositForDays(180); // 6 months for Netflix
+    : calculateDepositForDays(30); // monthly for Netflix
 
   const formatTimeString = (days: number) => {
     if (days === 1) return "each day";
@@ -140,7 +140,7 @@ const DecideDeposit = () => {
           <div 
             className="bg-success/10 border border-success/20 rounded-lg p-3 cursor-pointer hover:bg-success/15 transition-colors"
             onClick={() => {
-              const recommendedDays = product === 'starbucks' ? 7 : 180;
+              const recommendedDays = product === 'starbucks' ? 7 : 30;
               const recommendedIndex = dayIntervals.indexOf(recommendedDays);
               if (recommendedIndex !== -1) {
                 setSliderValue([recommendedIndex]);
@@ -154,7 +154,7 @@ const DecideDeposit = () => {
             </div>
             <div className="text-center mt-2 space-y-1">
               <p className="text-xs">
-                Depositing USD {aiRecommendation.toFixed(2)} today to get a free {productName} {formatTimeString(product === 'starbucks' ? 7 : 180)}
+                Depositing USD {aiRecommendation.toFixed(2)} today to get a free {productName} {formatTimeString(product === 'starbucks' ? 7 : 30)}
               </p>
             </div>
           </div>
