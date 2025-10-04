@@ -169,7 +169,9 @@ const DecideDeposit = () => {
                 investmentDays: currentDays,
                 timeString: timeString,
                 sliderValue: sliderValue[0],
-                selectedProduct: productName
+                product: product,
+                price: price,
+                icon: icon
               }
             })}
             className="w-full h-12 text-base font-medium bg-primary hover:bg-primary/90"

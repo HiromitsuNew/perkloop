@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
-import { ArrowLeft, Monitor } from "lucide-react";
+import { ArrowLeft, Monitor, Coffee } from "lucide-react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useLanguage } from "@/contexts/LanguageContext";
 import LanguageSelector from "@/components/LanguageSelector";
@@ -12,11 +12,20 @@ const PaymentMethod = () => {
   const { t } = useLanguage();
   
   // Get the deposit details from the previous page, with fallback values
-  const { depositAmount = 3968.8, months = 1, timeString = "1 month", sliderValue = 100 } = location.state || {};
+  const { 
+    depositAmount = 3968.8, 
+    investmentDays = 30,
+    timeString = "1 month", 
+    sliderValue = 100,
+    product = 'netflix',
+    price = 12.99,
+    icon = 'Monitor'
+  } = location.state || {};
   
-  // Set product info
-  const selectedProduct = "Netflix";
-  const investmentDays = months * 30; // Convert months to days
+  // Get icon and product name
+  const IconComponent = icon === 'Coffee' ? Coffee : Monitor;
+  const productName = product === 'starbucks' ? 'Starbucks' : 'Netflix';
+  const selectedProduct = productName;
 
   return (
     <div className="min-h-screen bg-background text-foreground p-6">
@@ -53,10 +62,10 @@ const PaymentMethod = () => {
         {/* Selected Item */}
         <Card className="bg-card border-border p-6">
           <div className="text-center space-y-3">
-            <Monitor className="w-8 h-8 mx-auto text-foreground" />
+            <IconComponent className="w-8 h-8 mx-auto text-foreground" />
             <div>
-              <p className="font-medium">{t('paymentMethod.netflix')}</p>
-              <p className="text-sm text-muted-foreground">USD 12.99</p>
+              <p className="font-medium">{productName}</p>
+              <p className="text-sm text-muted-foreground">USD {price.toFixed(2)}</p>
             </div>
           </div>
         </Card>
@@ -69,8 +78,7 @@ const PaymentMethod = () => {
         {/* Summary */}
         <div className="text-center space-y-2">
           <p className="text-sm">
-            Get 1 <span className="text-accent">"free"</span> {t('paymentMethod.netflix')} in{" "}
-            <span className="text-success">{timeString}</span> by
+            Get 1 <span className="text-accent">"free"</span> {productName} {timeString} by
           </p>
           <p className="text-sm">
             depositing <span className="text-accent">USD {depositAmount.toFixed(2)}</span> today
