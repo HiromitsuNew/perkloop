@@ -40,7 +40,7 @@ const PaymentMethod = () => {
           <Button 
             variant="ghost" 
             size="icon"
-            onClick={() => navigate('/decide-deposit')}
+            onClick={() => navigate(-1)}
             className="text-foreground"
           >
             <ArrowLeft className="w-5 h-5" />

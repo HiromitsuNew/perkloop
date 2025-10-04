@@ -80,7 +80,7 @@ const DecideDeposit = () => {
           <Button 
             variant="ghost" 
             size="icon"
-            onClick={() => navigate('/pick-purchase')}
+            onClick={() => navigate(-1)}
             className="text-foreground"
           >
             <ArrowLeft className="w-5 h-5" />
