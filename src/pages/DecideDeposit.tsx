@@ -16,15 +16,18 @@ const DecideDeposit = () => {
   const { product = 'netflix', price = 12.99, icon = 'Monitor' } = location.state || {};
   const APY = 0.04;
   
-  // Define specific day intervals for the slider
-  const dayIntervals = [
-    120, // 4 months
-    90,  // 3 months
-    60,  // 2 months
-    ...Array.from({ length: 31 }, (_, i) => 31 - i) // 31 down to 1
-  ];
+  // Define specific day intervals for the slider based on product
+  const dayIntervals = product === 'starbucks' 
+    ? [
+        120, // 4 months
+        90,  // 3 months
+        60,  // 2 months
+        ...Array.from({ length: 31 }, (_, i) => 31 - i) // 31 down to 1
+      ]
+    : Array.from({ length: 24 }, (_, i) => (24 - i) * 30); // Netflix: 24 months to 1 month (720 to 30 days)
 
-  const [sliderValue, setSliderValue] = useState([dayIntervals.indexOf(7)]); // Default to 7 days (weekly)
+  const defaultIndex = product === 'starbucks' ? dayIntervals.indexOf(7) : Math.floor(dayIntervals.length / 2);
+  const [sliderValue, setSliderValue] = useState([defaultIndex]);
 
   // Calculate deposit needed for a specific number of days
   const calculateDepositForDays = (days: number) => {
@@ -32,9 +35,11 @@ const DecideDeposit = () => {
     return (365 * price) / (days * APY);
   };
 
-  const minDeposit = calculateDepositForDays(120); // 4 months
-  const maxDeposit = calculateDepositForDays(1);   // daily
-  const aiRecommendation = calculateDepositForDays(7); // weekly
+  const minDeposit = calculateDepositForDays(dayIntervals[0]); // Max days (min deposit)
+  const maxDeposit = calculateDepositForDays(dayIntervals[dayIntervals.length - 1]); // Min days (max deposit)
+  const aiRecommendation = product === 'starbucks' 
+    ? calculateDepositForDays(7) // weekly for Starbucks
+    : calculateDepositForDays(180); // 6 months for Netflix
 
   const formatTimeString = (days: number) => {
     if (days === 1) return "each day";
@@ -42,13 +47,16 @@ const DecideDeposit = () => {
     if (days === 120) return "every 4 months";
     if (days === 90) return "every 3 months";
     if (days === 60) return "every 2 months";
+    if (days === 30) return "each month";
     if (days < 30) return `every ${days} days`;
     if (days < 365) {
-      const weeks = Math.round(days / 7);
-      if (weeks === 1) return "each week";
-      return `every ${weeks} weeks`;
+      const months = Math.round(days / 30);
+      if (months === 1) return "each month";
+      return `every ${months} months`;
     }
-    return "1 year";
+    const years = Math.round(days / 365);
+    if (years === 1) return "each year";
+    return `every ${years} years`;
   };
 
   const currentDays = dayIntervals[sliderValue[0]];
@@ -132,7 +140,11 @@ const DecideDeposit = () => {
           <div 
             className="bg-success/10 border border-success/20 rounded-lg p-3 cursor-pointer hover:bg-success/15 transition-colors"
             onClick={() => {
-              setSliderValue([dayIntervals.indexOf(7)]); // Set to 7 days (weekly)
+              const recommendedDays = product === 'starbucks' ? 7 : 180;
+              const recommendedIndex = dayIntervals.indexOf(recommendedDays);
+              if (recommendedIndex !== -1) {
+                setSliderValue([recommendedIndex]);
+              }
             }}
           >
             <div className="flex items-center justify-center">
@@ -142,7 +154,7 @@ const DecideDeposit = () => {
             </div>
             <div className="text-center mt-2 space-y-1">
               <p className="text-xs">
-                Depositing USD {aiRecommendation.toFixed(2)} today to get a free {productName} each week
+                Depositing USD {aiRecommendation.toFixed(2)} today to get a free {productName} {formatTimeString(product === 'starbucks' ? 7 : 180)}
               </p>
             </div>
           </div>
