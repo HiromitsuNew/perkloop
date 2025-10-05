@@ -81,7 +81,7 @@ const PaymentMethod = () => {
             Get 1 <span className="text-accent">"free"</span> {productName} {timeString} by
           </p>
           <p className="text-sm">
-            depositing <span className="text-accent">USD {depositAmount.toFixed(2)}</span> today
+            depositing <span className="text-accent">USD {Math.ceil(depositAmount)}</span> today
           </p>
         </div>
 

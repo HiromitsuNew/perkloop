@@ -121,8 +121,8 @@ const DecideDeposit = () => {
             className="w-full"
           />
           <div className="flex justify-between text-xs text-muted-foreground">
-            <span>Min: ${minDeposit.toFixed(0)}</span>
-            <span>Max: ${maxDeposit.toLocaleString()}</span>
+            <span>Min: ${Math.ceil(minDeposit)}</span>
+            <span>Max: ${Math.ceil(maxDeposit).toLocaleString()}</span>
           </div>
         </div>
 
@@ -133,7 +133,7 @@ const DecideDeposit = () => {
               Get 1 <span className="text-accent">"free"</span> {productName} {timeString} by
             </p>
             <p className="text-sm">
-              depositing <span className="text-accent">USD {currentDeposit.toFixed(2)}</span> today
+              depositing <span className="text-accent">USD {Math.ceil(currentDeposit)}</span> today
             </p>
           </div>
 
@@ -154,7 +154,7 @@ const DecideDeposit = () => {
             </div>
             <div className="text-center mt-2 space-y-1">
               <p className="text-xs">
-                Depositing USD {aiRecommendation.toFixed(2)} today to get a free {productName} {formatTimeString(product === 'starbucks' ? 7 : 30)}
+                Depositing USD {Math.ceil(aiRecommendation)} today to get a free {productName} {formatTimeString(product === 'starbucks' ? 7 : 30)}
               </p>
             </div>
           </div>

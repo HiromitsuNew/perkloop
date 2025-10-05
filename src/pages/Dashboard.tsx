@@ -105,7 +105,7 @@ const Dashboard = () => {
         <Card className="bg-card border-border p-6 space-y-4">
           <div className="text-center space-y-2">
             <p className="text-sm text-muted-foreground">{t('dashboard.withdrawable')}</p>
-            <h3 className="text-4xl font-bold">$ {totalInvestment.toFixed(2)}</h3>
+            <h3 className="text-4xl font-bold">$ {Math.ceil(totalInvestment)}</h3>
           </div>
 
           <div className="space-y-2">

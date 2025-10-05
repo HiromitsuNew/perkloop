@@ -47,7 +47,7 @@ const PaymentProcess = () => {
       return (
         <div className="text-center space-y-4">
           <p className="text-base">
-            {t('paymentProcess.sendUsdc')} {depositAmount?.toFixed(2)} {t('paymentProcess.usdcAmount')}
+            {t('paymentProcess.sendUsdc')} {Math.ceil(depositAmount)} {t('paymentProcess.usdcAmount')}
           </p>
           <Card className="bg-card border-border p-4">
             <p className="font-mono text-sm break-all text-foreground">
