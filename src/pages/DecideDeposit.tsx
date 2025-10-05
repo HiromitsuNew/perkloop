@@ -168,7 +168,7 @@ const DecideDeposit = () => {
                 depositAmount: currentDeposit,
                 investmentDays: currentDays,
                 timeString: timeString,
-                sliderValue: sliderValue[0],
+                sliderValue: (sliderValue[0] / (dayIntervals.length - 1)) * 100,
                 product: product,
                 price: price,
                 icon: icon
