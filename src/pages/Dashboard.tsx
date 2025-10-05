@@ -48,7 +48,24 @@ const Dashboard = () => {
     }
   };
 
-  const latestInvestment = investments[0];
+  // Calculate progress and remaining days for each investment
+  const investmentsWithProgress = investments.map(inv => {
+    const createdDate = new Date(inv.created_at);
+    const now = new Date();
+    const daysPassed = Math.floor((now.getTime() - createdDate.getTime()) / (1000 * 60 * 60 * 24));
+    const remainingDays = Math.max(0, inv.investment_days - daysPassed);
+    const progressPercent = Math.min(100, (daysPassed / inv.investment_days) * 100);
+    
+    return {
+      ...inv,
+      daysPassed,
+      remainingDays,
+      progressPercent,
+    };
+  });
+
+  // Sort by remaining days (ascending - least time remaining shows first)
+  const sortedInvestments = [...investmentsWithProgress].sort((a, b) => a.remainingDays - b.remainingDays);
 
   return (
     <div className="min-h-screen bg-background text-foreground p-6">
@@ -114,17 +131,21 @@ const Dashboard = () => {
               <HelpCircle className="w-4 h-4 text-primary" />
             </div>
             
-            {latestInvestment ? (
-              <div className="space-y-2">
-                <div className="flex items-center space-x-2">
-                  <span className="text-success font-semibold">
-                    {latestInvestment.investment_days} {t('dashboard.days')}
-                  </span>
-                  <span className="text-sm text-muted-foreground">
-                    {t('dashboard.until')} <span className="text-accent">{latestInvestment.product_name}</span>
-                  </span>
-                </div>
-                <Progress value={5} className="h-2" />
+            {sortedInvestments.length > 0 ? (
+              <div className="space-y-4">
+                {sortedInvestments.map((inv) => (
+                  <div key={inv.id} className="space-y-2">
+                    <div className="flex items-center space-x-2">
+                      <span className="text-success font-semibold">
+                        {inv.remainingDays} {t('dashboard.days')}
+                      </span>
+                      <span className="text-sm text-muted-foreground">
+                        {t('dashboard.until')} <span className="text-accent">{inv.product_name}</span>
+                      </span>
+                    </div>
+                    <Progress value={inv.progressPercent} className="h-2" />
+                  </div>
+                ))}
               </div>
             ) : (
               <div className="py-4">
