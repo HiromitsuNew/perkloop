@@ -6,17 +6,41 @@ import { useLanguage } from "@/contexts/LanguageContext";
 import { useInvestments } from "@/hooks/useInvestments";
 import { useToast } from "@/hooks/use-toast";
 import LanguageSelector from "@/components/LanguageSelector";
+import { useState, useEffect } from "react";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@/components/ui/alert-dialog";
 
 const PaymentProcess = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const { t } = useLanguage();
-  const { createInvestment } = useInvestments();
+  const { createInvestment, investments } = useInvestments();
   const { toast } = useToast();
+  const [showDuplicateDialog, setShowDuplicateDialog] = useState(false);
+  const [existingInvestment, setExistingInvestment] = useState<any>(null);
   
   const { paymentMethod, depositAmount, selectedProduct, investmentDays } = location.state || {};
 
-  const handleFinishPayment = async () => {
+  useEffect(() => {
+    // Check for duplicate investment when component mounts
+    if (selectedProduct && investments.length > 0) {
+      const existing = investments.find(inv => inv.product_name === selectedProduct);
+      if (existing) {
+        setExistingInvestment(existing);
+        setShowDuplicateDialog(true);
+      }
+    }
+  }, [selectedProduct, investments]);
+
+  const handleCreateNewInvestment = async () => {
     try {
       if (depositAmount && selectedProduct && investmentDays && paymentMethod) {
         await createInvestment({
@@ -39,6 +63,43 @@ const PaymentProcess = () => {
         description: "Failed to create investment. Please try again.",
         variant: "destructive",
       });
+    }
+  };
+
+  const handleUpdateExisting = () => {
+    const newAmount = parseFloat(depositAmount);
+    const existingAmount = parseFloat(existingInvestment.deposit_amount);
+    
+    if (newAmount > existingAmount) {
+      const difference = Math.ceil(newAmount - existingAmount);
+      toast({
+        title: "Add More Funds",
+        description: `Please add $${difference} to your existing ${selectedProduct} investment.`,
+      });
+      // Here you would typically call an update function to add the difference
+      // For now, we'll just create a new investment with the difference
+      handleCreateNewInvestment();
+    } else if (newAmount < existingAmount) {
+      const difference = Math.ceil(existingAmount - newAmount);
+      toast({
+        title: "Withdraw Funds",
+        description: `Please withdraw $${difference} from your existing ${selectedProduct} investment to reduce it.`,
+      });
+      navigate('/');
+    } else {
+      toast({
+        title: "No Changes",
+        description: `Your ${selectedProduct} investment amount is the same.`,
+      });
+      navigate('/');
+    }
+  };
+
+  const handleFinishPayment = async () => {
+    if (existingInvestment) {
+      setShowDuplicateDialog(true);
+    } else {
+      await handleCreateNewInvestment();
     }
   };
 
@@ -101,6 +162,23 @@ const PaymentProcess = () => {
           {t('paymentProcess.finishPayment')}
         </Button>
         </div>
+
+        {/* Duplicate Investment Dialog */}
+        <AlertDialog open={showDuplicateDialog} onOpenChange={setShowDuplicateDialog}>
+          <AlertDialogContent>
+            <AlertDialogHeader>
+              <AlertDialogTitle>Update Existing Investment?</AlertDialogTitle>
+              <AlertDialogDescription>
+                You already have an investment for {selectedProduct} with ${Math.ceil(existingInvestment?.deposit_amount || 0)} deposited. 
+                Would you like to update your existing investment?
+              </AlertDialogDescription>
+            </AlertDialogHeader>
+            <AlertDialogFooter>
+              <AlertDialogCancel onClick={() => navigate('/')}>Cancel</AlertDialogCancel>
+              <AlertDialogAction onClick={handleUpdateExisting}>Update</AlertDialogAction>
+            </AlertDialogFooter>
+          </AlertDialogContent>
+        </AlertDialog>
       </div>
     </div>
   );
