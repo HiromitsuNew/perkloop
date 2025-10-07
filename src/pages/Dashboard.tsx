@@ -24,7 +24,7 @@ const Dashboard = () => {
   const navigate = useNavigate();
   const { t } = useLanguage();
   const { signOut } = useAuth();
-  const { investments, totalInvestment, deleteAllInvestments } = useInvestments();
+  const { investments, totalInvestment, totalReturns, deleteAllInvestments } = useInvestments();
   const { toast } = useToast();
 
   const handleSignOut = async () => {
@@ -127,7 +127,7 @@ const Dashboard = () => {
             </div>
             <div className="text-center space-y-2">
               <p className="text-sm text-muted-foreground">Returns</p>
-              <h3 className="text-4xl font-bold">$ 0</h3>
+              <h3 className="text-4xl font-bold">$ {Math.ceil(totalReturns)}</h3>
             </div>
           </div>
 
@@ -141,13 +141,20 @@ const Dashboard = () => {
               <div className="space-y-4">
                 {sortedInvestments.map((inv) => (
                   <div key={inv.id} className="space-y-2">
-                    <div className="flex items-center space-x-2">
-                      <span className="text-success font-semibold">
-                        {inv.remainingDays} {t('dashboard.days')}
-                      </span>
-                      <span className="text-sm text-muted-foreground">
-                        {t('dashboard.until')} <span className="text-accent">{inv.product_name}</span>
-                      </span>
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center space-x-2">
+                        <span className="text-success font-semibold">
+                          {inv.remainingDays} {t('dashboard.days')}
+                        </span>
+                        <span className="text-sm text-muted-foreground">
+                          {t('dashboard.until')} <span className="text-accent">{inv.product_name}</span>
+                        </span>
+                      </div>
+                      {inv.status === 'pending' && (
+                        <span className="px-2 py-1 text-xs rounded-full bg-yellow-500/20 text-yellow-600 dark:text-yellow-400 border border-yellow-500/30">
+                          Pending
+                        </span>
+                      )}
                     </div>
                     <Progress value={inv.progressPercent} className="h-2" />
                   </div>

@@ -10,6 +10,7 @@ export interface Investment {
   payment_method: string;
   status: string;
   created_at: string;
+  returns: number;
 }
 
 export const useInvestments = () => {
@@ -26,7 +27,7 @@ export const useInvestments = () => {
         .from('investments')
         .select('*')
         .eq('user_id', user.id)
-        .eq('status', 'active')
+        .in('status', ['pending', 'active'])
         .order('created_at', { ascending: false });
 
       if (error) throw error;
@@ -108,6 +109,7 @@ export const useInvestments = () => {
   }, [user]);
 
   const totalInvestment = investments.reduce((sum, inv) => sum + inv.deposit_amount, 0);
+  const totalReturns = investments.reduce((sum, inv) => sum + (inv.returns || 0), 0);
 
   return {
     investments,
@@ -117,5 +119,6 @@ export const useInvestments = () => {
     deleteAllInvestments,
     fetchInvestments,
     totalInvestment,
+    totalReturns,
   };
 };

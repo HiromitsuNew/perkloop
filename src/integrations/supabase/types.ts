@@ -22,6 +22,7 @@ export type Database = {
           investment_days: number
           payment_method: string
           product_name: string
+          returns: number
           status: string
           updated_at: string
           user_id: string
@@ -33,6 +34,7 @@ export type Database = {
           investment_days: number
           payment_method: string
           product_name: string
+          returns?: number
           status?: string
           updated_at?: string
           user_id: string
@@ -44,6 +46,7 @@ export type Database = {
           investment_days?: number
           payment_method?: string
           product_name?: string
+          returns?: number
           status?: string
           updated_at?: string
           user_id?: string
