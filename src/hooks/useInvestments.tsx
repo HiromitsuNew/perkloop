@@ -62,6 +62,33 @@ export const useInvestments = () => {
     return data;
   };
 
+  const updateInvestment = async (
+    investmentId: string,
+    updateData: {
+      deposit_amount: number;
+      investment_days: number;
+    }
+  ) => {
+    if (!user) throw new Error('User not authenticated');
+
+    const { data, error } = await supabase
+      .from('investments')
+      .update({
+        ...updateData,
+        created_at: new Date().toISOString(), // Reset the countdown
+      })
+      .eq('id', investmentId)
+      .eq('user_id', user.id)
+      .select()
+      .single();
+
+    if (error) throw error;
+    
+    // Refresh investments list
+    fetchInvestments();
+    return data;
+  };
+
   const deleteAllInvestments = async () => {
     if (!user) throw new Error('User not authenticated');
 
@@ -86,6 +113,7 @@ export const useInvestments = () => {
     investments,
     loading,
     createInvestment,
+    updateInvestment,
     deleteAllInvestments,
     fetchInvestments,
     totalInvestment,

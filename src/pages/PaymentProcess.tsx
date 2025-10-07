@@ -22,7 +22,7 @@ const PaymentProcess = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const { t } = useLanguage();
-  const { createInvestment, investments } = useInvestments();
+  const { createInvestment, updateInvestment, investments } = useInvestments();
   const { toast } = useToast();
   const [showDuplicateDialog, setShowDuplicateDialog] = useState(false);
   const [existingInvestment, setExistingInvestment] = useState<any>(null);
@@ -66,32 +66,43 @@ const PaymentProcess = () => {
     }
   };
 
-  const handleUpdateExisting = () => {
+  const handleUpdateExisting = async () => {
     const newAmount = parseFloat(depositAmount);
     const existingAmount = parseFloat(existingInvestment.deposit_amount);
     
-    if (newAmount > existingAmount) {
-      const difference = Math.ceil(newAmount - existingAmount);
-      toast({
-        title: "Add More Funds",
-        description: `Please add $${difference} to your existing ${selectedProduct} investment.`,
-      });
-      // Here you would typically call an update function to add the difference
-      // For now, we'll just create a new investment with the difference
-      handleCreateNewInvestment();
-    } else if (newAmount < existingAmount) {
-      const difference = Math.ceil(existingAmount - newAmount);
-      toast({
-        title: "Withdraw Funds",
-        description: `Please withdraw $${difference} from your existing ${selectedProduct} investment to reduce it.`,
-      });
+    try {
+      if (newAmount > existingAmount) {
+        // Update the investment with the new higher amount and reset countdown
+        await updateInvestment(existingInvestment.id, {
+          deposit_amount: newAmount,
+          investment_days: parseInt(investmentDays),
+        });
+        
+        const difference = Math.ceil(newAmount - existingAmount);
+        toast({
+          title: "Investment Updated",
+          description: `Added $${difference} to your ${selectedProduct} investment. Countdown reset.`,
+        });
+      } else if (newAmount < existingAmount) {
+        const difference = Math.ceil(existingAmount - newAmount);
+        toast({
+          title: "Withdraw Funds",
+          description: `Please withdraw $${difference} from your existing ${selectedProduct} investment to reduce it.`,
+        });
+      } else {
+        toast({
+          title: "No Changes",
+          description: `Your ${selectedProduct} investment amount is the same.`,
+        });
+      }
+      
       navigate('/');
-    } else {
+    } catch (error) {
       toast({
-        title: "No Changes",
-        description: `Your ${selectedProduct} investment amount is the same.`,
+        title: "Error",
+        description: "Failed to update investment. Please try again.",
+        variant: "destructive",
       });
-      navigate('/');
     }
   };
 
