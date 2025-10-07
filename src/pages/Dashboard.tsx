@@ -120,9 +120,15 @@ const Dashboard = () => {
 
         {/* Balance Card */}
         <Card className="bg-card border-border p-6 space-y-4">
-          <div className="text-center space-y-2">
-            <p className="text-sm text-muted-foreground">{t('dashboard.withdrawable')}</p>
-            <h3 className="text-4xl font-bold">$ {Math.ceil(totalInvestment)}</h3>
+          <div className="flex justify-around gap-4">
+            <div className="text-center space-y-2">
+              <p className="text-sm text-muted-foreground">{t('dashboard.withdrawable')}</p>
+              <h3 className="text-4xl font-bold">$ {Math.ceil(totalInvestment)}</h3>
+            </div>
+            <div className="text-center space-y-2">
+              <p className="text-sm text-muted-foreground">Returns</p>
+              <h3 className="text-4xl font-bold">$ 0</h3>
+            </div>
           </div>
 
           <div className="space-y-2">
