@@ -7,6 +7,7 @@ import { useLanguage } from "@/contexts/LanguageContext";
 import { useAuth } from "@/contexts/AuthContext";
 import { useInvestments } from "@/hooks/useInvestments";
 import { useToast } from "@/hooks/use-toast";
+import { useNaviAPY } from "@/hooks/useNaviAPY";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -18,6 +19,13 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 import LanguageSelector from "@/components/LanguageSelector";
 
 const Dashboard = () => {
@@ -26,6 +34,7 @@ const Dashboard = () => {
   const { signOut } = useAuth();
   const { investments, totalInvestment, totalReturns, deleteAllInvestments } = useInvestments();
   const { toast } = useToast();
+  const { userAPY, naviAPY, managementFee, isLoading: apyLoading } = useNaviAPY();
 
   const handleSignOut = async () => {
     await signOut();
@@ -134,7 +143,63 @@ const Dashboard = () => {
           <div className="space-y-2">
             <div className="flex items-center justify-between">
               <span className="text-sm text-muted-foreground">{t('dashboard.investment')}</span>
-              <HelpCircle className="w-4 h-4 text-primary" />
+              <Dialog>
+                <DialogTrigger asChild>
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    className="h-6 w-6 rounded-full hover:bg-primary/10"
+                  >
+                    <HelpCircle className="w-4 h-4 text-primary" />
+                  </Button>
+                </DialogTrigger>
+                <DialogContent className="sm:max-w-md">
+                  <DialogHeader>
+                    <DialogTitle className="text-2xl">Your Returns</DialogTitle>
+                  </DialogHeader>
+                  <div className="space-y-6 py-4">
+                    {apyLoading ? (
+                      <div className="text-center py-8">
+                        <p className="text-muted-foreground">Loading APY data...</p>
+                      </div>
+                    ) : userAPY !== null ? (
+                      <>
+                        <div className="text-center space-y-2 py-6 bg-gradient-to-br from-primary/10 to-primary/5 rounded-lg border border-primary/20">
+                          <p className="text-sm text-muted-foreground uppercase tracking-wide">Your Annual APY</p>
+                          <p className="text-6xl font-bold text-primary bg-gradient-to-r from-primary to-primary/70 bg-clip-text text-transparent">
+                            {userAPY.toFixed(2)}%
+                          </p>
+                        </div>
+                        
+                        <div className="space-y-4 px-2">
+                          <div className="space-y-2">
+                            <h4 className="font-semibold text-sm uppercase tracking-wide text-muted-foreground">Fee Structure</h4>
+                            <p className="text-sm leading-relaxed">
+                              Our management fee is <span className="font-semibold text-foreground">1% baseline + 20%</span> of the remaining returns. 
+                              {naviAPY && managementFee && (
+                                <span className="block mt-2 text-muted-foreground">
+                                  Example: NAVI APY {naviAPY.toFixed(2)}% - Management Fee {managementFee.toFixed(2)}% = Your APY {userAPY.toFixed(2)}%
+                                </span>
+                              )}
+                            </p>
+                          </div>
+                          
+                          <div className="space-y-2">
+                            <h4 className="font-semibold text-sm uppercase tracking-wide text-muted-foreground">Dynamic Rate</h4>
+                            <p className="text-sm leading-relaxed">
+                              This APY updates in real-time based on NAVI Protocol's USDC lending rates and changes constantly with market conditions.
+                            </p>
+                          </div>
+                        </div>
+                      </>
+                    ) : (
+                      <div className="text-center py-8">
+                        <p className="text-destructive">Unable to load APY data</p>
+                      </div>
+                    )}
+                  </div>
+                </DialogContent>
+              </Dialog>
             </div>
             
             {sortedInvestments.length > 0 ? (
