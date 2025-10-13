@@ -22,6 +22,7 @@ import {
 import {
   Dialog,
   DialogContent,
+  DialogDescription,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
@@ -156,6 +157,9 @@ const Dashboard = () => {
                 <DialogContent className="sm:max-w-md">
                   <DialogHeader>
                     <DialogTitle className="text-2xl">Your Returns</DialogTitle>
+                    <DialogDescription className="sr-only">
+                      View your APY and fee structure details
+                    </DialogDescription>
                   </DialogHeader>
                   <div className="space-y-6 py-4">
                     {apyLoading ? (
