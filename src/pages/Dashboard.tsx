@@ -168,11 +168,21 @@ const Dashboard = () => {
                       </div>
                     ) : userAPY !== null ? (
                       <>
-                        <div className="text-center space-y-2 py-6 bg-gradient-to-br from-primary/10 to-primary/5 rounded-lg border border-primary/20">
+                        <div className="text-center space-y-2 py-6 bg-gradient-to-br from-primary/10 to-primary/5 rounded-lg border border-primary/20 relative">
                           <p className="text-sm text-muted-foreground uppercase tracking-wide">YOUR ANNUAL PAY YIELD (APY)</p>
-                          <p className="text-6xl font-bold text-primary bg-gradient-to-r from-primary to-primary/70 bg-clip-text text-transparent">
-                            {userAPY.toFixed(2)}%
-                          </p>
+                          <div className="relative inline-block">
+                            <p className="text-6xl font-bold text-primary bg-gradient-to-r from-primary to-primary/70 bg-clip-text text-transparent">
+                              {userAPY.toFixed(2)}%
+                            </p>
+                            <div className="absolute -top-2 -right-16 animate-[bounce_2s_ease-in-out_infinite]">
+                              <div className="relative">
+                                <div className="absolute inset-0 bg-gradient-to-r from-green-500 to-emerald-500 blur-md opacity-75 animate-pulse"></div>
+                                <div className="relative bg-gradient-to-r from-green-500 to-emerald-500 text-white text-[10px] font-bold px-2 py-1 rounded-full shadow-lg whitespace-nowrap animate-[scale-in_0.5s_ease-out]">
+                                  {((userAPY - 0.5) / 0.5 * 100).toFixed(0)}% vs BoJ!
+                                </div>
+                              </div>
+                            </div>
+                          </div>
                         </div>
                         
                         <div className="space-y-4 px-2">
