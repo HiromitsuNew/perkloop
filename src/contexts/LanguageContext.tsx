@@ -77,11 +77,11 @@ const translations = {
   },
   ja: {
     // Dashboard
-    'dashboard.title1': '理想的な商品を選んで',
+    'dashboard.title1': '欲しい商品を選んで',
     'dashboard.title2': 'あなたの',
     'dashboard.title2.money': 'お金',
     'dashboard.title2.rest': 'を働かせましょう',
-    'dashboard.withdrawable': '引き出し可能元本',
+    'dashboard.withdrawable': '引き出し可能な元本',
     'dashboard.investment': '投資進捗',
     'dashboard.days': '日',
     'dashboard.until': '次の無料',
@@ -92,7 +92,7 @@ const translations = {
     'dashboard.userAgreement': '利用規約',
     
     // Pick Purchase
-    'pickPurchase.title1': '理想的な商品を選んで',
+    'pickPurchase.title1': '欲しい商品を選んで',
     'pickPurchase.title2': 'あなたの',
     'pickPurchase.title2.money': 'お金',
     'pickPurchase.title2.rest': 'を働かせましょう',
@@ -101,7 +101,7 @@ const translations = {
     'pickPurchase.netflix': 'ネットフリックス',
     
     // Decide Deposit
-    'decideDeposit.title1': '理想的な商品を選んで',
+    'decideDeposit.title1': '欲しい商品を選んで',
     'decideDeposit.title2': 'あなたの',
     'decideDeposit.title2.money': 'お金',
     'decideDeposit.title2.rest': 'を働かせましょう',
@@ -117,7 +117,7 @@ const translations = {
     'decideDeposit.addMore': '定期購入を追加',
     
     // Payment Method
-    'paymentMethod.title1': '理想的な商品を選んで',
+    'paymentMethod.title1': '欲しい商品を選んで',
     'paymentMethod.title2': 'あなたの',
     'paymentMethod.title2.money': 'お金',
     'paymentMethod.title2.rest': 'を働かせましょう',
