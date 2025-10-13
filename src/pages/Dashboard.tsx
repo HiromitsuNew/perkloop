@@ -178,7 +178,7 @@ const Dashboard = () => {
                               <div className="relative">
                                 <div className="absolute inset-0 bg-gradient-to-r from-green-500 to-emerald-500 blur-md opacity-75 animate-pulse"></div>
                                 <div className="relative bg-gradient-to-r from-green-500 to-emerald-500 text-white text-[10px] font-bold px-2 py-1 rounded-full shadow-lg whitespace-nowrap animate-[scale-in_0.5s_ease-out]">
-                                  {((userAPY - 0.5) / 0.5 * 100).toFixed(0)}% vs BoJ!
+                                  {((userAPY - 0.5) / 0.5 * 100).toFixed(0)}% higher than BoJ!
                                 </div>
                               </div>
                             </div>
