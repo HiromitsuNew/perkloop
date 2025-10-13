@@ -169,7 +169,7 @@ const Dashboard = () => {
                     ) : userAPY !== null ? (
                       <>
                         <div className="text-center space-y-2 py-6 bg-gradient-to-br from-primary/10 to-primary/5 rounded-lg border border-primary/20">
-                          <p className="text-sm text-muted-foreground uppercase tracking-wide">Your Annual APY</p>
+                          <p className="text-sm text-muted-foreground uppercase tracking-wide">YOUR ANNUAL PAY YIELD (APY)</p>
                           <p className="text-6xl font-bold text-primary bg-gradient-to-r from-primary to-primary/70 bg-clip-text text-transparent">
                             {userAPY.toFixed(2)}%
                           </p>
@@ -179,10 +179,10 @@ const Dashboard = () => {
                           <div className="space-y-2">
                             <h4 className="font-semibold text-sm uppercase tracking-wide text-muted-foreground">Fee Structure</h4>
                             <p className="text-sm leading-relaxed">
-                              Our management fee is <span className="font-semibold text-foreground">1% baseline + 20%</span> of the remaining returns. 
+                              Our management fee is 1% baseline + 20% of the remaining returns.
                               {naviAPY && managementFee && (
                                 <span className="block mt-2 text-muted-foreground">
-                                  Example: NAVI APY {naviAPY.toFixed(2)}% - Management Fee {managementFee.toFixed(2)}% = Your APY {userAPY.toFixed(2)}%
+                                  Example: Asset APY {naviAPY.toFixed(2)}% - Management Fee {managementFee.toFixed(2)}% = Your APY {userAPY.toFixed(2)}%
                                 </span>
                               )}
                             </p>
@@ -191,7 +191,7 @@ const Dashboard = () => {
                           <div className="space-y-2">
                             <h4 className="font-semibold text-sm uppercase tracking-wide text-muted-foreground">Dynamic Rate</h4>
                             <p className="text-sm leading-relaxed">
-                              This APY updates in real-time based on NAVI Protocol's USDC lending rates and changes constantly with market conditions.
+                              This APY updates in real-time based on lending rates across Decentralized Finance (DeFi) protocols and changes constantly with market conditions.
                             </p>
                           </div>
                         </div>
