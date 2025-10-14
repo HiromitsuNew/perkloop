@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
-import { ArrowLeft, Monitor, Coffee, Egg, Milk, Container, Beer, Wheat } from "lucide-react";
+import { ArrowLeft, Monitor, Coffee, Egg, Milk, Container, Beer, Wheat, Cigarette } from "lucide-react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useLanguage } from "@/contexts/LanguageContext";
 import LanguageSelector from "@/components/LanguageSelector";
@@ -32,6 +32,7 @@ const PaymentMethod = () => {
       case 'Container': return Container;
       case 'Beer': return Beer;
       case 'Wheat': return Wheat;
+      case 'Cigarette': return Cigarette;
       default: return Monitor;
     }
   };

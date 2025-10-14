@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Slider } from "@/components/ui/slider";
-import { ArrowLeft, Monitor, Coffee, Egg, Milk, Container, Beer, Wheat } from "lucide-react";
+import { ArrowLeft, Monitor, Coffee, Egg, Milk, Container, Beer, Wheat, Cigarette } from "lucide-react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useState } from "react";
 import { useLanguage } from "@/contexts/LanguageContext";
@@ -73,6 +73,7 @@ const DecideDeposit = () => {
       case 'Container': return Container;
       case 'Beer': return Beer;
       case 'Wheat': return Wheat;
+      case 'Cigarette': return Cigarette;
       default: return Monitor;
     }
   };

@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { ArrowLeft, Egg, Milk, Container, Beer, Wheat } from "lucide-react";
+import { ArrowLeft, Egg, Milk, Container, Beer, Wheat, Cigarette } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { useLanguage } from "@/contexts/LanguageContext";
 import LanguageSelector from "@/components/LanguageSelector";
@@ -39,17 +39,17 @@ const PickPurchase = () => {
             className="bg-card border-border p-6 cursor-pointer hover:bg-muted/50 transition-colors" 
             onClick={() => navigate('/decide-deposit', { 
               state: { 
-                product: 'eggs',
-                price: 343,
-                icon: 'Egg'
+                product: 'yogurt',
+                price: 180,
+                icon: 'Container'
               }
             })}
           >
             <div className="text-center space-y-3">
-              <Egg className="w-8 h-8 mx-auto text-foreground" />
+              <Container className="w-8 h-8 mx-auto text-foreground" />
               <div>
-                <p className="font-medium">{t('pickPurchase.eggs')}</p>
-                <p className="text-sm text-muted-foreground">￥343</p>
+                <p className="font-medium">{t('pickPurchase.yogurt')}</p>
+                <p className="text-sm text-muted-foreground">￥180</p>
               </div>
             </div>
           </Card>
@@ -77,17 +77,36 @@ const PickPurchase = () => {
             className="bg-card border-border p-6 cursor-pointer hover:bg-muted/50 transition-colors" 
             onClick={() => navigate('/decide-deposit', { 
               state: { 
-                product: 'yogurt',
-                price: 180,
-                icon: 'Container'
+                product: 'eggs',
+                price: 343,
+                icon: 'Egg'
               }
             })}
           >
             <div className="text-center space-y-3">
-              <Container className="w-8 h-8 mx-auto text-foreground" />
+              <Egg className="w-8 h-8 mx-auto text-foreground" />
               <div>
-                <p className="font-medium">{t('pickPurchase.yogurt')}</p>
-                <p className="text-sm text-muted-foreground">￥180</p>
+                <p className="font-medium">{t('pickPurchase.eggs')}</p>
+                <p className="text-sm text-muted-foreground">￥343</p>
+              </div>
+            </div>
+          </Card>
+
+          <Card 
+            className="bg-card border-border p-6 cursor-pointer hover:bg-muted/50 transition-colors" 
+            onClick={() => navigate('/decide-deposit', { 
+              state: { 
+                product: 'cigarette',
+                price: 580,
+                icon: 'Cigarette'
+              }
+            })}
+          >
+            <div className="text-center space-y-3">
+              <Cigarette className="w-8 h-8 mx-auto text-foreground" />
+              <div>
+                <p className="font-medium">{t('pickPurchase.cigarette')}</p>
+                <p className="text-sm text-muted-foreground">￥580</p>
               </div>
             </div>
           </Card>
