@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Slider } from "@/components/ui/slider";
-import { ArrowLeft, Monitor, Coffee } from "lucide-react";
+import { ArrowLeft, Monitor, Coffee, Egg, Milk, Container, Beer, Wheat } from "lucide-react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useState } from "react";
 import { useLanguage } from "@/contexts/LanguageContext";
@@ -64,8 +64,20 @@ const DecideDeposit = () => {
   const timeString = formatTimeString(currentDays);
 
   // Get the icon component
-  const IconComponent = icon === 'Coffee' ? Coffee : Monitor;
-  const productName = product === 'starbucks' ? t('decideDeposit.starbucks') : t('decideDeposit.netflix');
+  const getIconComponent = () => {
+    switch(icon) {
+      case 'Coffee': return Coffee;
+      case 'Monitor': return Monitor;
+      case 'Egg': return Egg;
+      case 'Milk': return Milk;
+      case 'Container': return Container;
+      case 'Beer': return Beer;
+      case 'Wheat': return Wheat;
+      default: return Monitor;
+    }
+  };
+  const IconComponent = getIconComponent();
+  const productName = t(`decideDeposit.${product}`) || product;
 
   return (
     <div className="min-h-screen bg-background text-foreground p-6">
@@ -105,7 +117,7 @@ const DecideDeposit = () => {
             <IconComponent className="w-8 h-8 mx-auto text-foreground" />
             <div>
               <p className="font-medium">{productName}</p>
-              <p className="text-sm text-muted-foreground">USD {price.toFixed(2)}</p>
+              <p className="text-sm text-muted-foreground">￥{price.toLocaleString()}</p>
             </div>
           </div>
         </Card>
@@ -121,8 +133,8 @@ const DecideDeposit = () => {
             className="w-full"
           />
           <div className="flex justify-between text-xs text-muted-foreground">
-            <span>Min: ${Math.ceil(minDeposit)}</span>
-            <span>Max: ${Math.ceil(maxDeposit).toLocaleString()}</span>
+            <span>Min: ￥{Math.ceil(minDeposit).toLocaleString()}</span>
+            <span>Max: ￥{Math.ceil(maxDeposit).toLocaleString()}</span>
           </div>
         </div>
 
@@ -133,7 +145,7 @@ const DecideDeposit = () => {
               Get 1 <span className="text-accent">"free"</span> {productName} {timeString} by
             </p>
             <p className="text-sm">
-              depositing <span className="text-accent">USD {Math.ceil(currentDeposit)}</span> today
+              depositing <span className="text-accent">￥{Math.ceil(currentDeposit).toLocaleString()}</span> today
             </p>
           </div>
 
@@ -154,7 +166,7 @@ const DecideDeposit = () => {
             </div>
             <div className="text-center mt-2 space-y-1">
               <p className="text-xs">
-                Depositing USD {Math.ceil(aiRecommendation)} today to get a free {productName} {formatTimeString(product === 'starbucks' ? 7 : 30)}
+                Depositing ￥{Math.ceil(aiRecommendation).toLocaleString()} today to get a free {productName} {formatTimeString(product === 'starbucks' ? 7 : 30)}
               </p>
             </div>
           </div>

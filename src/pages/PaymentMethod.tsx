@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
-import { ArrowLeft, Monitor, Coffee } from "lucide-react";
+import { ArrowLeft, Monitor, Coffee, Egg, Milk, Container, Beer, Wheat } from "lucide-react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useLanguage } from "@/contexts/LanguageContext";
 import LanguageSelector from "@/components/LanguageSelector";
@@ -23,8 +23,20 @@ const PaymentMethod = () => {
   } = location.state || {};
   
   // Get icon and product name
-  const IconComponent = icon === 'Coffee' ? Coffee : Monitor;
-  const productName = product === 'starbucks' ? 'Starbucks' : 'Netflix';
+  const getIconComponent = () => {
+    switch(icon) {
+      case 'Coffee': return Coffee;
+      case 'Monitor': return Monitor;
+      case 'Egg': return Egg;
+      case 'Milk': return Milk;
+      case 'Container': return Container;
+      case 'Beer': return Beer;
+      case 'Wheat': return Wheat;
+      default: return Monitor;
+    }
+  };
+  const IconComponent = getIconComponent();
+  const productName = product.charAt(0).toUpperCase() + product.slice(1);
   const selectedProduct = productName;
 
   return (
@@ -65,7 +77,7 @@ const PaymentMethod = () => {
             <IconComponent className="w-8 h-8 mx-auto text-foreground" />
             <div>
               <p className="font-medium">{productName}</p>
-              <p className="text-sm text-muted-foreground">USD {price.toFixed(2)}</p>
+              <p className="text-sm text-muted-foreground">￥{price.toLocaleString()}</p>
             </div>
           </div>
         </Card>
@@ -81,7 +93,7 @@ const PaymentMethod = () => {
             Get 1 <span className="text-accent">"free"</span> {productName} {timeString} by
           </p>
           <p className="text-sm">
-            depositing <span className="text-accent">USD {Math.ceil(depositAmount)}</span> today
+            depositing <span className="text-accent">￥{Math.ceil(depositAmount).toLocaleString()}</span> today
           </p>
         </div>
 

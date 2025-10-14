@@ -81,13 +81,13 @@ const PaymentProcess = () => {
         const difference = Math.ceil(newAmount - existingAmount);
         toast({
           title: "Investment Updated",
-          description: `Added $${difference} to your ${selectedProduct} investment. Countdown reset.`,
+          description: `Added ￥${difference.toLocaleString()} to your ${selectedProduct} investment. Countdown reset.`,
         });
       } else if (newAmount < existingAmount) {
         const difference = Math.ceil(existingAmount - newAmount);
         toast({
           title: "Withdraw Funds",
-          description: `Please withdraw $${difference} from your existing ${selectedProduct} investment to reduce it.`,
+          description: `Please withdraw ￥${difference.toLocaleString()} from your existing ${selectedProduct} investment to reduce it.`,
         });
       } else {
         toast({
@@ -119,7 +119,7 @@ const PaymentProcess = () => {
       return (
         <div className="text-center space-y-4">
           <p className="text-base">
-            {t('paymentProcess.sendUsdc')} {Math.ceil(depositAmount)} {t('paymentProcess.usdcAmount')}
+            {t('paymentProcess.sendUsdc')} ￥{Math.ceil(depositAmount).toLocaleString()} {t('paymentProcess.usdcAmount')}
           </p>
           <Card className="bg-card border-border p-4">
             <p className="font-mono text-sm break-all text-foreground">
@@ -180,7 +180,7 @@ const PaymentProcess = () => {
             <AlertDialogHeader>
               <AlertDialogTitle>Update Existing Investment?</AlertDialogTitle>
               <AlertDialogDescription>
-                You already have an investment for {selectedProduct} with ${Math.ceil(existingInvestment?.deposit_amount || 0)} deposited. 
+                You already have an investment for {selectedProduct} with ￥{Math.ceil(existingInvestment?.deposit_amount || 0).toLocaleString()} deposited. 
                 Would you like to update your existing investment?
               </AlertDialogDescription>
             </AlertDialogHeader>

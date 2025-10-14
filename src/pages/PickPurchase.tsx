@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { ArrowLeft, Coffee, Monitor } from "lucide-react";
+import { ArrowLeft, Egg, Milk, Container, Beer, Wheat } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { useLanguage } from "@/contexts/LanguageContext";
 import LanguageSelector from "@/components/LanguageSelector";
@@ -39,17 +39,17 @@ const PickPurchase = () => {
             className="bg-card border-border p-6 cursor-pointer hover:bg-muted/50 transition-colors" 
             onClick={() => navigate('/decide-deposit', { 
               state: { 
-                product: 'starbucks',
-                price: 5,
-                icon: 'Coffee'
+                product: 'eggs',
+                price: 343,
+                icon: 'Egg'
               }
             })}
           >
             <div className="text-center space-y-3">
-              <Coffee className="w-8 h-8 mx-auto text-foreground" />
+              <Egg className="w-8 h-8 mx-auto text-foreground" />
               <div>
-                <p className="font-medium">{t('pickPurchase.starbucks')}</p>
-                <p className="text-sm text-muted-foreground">USD 5</p>
+                <p className="font-medium">{t('pickPurchase.eggs')}</p>
+                <p className="text-sm text-muted-foreground">￥343</p>
               </div>
             </div>
           </Card>
@@ -58,17 +58,74 @@ const PickPurchase = () => {
             className="bg-card border-border p-6 cursor-pointer hover:bg-muted/50 transition-colors" 
             onClick={() => navigate('/decide-deposit', { 
               state: { 
-                product: 'netflix',
-                price: 12.99,
-                icon: 'Monitor'
+                product: 'milk',
+                price: 248,
+                icon: 'Milk'
               }
             })}
           >
             <div className="text-center space-y-3">
-              <Monitor className="w-8 h-8 mx-auto text-foreground" />
+              <Milk className="w-8 h-8 mx-auto text-foreground" />
               <div>
-                <p className="font-medium">{t('pickPurchase.netflix')}</p>
-                <p className="text-sm text-muted-foreground">USD 12.99</p>
+                <p className="font-medium">{t('pickPurchase.milk')}</p>
+                <p className="text-sm text-muted-foreground">￥248</p>
+              </div>
+            </div>
+          </Card>
+
+          <Card 
+            className="bg-card border-border p-6 cursor-pointer hover:bg-muted/50 transition-colors" 
+            onClick={() => navigate('/decide-deposit', { 
+              state: { 
+                product: 'yogurt',
+                price: 180,
+                icon: 'Container'
+              }
+            })}
+          >
+            <div className="text-center space-y-3">
+              <Container className="w-8 h-8 mx-auto text-foreground" />
+              <div>
+                <p className="font-medium">{t('pickPurchase.yogurt')}</p>
+                <p className="text-sm text-muted-foreground">￥180</p>
+              </div>
+            </div>
+          </Card>
+
+          <Card 
+            className="bg-card border-border p-6 cursor-pointer hover:bg-muted/50 transition-colors" 
+            onClick={() => navigate('/decide-deposit', { 
+              state: { 
+                product: 'beer',
+                price: 1280,
+                icon: 'Beer'
+              }
+            })}
+          >
+            <div className="text-center space-y-3">
+              <Beer className="w-8 h-8 mx-auto text-foreground" />
+              <div>
+                <p className="font-medium">{t('pickPurchase.beer')}</p>
+                <p className="text-sm text-muted-foreground">￥1,280</p>
+              </div>
+            </div>
+          </Card>
+
+          <Card 
+            className="bg-card border-border p-6 cursor-pointer hover:bg-muted/50 transition-colors" 
+            onClick={() => navigate('/decide-deposit', { 
+              state: { 
+                product: 'rice',
+                price: 2795,
+                icon: 'Wheat'
+              }
+            })}
+          >
+            <div className="text-center space-y-3">
+              <Wheat className="w-8 h-8 mx-auto text-foreground" />
+              <div>
+                <p className="font-medium">{t('pickPurchase.rice')}</p>
+                <p className="text-sm text-muted-foreground">￥2,795</p>
               </div>
             </div>
           </Card>
