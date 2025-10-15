@@ -64,7 +64,7 @@ const Dashboard = () => {
     const now = new Date();
     const daysPassed = Math.floor((now.getTime() - createdDate.getTime()) / (1000 * 60 * 60 * 24));
     const remainingDays = Math.max(0, inv.investment_days - daysPassed);
-    const progressPercent = Math.min(100, (daysPassed / inv.investment_days) * 100);
+    const progressPercent = Math.min(100, Math.max(2, (daysPassed / inv.investment_days) * 100));
     
     return {
       ...inv,
