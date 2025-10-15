@@ -11,7 +11,7 @@ import { useNaviAPY } from "@/hooks/useNaviAPY";
 const DecideDeposit = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const { userAPY, isLoading } = useNaviAPY();
   
   // Get product info from navigation state
@@ -51,6 +51,27 @@ const DecideDeposit = () => {
   const aiRecommendation = calculateDepositForDays(recommendedDays);
 
   const formatTimeString = (days: number) => {
+    const { t, language } = useLanguage();
+    
+    if (language === 'ja') {
+      if (days === 1) return t('decideDeposit.eachDay');
+      if (days === 7) return t('decideDeposit.eachWeek');
+      if (days === 120) return "4" + t('decideDeposit.months') + "毎";
+      if (days === 90) return "3" + t('decideDeposit.months') + "毎";
+      if (days === 60) return "2" + t('decideDeposit.months') + "毎";
+      if (days === 30) return t('decideDeposit.eachMonth');
+      if (days < 30) return t('decideDeposit.every') + days + t('decideDeposit.days');
+      if (days < 365) {
+        const months = Math.round(days / 30);
+        if (months === 1) return t('decideDeposit.eachMonth');
+        return t('decideDeposit.every') + months + t('decideDeposit.months');
+      }
+      const years = Math.round(days / 365);
+      if (years === 1) return t('decideDeposit.eachYear');
+      return t('decideDeposit.every') + years + t('decideDeposit.years');
+    }
+    
+    // English
     if (days === 1) return "each day";
     if (days === 7) return "each week";
     if (days === 120) return "every 4 months";
@@ -143,20 +164,28 @@ const DecideDeposit = () => {
             className="w-full"
           />
           <div className="flex justify-between text-xs text-muted-foreground">
-            <span>Min: ￥{Math.ceil(minDeposit).toLocaleString()}</span>
-            <span>Max: ￥{Math.ceil(maxDeposit).toLocaleString()}</span>
+            <span>{t('decideDeposit.min')} ￥{Math.ceil(minDeposit).toLocaleString()}</span>
+            <span>{t('decideDeposit.max')} ￥{Math.ceil(maxDeposit).toLocaleString()}</span>
           </div>
         </div>
 
         {/* Dynamic Deposit Information */}
         <div className="space-y-4">
           <div className="text-center space-y-2">
-            <p className="text-sm">
-              Get 1 <span className="text-accent">"free"</span> {productName} {timeString} by
-            </p>
-            <p className="text-sm">
-              depositing <span className="text-accent">￥{Math.ceil(currentDeposit).toLocaleString()}</span> today
-            </p>
+            {language === 'ja' ? (
+              <p className="text-sm">
+                {t('decideDeposit.today')}￥{Math.ceil(currentDeposit).toLocaleString()}を預けて{timeString}{t('decideDeposit.free')}の{productName}を1つ手に入れる
+              </p>
+            ) : (
+              <>
+                <p className="text-sm">
+                  {t('decideDeposit.get')} <span className="text-accent">"{t('decideDeposit.free')}"</span> {productName} {timeString} {t('decideDeposit.by')}
+                </p>
+                <p className="text-sm">
+                  {t('decideDeposit.depositing')} <span className="text-accent">￥{Math.ceil(currentDeposit).toLocaleString()}</span> {t('decideDeposit.today')}
+                </p>
+              </>
+            )}
           </div>
 
           <div 
@@ -174,9 +203,15 @@ const DecideDeposit = () => {
               </span>
             </div>
             <div className="text-center mt-2 space-y-1">
-              <p className="text-xs">
-                Depositing ￥{Math.ceil(aiRecommendation).toLocaleString()} today to get a free {productName} {formatTimeString(recommendedDays)}
-              </p>
+              {language === 'ja' ? (
+                <p className="text-xs">
+                  {t('decideDeposit.today')}￥{Math.ceil(aiRecommendation).toLocaleString()}{t('decideDeposit.toGetFree')}{productName}を{formatTimeString(recommendedDays)}手に入れる
+                </p>
+              ) : (
+                <p className="text-xs">
+                  {t('decideDeposit.aiRecText')} ￥{Math.ceil(aiRecommendation).toLocaleString()} {t('decideDeposit.today')} {t('decideDeposit.toGetFree')} {productName} {formatTimeString(recommendedDays)}
+                </p>
+              )}
             </div>
           </div>
         </div>

@@ -46,13 +46,13 @@ const Dashboard = () => {
     try {
       await deleteAllInvestments();
       toast({
-        title: "Reset Complete",
-        description: "All investments have been cleared.",
+        title: t('dashboard.resetComplete'),
+        description: t('dashboard.resetSuccess'),
       });
     } catch (error) {
       toast({
-        title: "Error",
-        description: "Failed to reset investments.",
+        title: t('dashboard.error'),
+        description: t('dashboard.resetFailed'),
         variant: "destructive",
       });
     }
@@ -96,14 +96,14 @@ const Dashboard = () => {
               </AlertDialogTrigger>
               <AlertDialogContent>
                 <AlertDialogHeader>
-                  <AlertDialogTitle>Reset All Investments?</AlertDialogTitle>
+                  <AlertDialogTitle>{t('dashboard.resetTitle')}</AlertDialogTitle>
                   <AlertDialogDescription>
-                    This will permanently delete all your investments and history. This action cannot be undone.
+                    {t('dashboard.resetDescription')}
                   </AlertDialogDescription>
                 </AlertDialogHeader>
                 <AlertDialogFooter>
-                  <AlertDialogCancel>Cancel</AlertDialogCancel>
-                  <AlertDialogAction onClick={handleReset}>Reset</AlertDialogAction>
+                  <AlertDialogCancel>{t('dashboard.cancel')}</AlertDialogCancel>
+                  <AlertDialogAction onClick={handleReset}>{t('dashboard.reset')}</AlertDialogAction>
                 </AlertDialogFooter>
               </AlertDialogContent>
             </AlertDialog>
@@ -136,7 +136,7 @@ const Dashboard = () => {
               <h3 className="text-4xl font-bold">￥{Math.ceil(totalInvestment)}</h3>
             </div>
             <div className="text-center space-y-2">
-              <p className="text-sm text-muted-foreground">Returns</p>
+              <p className="text-sm text-muted-foreground">{t('dashboard.returns')}</p>
               <h3 className="text-4xl font-bold">￥{Math.ceil(totalReturns)}</h3>
             </div>
           </div>
@@ -156,20 +156,20 @@ const Dashboard = () => {
                 </DialogTrigger>
                 <DialogContent className="sm:max-w-md">
                   <DialogHeader>
-                    <DialogTitle className="text-2xl">Your Returns</DialogTitle>
+                    <DialogTitle className="text-2xl">{t('dashboard.returnsDialogTitle')}</DialogTitle>
                     <DialogDescription className="sr-only">
-                      View your APY and fee structure details
+                      {t('dashboard.returnsDialogDescription')}
                     </DialogDescription>
                   </DialogHeader>
                   <div className="space-y-6 py-4">
                     {apyLoading ? (
                       <div className="text-center py-8">
-                        <p className="text-muted-foreground">Loading APY data...</p>
+                        <p className="text-muted-foreground">{t('dashboard.loadingAPY')}</p>
                       </div>
                     ) : userAPY !== null ? (
                       <>
                         <div className="text-center space-y-2 py-6 bg-gradient-to-br from-primary/10 to-primary/5 rounded-lg border border-primary/20 relative">
-                          <p className="text-sm text-muted-foreground uppercase tracking-wide">YOUR ANNUAL PAY YIELD (APY)</p>
+                          <p className="text-sm text-muted-foreground uppercase tracking-wide">{t('dashboard.apyTitle')}</p>
                           <div className="relative inline-block">
                             <p className="text-6xl font-bold text-primary bg-gradient-to-r from-primary to-primary/70 bg-clip-text text-transparent">
                               {userAPY.toFixed(2)}%
@@ -178,7 +178,7 @@ const Dashboard = () => {
                               <div className="relative">
                                 <div className="absolute inset-0 bg-gradient-to-r from-green-500 to-emerald-500 blur-md opacity-75 animate-pulse"></div>
                                 <div className="relative bg-gradient-to-r from-green-500 to-emerald-500 text-white text-[10px] font-bold px-2 py-1 rounded-full shadow-lg whitespace-nowrap animate-[scale-in_0.5s_ease-out]">
-                                  {((userAPY - 0.5) / 0.5 * 100).toFixed(0)}% higher than BoJ!
+                                  {((userAPY - 0.5) / 0.5 * 100).toFixed(0)}% {t('dashboard.higherThanBoJ')}
                                 </div>
                               </div>
                             </div>
@@ -187,28 +187,28 @@ const Dashboard = () => {
                         
                         <div className="space-y-4 px-2">
                           <div className="space-y-2">
-                            <h4 className="font-semibold text-sm uppercase tracking-wide text-muted-foreground">Fee Structure</h4>
+                            <h4 className="font-semibold text-sm uppercase tracking-wide text-muted-foreground">{t('dashboard.feeStructure')}</h4>
                             <p className="text-sm leading-relaxed">
-                              Our management fee is 1% baseline + 20% of the remaining returns.
+                              {t('dashboard.feeDescription')}
                               {naviAPY && managementFee && (
                                 <span className="block mt-2 text-muted-foreground">
-                                  Example: Asset APY {naviAPY.toFixed(2)}% - Management Fee {managementFee.toFixed(2)}% = Your APY {userAPY.toFixed(2)}%
+                                  {t('dashboard.feeExample')} {naviAPY.toFixed(2)}% - {t('dashboard.managementFee')} {managementFee.toFixed(2)}% = {t('dashboard.yourAPY')} {userAPY.toFixed(2)}%
                                 </span>
                               )}
                             </p>
                           </div>
                           
                           <div className="space-y-2">
-                            <h4 className="font-semibold text-sm uppercase tracking-wide text-muted-foreground">Dynamic Rate</h4>
+                            <h4 className="font-semibold text-sm uppercase tracking-wide text-muted-foreground">{t('dashboard.dynamicRate')}</h4>
                             <p className="text-sm leading-relaxed">
-                              This APY updates in real-time based on lending rates across Decentralized Finance (DeFi) protocols and changes constantly with market conditions.
+                              {t('dashboard.dynamicRateDescription')}
                             </p>
                           </div>
                         </div>
                       </>
                     ) : (
                       <div className="text-center py-8">
-                        <p className="text-destructive">Unable to load APY data</p>
+                        <p className="text-destructive">{t('dashboard.apyError')}</p>
                       </div>
                     )}
                   </div>
@@ -231,7 +231,7 @@ const Dashboard = () => {
                       </div>
                       {inv.status === 'pending' && (
                         <span className="px-2 py-1 text-xs rounded-full bg-yellow-500/20 text-yellow-600 dark:text-yellow-400 border border-yellow-500/30">
-                          Pending
+                          {t('dashboard.pending')}
                         </span>
                       )}
                     </div>
@@ -242,7 +242,7 @@ const Dashboard = () => {
             ) : (
               <div className="py-4">
                 <p className="text-sm text-muted-foreground text-center">
-                  No ongoing investment. Select a desirable good to start having your money work for you.
+                  {t('dashboard.noInvestments')}
                 </p>
               </div>
             )}

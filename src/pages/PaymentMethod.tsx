@@ -9,7 +9,7 @@ import LanguageSelector from "@/components/LanguageSelector";
 const PaymentMethod = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   
   // Get the deposit details from the previous page, with fallback values
   const { 
@@ -90,12 +90,20 @@ const PaymentMethod = () => {
 
         {/* Summary */}
         <div className="text-center space-y-2">
-          <p className="text-sm">
-            Get 1 <span className="text-accent">"free"</span> {productName} {timeString} by
-          </p>
-          <p className="text-sm">
-            depositing <span className="text-accent">￥{Math.ceil(depositAmount).toLocaleString()}</span> today
-          </p>
+          {language === 'ja' ? (
+            <p className="text-sm">
+              {t('paymentMethod.today')}￥{Math.ceil(depositAmount).toLocaleString()}を預けて{timeString}{t('paymentMethod.free')}の{productName}を1つ手に入れる
+            </p>
+          ) : (
+            <>
+              <p className="text-sm">
+                {t('paymentMethod.get')} <span className="text-accent">"{t('paymentMethod.free')}"</span> {productName} {timeString} {t('paymentMethod.by')}
+              </p>
+              <p className="text-sm">
+                {t('paymentMethod.depositing')} <span className="text-accent">￥{Math.ceil(depositAmount).toLocaleString()}</span> {t('paymentMethod.today')}
+              </p>
+            </>
+          )}
         </div>
 
         {/* Payment Methods */}

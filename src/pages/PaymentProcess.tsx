@@ -51,16 +51,16 @@ const PaymentProcess = () => {
         });
         
         toast({
-          title: "Investment Created!",
-          description: `Your ${selectedProduct} investment has been created successfully.`,
+          title: t('paymentProcess.investmentCreated'),
+          description: t('paymentProcess.investmentCreatedSuccess').replace('{product}', selectedProduct),
         });
       }
       
       navigate('/');
     } catch (error) {
       toast({
-        title: "Error",
-        description: "Failed to create investment. Please try again.",
+        title: t('paymentProcess.error'),
+        description: t('paymentProcess.createFailed'),
         variant: "destructive",
       });
     }
@@ -72,7 +72,6 @@ const PaymentProcess = () => {
     
     try {
       if (newAmount > existingAmount) {
-        // Update the investment with the new higher amount and reset countdown
         await updateInvestment(existingInvestment.id, {
           deposit_amount: newAmount,
           investment_days: parseInt(investmentDays),
@@ -80,27 +79,31 @@ const PaymentProcess = () => {
         
         const difference = Math.ceil(newAmount - existingAmount);
         toast({
-          title: "Investment Updated",
-          description: `Added ￥${difference.toLocaleString()} to your ${selectedProduct} investment. Countdown reset.`,
+          title: t('paymentProcess.investmentUpdated'),
+          description: t('paymentProcess.addedToInvestment')
+            .replace('{amount}', difference.toLocaleString())
+            .replace('{product}', selectedProduct),
         });
       } else if (newAmount < existingAmount) {
         const difference = Math.ceil(existingAmount - newAmount);
         toast({
-          title: "Withdraw Funds",
-          description: `Please withdraw ￥${difference.toLocaleString()} from your existing ${selectedProduct} investment to reduce it.`,
+          title: t('paymentProcess.withdrawFunds'),
+          description: t('paymentProcess.withdrawDescription')
+            .replace('{amount}', difference.toLocaleString())
+            .replace('{product}', selectedProduct),
         });
       } else {
         toast({
-          title: "No Changes",
-          description: `Your ${selectedProduct} investment amount is the same.`,
+          title: t('paymentProcess.noChanges'),
+          description: t('paymentProcess.noChangesDescription').replace('{product}', selectedProduct),
         });
       }
       
       navigate('/');
     } catch (error) {
       toast({
-        title: "Error",
-        description: "Failed to update investment. Please try again.",
+        title: t('paymentProcess.error'),
+        description: t('paymentProcess.updateFailed'),
         variant: "destructive",
       });
     }
@@ -130,7 +133,6 @@ const PaymentProcess = () => {
       );
     }
 
-    // For Bank Wire and Credit Card
     return (
       <div className="text-center">
         <p className="text-base">{t('paymentProcess.featureAvailable')}</p>
@@ -174,19 +176,19 @@ const PaymentProcess = () => {
         </Button>
         </div>
 
-        {/* Duplicate Investment Dialog */}
         <AlertDialog open={showDuplicateDialog} onOpenChange={setShowDuplicateDialog}>
           <AlertDialogContent>
             <AlertDialogHeader>
-              <AlertDialogTitle>Update Existing Investment?</AlertDialogTitle>
+              <AlertDialogTitle>{t('paymentProcess.updateExisting')}</AlertDialogTitle>
               <AlertDialogDescription>
-                You already have an investment for {selectedProduct} with ￥{Math.ceil(existingInvestment?.deposit_amount || 0).toLocaleString()} deposited. 
-                Would you like to update your existing investment?
+                {t('paymentProcess.duplicateDescription')
+                  .replace('{product}', selectedProduct)
+                  .replace('{amount}', Math.ceil(existingInvestment?.deposit_amount || 0).toLocaleString())}
               </AlertDialogDescription>
             </AlertDialogHeader>
             <AlertDialogFooter>
-              <AlertDialogCancel onClick={() => navigate('/')}>Cancel</AlertDialogCancel>
-              <AlertDialogAction onClick={handleUpdateExisting}>Update</AlertDialogAction>
+              <AlertDialogCancel onClick={() => navigate('/')}>{t('paymentProcess.cancel')}</AlertDialogCancel>
+              <AlertDialogAction onClick={handleUpdateExisting}>{t('paymentProcess.update')}</AlertDialogAction>
             </AlertDialogFooter>
           </AlertDialogContent>
         </AlertDialog>
