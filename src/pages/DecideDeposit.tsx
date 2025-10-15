@@ -30,11 +30,14 @@ const DecideDeposit = () => {
   const defaultIndex = dayIntervals.indexOf(7); // Default to weekly
   const [sliderValue, setSliderValue] = useState([defaultIndex]);
 
-  // Use dynamic APY from dashboard, fallback to 0.04 if loading
-  const APY = userAPY || 0.04;
+  // Use dynamic APY from dashboard (comes as percentage like 4 for 4%), convert to decimal
+  const APY_percentage = userAPY || 4;
+  const APY = APY_percentage / 100;
 
   // Calculate deposit needed for a specific number of days
-  // Formula: Principal = Price / (APY × (Days / 365))
+  // Formula: Interest = Principal × APY × (Days / 365)
+  // We want: Interest = Price
+  // So: Principal = Price / (APY × (Days / 365))
   // Simplified: Principal = (Price × 365) / (APY × Days)
   const calculateDepositForDays = (days: number) => {
     return (price * 365) / (APY * days);
