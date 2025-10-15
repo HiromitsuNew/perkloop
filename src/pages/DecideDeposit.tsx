@@ -6,28 +6,32 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { useState } from "react";
 import { useLanguage } from "@/contexts/LanguageContext";
 import LanguageSelector from "@/components/LanguageSelector";
+import { useNaviAPY } from "@/hooks/useNaviAPY";
 
 const DecideDeposit = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const { t } = useLanguage();
+  const { userAPY, isLoading } = useNaviAPY();
   
-  // Get product info from navigation state, default to Netflix
+  // Get product info from navigation state
   const { product = 'netflix', price = 12.99, icon = 'Monitor' } = location.state || {};
-  const APY = 0.04;
   
-  // Define specific day intervals for the slider based on product
-  const dayIntervals = product === 'starbucks' 
-    ? [
-        120, // 4 months
-        90,  // 3 months
-        60,  // 2 months
-        ...Array.from({ length: 31 }, (_, i) => 31 - i) // 31 down to 1
-      ]
-    : Array.from({ length: 24 }, (_, i) => (24 - i) * 30); // Netflix: 24 months to 1 month (720 to 30 days)
+  // Standardized day intervals for all items: 6 months down to 1 day
+  const dayIntervals = [
+    180, // 6 months
+    150, // 5 months
+    120, // 4 months
+    90,  // 3 months
+    60,  // 2 months
+    ...Array.from({ length: 28 }, (_, i) => 30 - i) // 30 days down to 3 days
+  ];
 
-  const defaultIndex = product === 'starbucks' ? dayIntervals.indexOf(7) : Math.floor(dayIntervals.length / 2);
+  const defaultIndex = dayIntervals.indexOf(7); // Default to weekly
   const [sliderValue, setSliderValue] = useState([defaultIndex]);
+
+  // Use dynamic APY from dashboard, fallback to 0.04 if loading
+  const APY = userAPY || 0.04;
 
   // Calculate deposit needed for a specific number of days
   const calculateDepositForDays = (days: number) => {
@@ -37,9 +41,10 @@ const DecideDeposit = () => {
 
   const minDeposit = calculateDepositForDays(dayIntervals[0]); // Max days (min deposit)
   const maxDeposit = calculateDepositForDays(dayIntervals[dayIntervals.length - 1]); // Min days (max deposit)
-  const aiRecommendation = product === 'starbucks' 
-    ? calculateDepositForDays(7) // weekly for Starbucks
-    : calculateDepositForDays(30); // monthly for Netflix
+  
+  // AI Recommendation: weekly (7 days) for all items except rice (monthly for rice)
+  const recommendedDays = product === 'rice' ? 30 : 7;
+  const aiRecommendation = calculateDepositForDays(recommendedDays);
 
   const formatTimeString = (days: number) => {
     if (days === 1) return "each day";
@@ -153,7 +158,6 @@ const DecideDeposit = () => {
           <div 
             className="bg-success/10 border border-success/20 rounded-lg p-3 cursor-pointer hover:bg-success/15 transition-colors"
             onClick={() => {
-              const recommendedDays = product === 'starbucks' ? 7 : 30;
               const recommendedIndex = dayIntervals.indexOf(recommendedDays);
               if (recommendedIndex !== -1) {
                 setSliderValue([recommendedIndex]);
@@ -167,7 +171,7 @@ const DecideDeposit = () => {
             </div>
             <div className="text-center mt-2 space-y-1">
               <p className="text-xs">
-                Depositing ￥{Math.ceil(aiRecommendation).toLocaleString()} today to get a free {productName} {formatTimeString(product === 'starbucks' ? 7 : 30)}
+                Depositing ￥{Math.ceil(aiRecommendation).toLocaleString()} today to get a free {productName} {formatTimeString(recommendedDays)}
               </p>
             </div>
           </div>
