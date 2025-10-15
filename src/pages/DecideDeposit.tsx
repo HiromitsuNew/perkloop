@@ -24,7 +24,7 @@ const DecideDeposit = () => {
     120, // 4 months
     90,  // 3 months
     60,  // 2 months
-    ...Array.from({ length: 28 }, (_, i) => 30 - i) // 30 days down to 3 days
+    ...Array.from({ length: 30 }, (_, i) => 30 - i) // 30 days down to 1 day
   ];
 
   const defaultIndex = dayIntervals.indexOf(7); // Default to weekly
@@ -34,9 +34,10 @@ const DecideDeposit = () => {
   const APY = userAPY || 0.04;
 
   // Calculate deposit needed for a specific number of days
+  // Formula: Principal = Price / (APY × (Days / 365))
+  // Simplified: Principal = (Price × 365) / (APY × Days)
   const calculateDepositForDays = (days: number) => {
-    // deposit = (365 * price) / (days * APY)
-    return (365 * price) / (days * APY);
+    return (price * 365) / (APY * days);
   };
 
   const minDeposit = calculateDepositForDays(dayIntervals[0]); // Max days (min deposit)
