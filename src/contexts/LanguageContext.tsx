@@ -82,6 +82,7 @@ const translations = {
     'pickPurchase.beer': 'Beer (6 cans)',
     'pickPurchase.rice': 'Rice (2 kg)',
     'pickPurchase.cigarette': 'Cigarette',
+    'pickPurchase.coffee': 'Coffee (Regular)',
     
     // Decide Deposit
     'decideDeposit.title1': 'Select a desirable good to',
@@ -98,6 +99,7 @@ const translations = {
     'decideDeposit.beer': 'Beer (6 cans)',
     'decideDeposit.rice': 'Rice (2 kg)',
     'decideDeposit.cigarette': 'Cigarette',
+    'decideDeposit.coffee': 'Coffee (Regular)',
     'decideDeposit.deposit': 'Deposit',
     'decideDeposit.payback': 'Pay back in',
     'decideDeposit.aiRec': 'AI Recommendation',
@@ -234,6 +236,7 @@ const translations = {
     'pickPurchase.beer': 'ビール（6缶）',
     'pickPurchase.rice': '米（2kg）',
     'pickPurchase.cigarette': 'タバコ',
+    'pickPurchase.coffee': 'コーヒー（レギュラー）',
     
     // Decide Deposit
     'decideDeposit.title1': '欲しい商品を選んで',
@@ -250,6 +253,7 @@ const translations = {
     'decideDeposit.beer': 'ビール（6缶）',
     'decideDeposit.rice': '米（2kg）',
     'decideDeposit.cigarette': 'タバコ',
+    'decideDeposit.coffee': 'コーヒー（レギュラー）',
     'decideDeposit.deposit': '預金',
     'decideDeposit.payback': '返済期間',
     'decideDeposit.aiRec': 'AI推奨',

@@ -15,14 +15,14 @@ const PickPurchase = () => {
 
   // Define products with their store associations
   const allProducts = [
-    { id: 'yogurt', price: 180, icon: 'Container', store: 'life', translation: 'pickPurchase.yogurt' },
-    { id: 'milk', price: 248, icon: 'Milk', store: 'life', translation: 'pickPurchase.milk' },
-    { id: 'eggs', price: 343, icon: 'Egg', store: 'life', translation: 'pickPurchase.eggs' },
-    { id: 'cigarette-life', price: 580, icon: 'Cigarette', store: 'life', translation: 'pickPurchase.cigarette' },
-    { id: 'beer', price: 1280, icon: 'Beer', store: 'life', translation: 'pickPurchase.beer' },
-    { id: 'rice', price: 2795, icon: 'Wheat', store: 'life', translation: 'pickPurchase.rice' },
-    { id: 'cigarette-seven', price: 580, icon: 'Cigarette', store: 'seven-eleven', translation: 'pickPurchase.cigarette' },
-    { id: 'coffee', price: 141, icon: 'Coffee', store: 'seven-eleven', translation: 'pickPurchase.coffee' },
+    { id: 'yogurt', price: 180, icon: 'Container', store: 'life', translation: 'yogurt', translationKey: 'pickPurchase.yogurt' },
+    { id: 'milk', price: 248, icon: 'Milk', store: 'life', translation: 'milk', translationKey: 'pickPurchase.milk' },
+    { id: 'eggs', price: 343, icon: 'Egg', store: 'life', translation: 'eggs', translationKey: 'pickPurchase.eggs' },
+    { id: 'cigarette-life', price: 580, icon: 'Cigarette', store: 'life', translation: 'cigarette', translationKey: 'pickPurchase.cigarette' },
+    { id: 'beer', price: 1280, icon: 'Beer', store: 'life', translation: 'beer', translationKey: 'pickPurchase.beer' },
+    { id: 'rice', price: 2795, icon: 'Wheat', store: 'life', translation: 'rice', translationKey: 'pickPurchase.rice' },
+    { id: 'cigarette-seven', price: 580, icon: 'Cigarette', store: 'seven-eleven', translation: 'cigarette', translationKey: 'pickPurchase.cigarette' },
+    { id: 'coffee', price: 141, icon: 'Coffee', store: 'seven-eleven', translation: 'coffee', translationKey: 'pickPurchase.coffee' },
   ];
 
   // Filter products based on selected store
@@ -104,7 +104,7 @@ const PickPurchase = () => {
                   className="bg-card border-border p-6 cursor-pointer hover:bg-muted/50 transition-colors relative" 
                   onClick={() => navigate('/decide-deposit', { 
                     state: { 
-                      product: product.id,
+                      product: product.translation,
                       price: product.price,
                       icon: product.icon
                     }
@@ -113,7 +113,7 @@ const PickPurchase = () => {
                   <div className="text-center space-y-3">
                     <IconComponent className="w-8 h-8 mx-auto text-foreground" />
                     <div>
-                      <p className="font-medium">{t(product.translation)}</p>
+                      <p className="font-medium">{t(product.translationKey)}</p>
                       <p className="text-sm text-muted-foreground">￥{product.price.toLocaleString()}</p>
                     </div>
                   </div>
