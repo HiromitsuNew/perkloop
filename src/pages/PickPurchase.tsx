@@ -1,7 +1,7 @@
 import React from "react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { ArrowLeft, Egg, Milk, Container, Beer, Wheat, Cigarette } from "lucide-react";
+import { ArrowLeft, Egg, Milk, Container, Beer, Wheat, Cigarette, Coffee } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { useLanguage } from "@/contexts/LanguageContext";
 import LanguageSelector from "@/components/LanguageSelector";
@@ -18,9 +18,11 @@ const PickPurchase = () => {
     { id: 'yogurt', price: 180, icon: 'Container', store: 'life', translation: 'pickPurchase.yogurt' },
     { id: 'milk', price: 248, icon: 'Milk', store: 'life', translation: 'pickPurchase.milk' },
     { id: 'eggs', price: 343, icon: 'Egg', store: 'life', translation: 'pickPurchase.eggs' },
-    { id: 'cigarette', price: 580, icon: 'Cigarette', store: 'life', translation: 'pickPurchase.cigarette' },
+    { id: 'cigarette-life', price: 580, icon: 'Cigarette', store: 'life', translation: 'pickPurchase.cigarette' },
     { id: 'beer', price: 1280, icon: 'Beer', store: 'life', translation: 'pickPurchase.beer' },
     { id: 'rice', price: 2795, icon: 'Wheat', store: 'life', translation: 'pickPurchase.rice' },
+    { id: 'cigarette-seven', price: 580, icon: 'Cigarette', store: 'seven-eleven', translation: 'pickPurchase.cigarette' },
+    { id: 'coffee', price: 141, icon: 'Coffee', store: 'seven-eleven', translation: 'pickPurchase.coffee' },
   ];
 
   // Filter products based on selected store
@@ -29,8 +31,12 @@ const PickPurchase = () => {
     : allProducts;
 
   const getIconComponent = (iconName: string) => {
-    const icons: Record<string, any> = { Container, Milk, Egg, Cigarette, Beer, Wheat };
+    const icons: Record<string, any> = { Container, Milk, Egg, Cigarette, Beer, Wheat, Coffee };
     return icons[iconName];
+  };
+
+  const getStoreLogo = (storeName: string) => {
+    return storeName === 'seven-eleven' ? sevenElevenLogo : lifeLogo;
   };
 
   return <div className="min-h-screen bg-background text-foreground p-6">
@@ -90,6 +96,8 @@ const PickPurchase = () => {
           ) : (
             displayedProducts.map((product) => {
               const IconComponent = getIconComponent(product.icon);
+              const storeLogo = getStoreLogo(product.store);
+              const storeName = product.store === 'seven-eleven' ? '7-Eleven' : 'Life';
               return (
                 <Card 
                   key={product.id}
@@ -109,7 +117,7 @@ const PickPurchase = () => {
                       <p className="text-sm text-muted-foreground">￥{product.price.toLocaleString()}</p>
                     </div>
                   </div>
-                  <img src={lifeLogo} alt="Life" className="absolute bottom-2 right-2 w-8 h-8 opacity-70" />
+                  <img src={storeLogo} alt={storeName} className="absolute bottom-2 right-2 w-8 h-8 opacity-70" />
                 </Card>
               );
             })
