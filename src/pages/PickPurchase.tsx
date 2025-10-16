@@ -13,6 +13,26 @@ const PickPurchase = () => {
   const { t } = useLanguage();
   const [selectedStore, setSelectedStore] = React.useState<string | null>(null);
 
+  // Define products with their store associations
+  const allProducts = [
+    { id: 'yogurt', price: 180, icon: 'Container', store: 'life', translation: 'pickPurchase.yogurt' },
+    { id: 'milk', price: 248, icon: 'Milk', store: 'life', translation: 'pickPurchase.milk' },
+    { id: 'eggs', price: 343, icon: 'Egg', store: 'life', translation: 'pickPurchase.eggs' },
+    { id: 'cigarette', price: 580, icon: 'Cigarette', store: 'life', translation: 'pickPurchase.cigarette' },
+    { id: 'beer', price: 1280, icon: 'Beer', store: 'life', translation: 'pickPurchase.beer' },
+    { id: 'rice', price: 2795, icon: 'Wheat', store: 'life', translation: 'pickPurchase.rice' },
+  ];
+
+  // Filter products based on selected store
+  const displayedProducts = selectedStore 
+    ? allProducts.filter(product => product.store === selectedStore)
+    : allProducts;
+
+  const getIconComponent = (iconName: string) => {
+    const icons: Record<string, any> = { Container, Milk, Egg, Cigarette, Beer, Wheat };
+    return icons[iconName];
+  };
+
   return <div className="min-h-screen bg-background text-foreground p-6">
       <div className="max-w-md mx-auto space-y-6">
         {/* Language Selector */}
@@ -63,125 +83,37 @@ const PickPurchase = () => {
 
         {/* Purchase Options */}
         <div className="grid grid-cols-2 gap-4">
-          <Card 
-            className="bg-card border-border p-6 cursor-pointer hover:bg-muted/50 transition-colors relative" 
-            onClick={() => navigate('/decide-deposit', { 
-              state: { 
-                product: 'yogurt',
-                price: 180,
-                icon: 'Container'
-              }
-            })}
-          >
-            <div className="text-center space-y-3">
-              <Container className="w-8 h-8 mx-auto text-foreground" />
-              <div>
-                <p className="font-medium">{t('pickPurchase.yogurt')}</p>
-                <p className="text-sm text-muted-foreground">￥180</p>
-              </div>
+          {displayedProducts.length === 0 ? (
+            <div className="col-span-2 text-center py-12">
+              <p className="text-muted-foreground">{t('pickPurchase.noItems') || 'No items available from this store'}</p>
             </div>
-            <img src={lifeLogo} alt="Life" className="absolute bottom-2 right-2 w-8 h-8 opacity-70" />
-          </Card>
-
-          <Card 
-            className="bg-card border-border p-6 cursor-pointer hover:bg-muted/50 transition-colors relative" 
-            onClick={() => navigate('/decide-deposit', { 
-              state: { 
-                product: 'milk',
-                price: 248,
-                icon: 'Milk'
-              }
-            })}
-          >
-            <div className="text-center space-y-3">
-              <Milk className="w-8 h-8 mx-auto text-foreground" />
-              <div>
-                <p className="font-medium">{t('pickPurchase.milk')}</p>
-                <p className="text-sm text-muted-foreground">￥248</p>
-              </div>
-            </div>
-            <img src={lifeLogo} alt="Life" className="absolute bottom-2 right-2 w-8 h-8 opacity-70" />
-          </Card>
-
-          <Card 
-            className="bg-card border-border p-6 cursor-pointer hover:bg-muted/50 transition-colors relative" 
-            onClick={() => navigate('/decide-deposit', { 
-              state: { 
-                product: 'eggs',
-                price: 343,
-                icon: 'Egg'
-              }
-            })}
-          >
-            <div className="text-center space-y-3">
-              <Egg className="w-8 h-8 mx-auto text-foreground" />
-              <div>
-                <p className="font-medium">{t('pickPurchase.eggs')}</p>
-                <p className="text-sm text-muted-foreground">￥343</p>
-              </div>
-            </div>
-            <img src={lifeLogo} alt="Life" className="absolute bottom-2 right-2 w-8 h-8 opacity-70" />
-          </Card>
-
-          <Card 
-            className="bg-card border-border p-6 cursor-pointer hover:bg-muted/50 transition-colors relative" 
-            onClick={() => navigate('/decide-deposit', { 
-              state: { 
-                product: 'cigarette',
-                price: 580,
-                icon: 'Cigarette'
-              }
-            })}
-          >
-            <div className="text-center space-y-3">
-              <Cigarette className="w-8 h-8 mx-auto text-foreground" />
-              <div>
-                <p className="font-medium">{t('pickPurchase.cigarette')}</p>
-                <p className="text-sm text-muted-foreground">￥580</p>
-              </div>
-            </div>
-            <img src={lifeLogo} alt="Life" className="absolute bottom-2 right-2 w-8 h-8 opacity-70" />
-          </Card>
-
-          <Card 
-            className="bg-card border-border p-6 cursor-pointer hover:bg-muted/50 transition-colors relative" 
-            onClick={() => navigate('/decide-deposit', { 
-              state: { 
-                product: 'beer',
-                price: 1280,
-                icon: 'Beer'
-              }
-            })}
-          >
-            <div className="text-center space-y-3">
-              <Beer className="w-8 h-8 mx-auto text-foreground" />
-              <div>
-                <p className="font-medium">{t('pickPurchase.beer')}</p>
-                <p className="text-sm text-muted-foreground">￥1,280</p>
-              </div>
-            </div>
-            <img src={lifeLogo} alt="Life" className="absolute bottom-2 right-2 w-8 h-8 opacity-70" />
-          </Card>
-
-          <Card 
-            className="bg-card border-border p-6 cursor-pointer hover:bg-muted/50 transition-colors relative" 
-            onClick={() => navigate('/decide-deposit', { 
-              state: { 
-                product: 'rice',
-                price: 2795,
-                icon: 'Wheat'
-              }
-            })}
-          >
-            <div className="text-center space-y-3">
-              <Wheat className="w-8 h-8 mx-auto text-foreground" />
-              <div>
-                <p className="font-medium">{t('pickPurchase.rice')}</p>
-                <p className="text-sm text-muted-foreground">￥2,795</p>
-              </div>
-            </div>
-            <img src={lifeLogo} alt="Life" className="absolute bottom-2 right-2 w-8 h-8 opacity-70" />
-          </Card>
+          ) : (
+            displayedProducts.map((product) => {
+              const IconComponent = getIconComponent(product.icon);
+              return (
+                <Card 
+                  key={product.id}
+                  className="bg-card border-border p-6 cursor-pointer hover:bg-muted/50 transition-colors relative" 
+                  onClick={() => navigate('/decide-deposit', { 
+                    state: { 
+                      product: product.id,
+                      price: product.price,
+                      icon: product.icon
+                    }
+                  })}
+                >
+                  <div className="text-center space-y-3">
+                    <IconComponent className="w-8 h-8 mx-auto text-foreground" />
+                    <div>
+                      <p className="font-medium">{t(product.translation)}</p>
+                      <p className="text-sm text-muted-foreground">￥{product.price.toLocaleString()}</p>
+                    </div>
+                  </div>
+                  <img src={lifeLogo} alt="Life" className="absolute bottom-2 right-2 w-8 h-8 opacity-70" />
+                </Card>
+              );
+            })
+          )}
         </div>
       </div>
     </div>;
