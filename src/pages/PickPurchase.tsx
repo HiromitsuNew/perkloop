@@ -4,6 +4,7 @@ import { ArrowLeft, Egg, Milk, Container, Beer, Wheat, Cigarette } from "lucide-
 import { useNavigate } from "react-router-dom";
 import { useLanguage } from "@/contexts/LanguageContext";
 import LanguageSelector from "@/components/LanguageSelector";
+import lifeLogo from "@/assets/life-logo.png";
 
 const PickPurchase = () => {
   const navigate = useNavigate();
@@ -36,7 +37,7 @@ const PickPurchase = () => {
         {/* Purchase Options */}
         <div className="grid grid-cols-2 gap-4">
           <Card 
-            className="bg-card border-border p-6 cursor-pointer hover:bg-muted/50 transition-colors" 
+            className="bg-card border-border p-6 cursor-pointer hover:bg-muted/50 transition-colors relative" 
             onClick={() => navigate('/decide-deposit', { 
               state: { 
                 product: 'yogurt',
@@ -52,10 +53,11 @@ const PickPurchase = () => {
                 <p className="text-sm text-muted-foreground">￥180</p>
               </div>
             </div>
+            <img src={lifeLogo} alt="Life" className="absolute bottom-2 right-2 w-8 h-8 opacity-70" />
           </Card>
 
           <Card 
-            className="bg-card border-border p-6 cursor-pointer hover:bg-muted/50 transition-colors" 
+            className="bg-card border-border p-6 cursor-pointer hover:bg-muted/50 transition-colors relative" 
             onClick={() => navigate('/decide-deposit', { 
               state: { 
                 product: 'milk',
@@ -71,10 +73,11 @@ const PickPurchase = () => {
                 <p className="text-sm text-muted-foreground">￥248</p>
               </div>
             </div>
+            <img src={lifeLogo} alt="Life" className="absolute bottom-2 right-2 w-8 h-8 opacity-70" />
           </Card>
 
           <Card 
-            className="bg-card border-border p-6 cursor-pointer hover:bg-muted/50 transition-colors" 
+            className="bg-card border-border p-6 cursor-pointer hover:bg-muted/50 transition-colors relative" 
             onClick={() => navigate('/decide-deposit', { 
               state: { 
                 product: 'eggs',
@@ -90,10 +93,11 @@ const PickPurchase = () => {
                 <p className="text-sm text-muted-foreground">￥343</p>
               </div>
             </div>
+            <img src={lifeLogo} alt="Life" className="absolute bottom-2 right-2 w-8 h-8 opacity-70" />
           </Card>
 
           <Card 
-            className="bg-card border-border p-6 cursor-pointer hover:bg-muted/50 transition-colors" 
+            className="bg-card border-border p-6 cursor-pointer hover:bg-muted/50 transition-colors relative" 
             onClick={() => navigate('/decide-deposit', { 
               state: { 
                 product: 'cigarette',
@@ -109,10 +113,11 @@ const PickPurchase = () => {
                 <p className="text-sm text-muted-foreground">￥580</p>
               </div>
             </div>
+            <img src={lifeLogo} alt="Life" className="absolute bottom-2 right-2 w-8 h-8 opacity-70" />
           </Card>
 
           <Card 
-            className="bg-card border-border p-6 cursor-pointer hover:bg-muted/50 transition-colors" 
+            className="bg-card border-border p-6 cursor-pointer hover:bg-muted/50 transition-colors relative" 
             onClick={() => navigate('/decide-deposit', { 
               state: { 
                 product: 'beer',
@@ -128,10 +133,11 @@ const PickPurchase = () => {
                 <p className="text-sm text-muted-foreground">￥1,280</p>
               </div>
             </div>
+            <img src={lifeLogo} alt="Life" className="absolute bottom-2 right-2 w-8 h-8 opacity-70" />
           </Card>
 
           <Card 
-            className="bg-card border-border p-6 cursor-pointer hover:bg-muted/50 transition-colors" 
+            className="bg-card border-border p-6 cursor-pointer hover:bg-muted/50 transition-colors relative" 
             onClick={() => navigate('/decide-deposit', { 
               state: { 
                 product: 'rice',
@@ -147,6 +153,7 @@ const PickPurchase = () => {
                 <p className="text-sm text-muted-foreground">￥2,795</p>
               </div>
             </div>
+            <img src={lifeLogo} alt="Life" className="absolute bottom-2 right-2 w-8 h-8 opacity-70" />
           </Card>
         </div>
       </div>
