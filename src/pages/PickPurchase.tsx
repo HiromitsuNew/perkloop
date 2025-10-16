@@ -1,3 +1,4 @@
+import React from "react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { ArrowLeft, Egg, Milk, Container, Beer, Wheat, Cigarette } from "lucide-react";
@@ -9,6 +10,7 @@ import lifeLogo from "@/assets/life-logo.png";
 const PickPurchase = () => {
   const navigate = useNavigate();
   const { t } = useLanguage();
+  const [selectedStore, setSelectedStore] = React.useState<string | null>(null);
 
   return <div className="min-h-screen bg-background text-foreground p-6">
       <div className="max-w-md mx-auto space-y-6">
@@ -30,8 +32,22 @@ const PickPurchase = () => {
           </div>
         </div>
 
-        <div className="text-center">
+        <div className="text-center space-y-4">
           <h3 className="text-base font-medium">{t('pickPurchase.pick')}</h3>
+          
+          {/* Store Filter */}
+          <div className="flex justify-center gap-3">
+            <button
+              onClick={() => setSelectedStore(selectedStore === 'life' ? null : 'life')}
+              className={`rounded-xl p-3 transition-all duration-300 border-2 ${
+                selectedStore === 'life' || selectedStore === null
+                  ? 'bg-primary/10 border-primary shadow-md scale-105'
+                  : 'bg-card border-border opacity-50 hover:opacity-100'
+              }`}
+            >
+              <img src={lifeLogo} alt="Life" className="w-12 h-12" />
+            </button>
+          </div>
         </div>
 
         {/* Purchase Options */}
