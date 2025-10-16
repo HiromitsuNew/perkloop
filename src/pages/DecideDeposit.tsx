@@ -189,7 +189,7 @@ const DecideDeposit = () => {
           </div>
 
           <div 
-            className="bg-success/10 border border-success/20 rounded-lg p-3 cursor-pointer hover:bg-success/15 transition-colors"
+            className="bg-success/10 border-2 border-success rounded-xl p-4 cursor-pointer hover:bg-success/15 transition-colors"
             onClick={() => {
               const recommendedIndex = dayIntervals.indexOf(recommendedDays);
               if (recommendedIndex !== -1) {
@@ -198,17 +198,17 @@ const DecideDeposit = () => {
             }}
           >
             <div className="flex items-center justify-center">
-              <span className="text-xs text-success bg-success/20 px-2 py-1 rounded">
+              <span className="text-xs font-medium text-success-foreground bg-success px-3 py-1.5 rounded-full">
                 {t('decideDeposit.aiRec')}
               </span>
             </div>
-            <div className="text-center mt-2 space-y-1">
+            <div className="text-center mt-3 space-y-1">
               {language === 'ja' ? (
-                <p className="text-xs">
+                <p className="text-sm font-medium text-foreground">
                   {t('decideDeposit.today')}￥{Math.ceil(aiRecommendation).toLocaleString()}{t('decideDeposit.toGetFree')}{productName}を{formatTimeString(recommendedDays)}手に入れる
                 </p>
               ) : (
-                <p className="text-xs">
+                <p className="text-sm font-medium text-foreground">
                   {t('decideDeposit.aiRecText')} ￥{Math.ceil(aiRecommendation).toLocaleString()} {t('decideDeposit.today')} {t('decideDeposit.toGetFree')} {productName} {formatTimeString(recommendedDays)}
                 </p>
               )}
