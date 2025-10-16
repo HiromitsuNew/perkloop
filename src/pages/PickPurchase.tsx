@@ -11,7 +11,7 @@ import sevenElevenLogo from "@/assets/seven-eleven-logo.png";
 const PickPurchase = () => {
   const navigate = useNavigate();
   const { t } = useLanguage();
-  const [selectedStore, setSelectedStore] = React.useState<string | null>(null);
+  const [selectedStore, setSelectedStore] = React.useState<string | null>('life');
 
   // Define products with their store associations
   const allProducts = [
@@ -67,7 +67,7 @@ const PickPurchase = () => {
             <button
               onClick={() => setSelectedStore(selectedStore === 'life' ? null : 'life')}
               className={`rounded-lg p-2 transition-all duration-300 border-2 ${
-                selectedStore === 'life' || selectedStore === null
+                selectedStore === 'life'
                   ? 'bg-primary/10 border-primary shadow-md scale-105'
                   : 'bg-card border-border opacity-50 hover:opacity-100'
               }`}
@@ -77,7 +77,7 @@ const PickPurchase = () => {
             <button
               onClick={() => setSelectedStore(selectedStore === 'seven-eleven' ? null : 'seven-eleven')}
               className={`rounded-lg p-2 transition-all duration-300 border-2 ${
-                selectedStore === 'seven-eleven' || selectedStore === null
+                selectedStore === 'seven-eleven'
                   ? 'bg-primary/10 border-primary shadow-md scale-105'
                   : 'bg-card border-border opacity-50 hover:opacity-100'
               }`}
