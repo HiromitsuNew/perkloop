@@ -85,7 +85,7 @@ const PickPurchase = () => {
         <div className="grid grid-cols-2 gap-4">
           {displayedProducts.length === 0 ? (
             <div className="col-span-2 text-center py-12">
-              <p className="text-muted-foreground">{t('pickPurchase.noItems') || 'No items available from this store'}</p>
+              <p className="text-muted-foreground">No items available from this store</p>
             </div>
           ) : (
             displayedProducts.map((product) => {
