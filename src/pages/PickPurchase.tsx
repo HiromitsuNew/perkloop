@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { useLanguage } from "@/contexts/LanguageContext";
 import LanguageSelector from "@/components/LanguageSelector";
 import lifeLogo from "@/assets/life-logo.png";
+import sevenElevenLogo from "@/assets/seven-eleven-logo.png";
 
 const PickPurchase = () => {
   const navigate = useNavigate();
@@ -46,6 +47,16 @@ const PickPurchase = () => {
               }`}
             >
               <img src={lifeLogo} alt="Life" className="w-8 h-8" />
+            </button>
+            <button
+              onClick={() => setSelectedStore(selectedStore === 'seven-eleven' ? null : 'seven-eleven')}
+              className={`rounded-lg p-2 transition-all duration-300 border-2 ${
+                selectedStore === 'seven-eleven' || selectedStore === null
+                  ? 'bg-primary/10 border-primary shadow-md scale-105'
+                  : 'bg-card border-border opacity-50 hover:opacity-100'
+              }`}
+            >
+              <img src={sevenElevenLogo} alt="7-Eleven" className="w-8 h-8" />
             </button>
           </div>
         </div>
