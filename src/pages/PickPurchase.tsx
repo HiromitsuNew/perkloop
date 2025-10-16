@@ -36,16 +36,16 @@ const PickPurchase = () => {
           <h3 className="text-base font-medium">{t('pickPurchase.pick')}</h3>
           
           {/* Store Filter */}
-          <div className="flex justify-center gap-3">
+          <div className="flex justify-center gap-2">
             <button
               onClick={() => setSelectedStore(selectedStore === 'life' ? null : 'life')}
-              className={`rounded-xl p-3 transition-all duration-300 border-2 ${
+              className={`rounded-lg p-2 transition-all duration-300 border-2 ${
                 selectedStore === 'life' || selectedStore === null
                   ? 'bg-primary/10 border-primary shadow-md scale-105'
                   : 'bg-card border-border opacity-50 hover:opacity-100'
               }`}
             >
-              <img src={lifeLogo} alt="Life" className="w-12 h-12" />
+              <img src={lifeLogo} alt="Life" className="w-8 h-8" />
             </button>
           </div>
         </div>
