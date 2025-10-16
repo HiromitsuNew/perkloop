@@ -112,7 +112,7 @@ const DecideDeposit = () => {
 
   return (
     <div className="min-h-screen bg-background text-foreground p-6">
-      <div className="max-w-md mx-auto space-y-6">
+      <div className="max-w-md mx-auto space-y-6 animate-fade-in">
         {/* Language Selector */}
         <div className="flex justify-end">
           <LanguageSelector />
@@ -143,7 +143,7 @@ const DecideDeposit = () => {
         </div>
 
         {/* Selected Item */}
-        <Card className="bg-card border-border p-6">
+        <Card className="bg-card border-border p-6 hover-scale">
           <div className="text-center space-y-3">
             <IconComponent className="w-8 h-8 mx-auto text-foreground" />
             <div>
@@ -189,7 +189,7 @@ const DecideDeposit = () => {
           </div>
 
           <div 
-            className="bg-success/10 border-2 border-success rounded-xl p-4 cursor-pointer hover:bg-success/15 transition-colors"
+            className="bg-success/10 border-2 border-success rounded-xl p-4 cursor-pointer hover:bg-success/15 transition-all duration-300 hover:scale-[1.02] hover:shadow-lg"
             onClick={() => {
               const recommendedIndex = dayIntervals.indexOf(recommendedDays);
               if (recommendedIndex !== -1) {
