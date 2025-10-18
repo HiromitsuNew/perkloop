@@ -252,6 +252,14 @@ const Dashboard = () => {
         {/* Action Buttons */}
         <div className="space-y-3">
           <Button 
+            onClick={() => navigate('/pick-purchase')}
+            variant="secondary" 
+            className="w-full h-12 text-base font-medium"
+          >
+            {t('dashboard.startInvesting')}
+          </Button>
+          
+          <Button 
             variant="secondary" 
             className="w-full h-12 text-base font-medium"
           >
@@ -259,25 +267,17 @@ const Dashboard = () => {
           </Button>
           
           <Button 
-            onClick={() => navigate('/pick-purchase')}
             variant="secondary" 
             className="w-full h-12 text-base font-medium"
           >
-            {t('dashboard.addPurchases')}
+            {t('dashboard.riskMitigation')}
           </Button>
           
           <Button 
             variant="secondary" 
             className="w-full h-12 text-base font-medium"
           >
-            {t('dashboard.privacy')}
-          </Button>
-          
-          <Button 
-            variant="secondary" 
-            className="w-full h-12 text-base font-medium"
-          >
-            {t('dashboard.userAgreement')}
+            {t('dashboard.legal')}
           </Button>
         </div>
       </div>
