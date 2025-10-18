@@ -40,10 +40,10 @@ const RiskMitigation = () => {
           {/* Risk 1 */}
           <div className="space-y-3">
             <h2 className="text-xl font-bold text-foreground">
-              1. Code Exploit Risk (Theft)
+              1. Protocol Exploit Risk
             </h2>
             <p className="text-foreground/80 leading-relaxed">
-              Your money is managed by automated, public software (called smart contracts). Flaws in this code can be exploited by hackers, leading to the potential loss of up to 100% of your invested principal.
+              Your money is managed by automated, public software (called smart contracts). Despite significant improvement in security in recent time, flaws in this code can be exploited by hackers, leading to the potential loss of up to 100% of your invested principal.
             </p>
             
             <div className="pl-4 border-l-4 border-green-500 space-y-2">
