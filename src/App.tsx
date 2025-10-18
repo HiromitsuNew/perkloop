@@ -11,6 +11,7 @@ import PickPurchase from "./pages/PickPurchase";
 import DecideDeposit from "./pages/DecideDeposit";
 import PaymentMethod from "./pages/PaymentMethod";
 import PaymentProcess from "./pages/PaymentProcess";
+import RiskMitigation from "./pages/RiskMitigation";
 import NotFound from "./pages/NotFound";
 import ProtectedRoute from "./components/ProtectedRoute";
 
@@ -31,6 +32,7 @@ const App = () => (
               <Route path="/decide-deposit" element={<ProtectedRoute><DecideDeposit /></ProtectedRoute>} />
               <Route path="/payment-method" element={<ProtectedRoute><PaymentMethod /></ProtectedRoute>} />
               <Route path="/payment-process" element={<ProtectedRoute><PaymentProcess /></ProtectedRoute>} />
+              <Route path="/risk-mitigation" element={<ProtectedRoute><RiskMitigation /></ProtectedRoute>} />
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />
             </Routes>

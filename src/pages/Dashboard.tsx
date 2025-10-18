@@ -267,6 +267,7 @@ const Dashboard = () => {
           </Button>
           
           <Button 
+            onClick={() => navigate('/risk-mitigation')}
             variant="secondary" 
             className="w-full h-12 text-base font-medium"
           >

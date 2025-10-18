@@ -164,6 +164,9 @@ const translations = {
     'paymentProcess.duplicateDescription': 'You already have an investment for {product} with ￥{amount} deposited. Would you like to update your existing investment?',
     'paymentProcess.cancel': 'Cancel',
     'paymentProcess.update': 'Update',
+    
+    // Risk Mitigation
+    'riskMitigation.title': 'Risk and Mitigation',
   },
   ja: {
     // Auth
@@ -318,6 +321,9 @@ const translations = {
     'paymentProcess.duplicateDescription': 'すでに{product}の投資があり、￥{amount}が預けられています。既存の投資を更新しますか？',
     'paymentProcess.cancel': 'キャンセル',
     'paymentProcess.update': '更新',
+    
+    // Risk Mitigation
+    'riskMitigation.title': 'リスクと緩和策',
   }
 };
 
