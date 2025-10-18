@@ -167,6 +167,26 @@ const translations = {
     
     // Risk Mitigation
     'riskMitigation.title': 'Risk and Mitigation',
+    'riskMitigation.intro': 'Welcome to Perkloop. Our service aims to provide high returns by participating in Decentralized Finance (DeFi) lending. Before investing, you must understand the risks as well as our commitment to risk mitigation.',
+    'riskMitigation.warning': 'Your principal is NOT insured by the Japanese government or any bank.',
+    'riskMitigation.risk1.title': '1. Protocol Exploit Risk',
+    'riskMitigation.risk1.description': 'Your money is managed by automated, public software (called smart contracts). Despite significant improvement in security in recent time, flaws in this code can be exploited by hackers, leading to the potential loss of up to 100% of your invested principal.',
+    'riskMitigation.risk1.mitigation': 'Mitigation',
+    'riskMitigation.risk1.mitigationIntro': 'We establish multiple layers of defense to protect your investment:',
+    'riskMitigation.risk1.mitigation1.title': 'Triple Audited System:',
+    'riskMitigation.risk1.mitigation1.text': 'We invest in high-quality security audits every quarter and deploy assets across 2-3 separate, highly reputable lending protocols (measured by size and stability) on Sui, a blockchain created by a safe programming language.',
+    'riskMitigation.risk1.mitigation2.title': 'Investor Protection Fund (IPF):',
+    'riskMitigation.risk1.mitigation2.text': 'We establish the Investor Protection Fund (IPF), backed by our firm\'s segregated capital, to cover 20% of your loss if a hack occurs. This is your immediate safety net.',
+    'riskMitigation.risk1.mitigation3.title': 'Commitment to Full Recovery:',
+    'riskMitigation.risk1.mitigation3.text': 'In the case of a hack, we will immediately engage with the L1 chain foundation (e.g., the Sui Foundation) and the protocol\'s governance community (DAO), deploying our full legal and technical efforts to lobby for, and maximize the chances of, a community-funded asset recovery or reimbursement. Historically, leading L1 chains and protocols have initiated actions to recover and reimburse lost investor capital, and we commit to acting as your relentless advocate to secure any and all available external recovery.',
+    'riskMitigation.risk2.title': '2. Exchange Rate Risk',
+    'riskMitigation.risk2.description': 'Your deposit is converted to US Dollar stablecoins to earn yield. If the Japanese Yen strengthens when you withdraw, the amount of JPY you receive back may be less than your original deposit. That said, if Yen weakens when you withdraw, you will receive more Yen than your initial deposit.',
+    'riskMitigation.risk2.mitigation': 'Mitigation',
+    'riskMitigation.risk2.mitigationText': 'We show you this real-time risk via our Red/Green indicator. You bear this currency risk, but in exchange, you receive the full potential of the high global yield alongside the possibility to gain extra return from currency fluctuations.',
+    'riskMitigation.risk3.title': '3. Stablecoin Reserve Risk',
+    'riskMitigation.risk3.description': 'Although rare, the stablecoins can lose its peg due to reserve insolvency or banking crises, which can result in the loss of your principal.',
+    'riskMitigation.risk3.mitigation': 'Mitigation',
+    'riskMitigation.risk3.mitigationText': 'All funds will only be converted to USDC, the single-most secured, compliant, and reputable USD-pegged stablecoin among all, to minimize depegging risks.',
   },
   ja: {
     // Auth
@@ -324,6 +344,26 @@ const translations = {
     
     // Risk Mitigation
     'riskMitigation.title': 'リスクと緩和策',
+    'riskMitigation.intro': 'Perkloopへようこそ。当サービスは、分散型金融（DeFi）レンディングへの参加により高いリターンを提供することを目指しています。投資する前に、リスクと当社のリスク緩和策について理解する必要があります。',
+    'riskMitigation.warning': 'あなたの元本は日本政府や銀行によって保険されていません。',
+    'riskMitigation.risk1.title': '1. プロトコル悪用リスク',
+    'riskMitigation.risk1.description': 'あなたの資金は自動化された公開ソフトウェア（スマートコントラクト）によって管理されます。近年セキュリティは大幅に改善されていますが、このコードの欠陥がハッカーによって悪用され、投資元本の最大100％を失う可能性があります。',
+    'riskMitigation.risk1.mitigation': '緩和策',
+    'riskMitigation.risk1.mitigationIntro': '投資を保護するために複数の防御層を確立しています：',
+    'riskMitigation.risk1.mitigation1.title': '三重監査システム：',
+    'riskMitigation.risk1.mitigation1.text': '四半期ごとに高品質のセキュリティ監査に投資し、安全なプログラミング言語で作成されたブロックチェーンであるSui上の2〜3の別々の高評価レンディングプロトコル（規模と安定性で測定）に資産を展開します。',
+    'riskMitigation.risk1.mitigation2.title': '投資家保護基金（IPF）：',
+    'riskMitigation.risk1.mitigation2.text': '当社の分離資本に裏付けられた投資家保護基金（IPF）を設立し、ハッキングが発生した場合に損失の20％を補償します。これはあなたの即座の安全網です。',
+    'riskMitigation.risk1.mitigation3.title': '完全回復への取り組み：',
+    'riskMitigation.risk1.mitigation3.text': 'ハッキングが発生した場合、直ちにL1チェーン財団（例：Sui Foundation）とプロトコルのガバナンスコミュニティ（DAO）に働きかけ、法的・技術的な取り組みを全面的に展開し、コミュニティ資金による資産回復または補償の可能性を最大化します。歴史的に、主要なL1チェーンとプロトコルは失われた投資家資本を回復し補償するための行動を開始しており、私たちはあなたの不屈の代弁者として、利用可能なすべての外部回復を確保することを約束します。',
+    'riskMitigation.risk2.title': '2. 為替リスク',
+    'riskMitigation.risk2.description': 'あなたの預金は利回りを得るために米ドルステーブルコインに変換されます。引き出し時に日本円が強くなっている場合、受け取る円の金額は元の預金額よりも少なくなる可能性があります。ただし、引き出し時に円が弱くなっている場合は、最初の預金額よりも多くの円を受け取ることができます。',
+    'riskMitigation.risk2.mitigation': '緩和策',
+    'riskMitigation.risk2.mitigationText': '赤/緑インジケーターを通じてこのリアルタイムリスクを表示します。この通貨リスクを負担する代わりに、高いグローバル利回りの全潜在力と、為替変動から追加のリターンを得る可能性を受け取ります。',
+    'riskMitigation.risk3.title': '3. ステーブルコイン準備金リスク',
+    'riskMitigation.risk3.description': 'まれではありますが、準備金の破綻や銀行危機により、ステーブルコインがペッグを失い、元本を失う可能性があります。',
+    'riskMitigation.risk3.mitigation': '緩和策',
+    'riskMitigation.risk3.mitigationText': 'すべての資金はUSDCのみに変換されます。USDCは最も安全で、コンプライアンスに準拠し、評判の高い米ドルペッグステーブルコインであり、ペッグ解除リスクを最小限に抑えます。',
   }
 };
 
