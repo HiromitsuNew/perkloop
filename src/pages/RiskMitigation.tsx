@@ -46,8 +46,8 @@ const RiskMitigation = () => {
               Your money is managed by automated, public software (called smart contracts). Flaws in this code can be exploited by hackers, leading to the potential loss of up to 100% of your invested principal.
             </p>
             
-            <div className="pl-4 border-l-4 border-primary/30 space-y-2">
-              <h3 className="font-semibold text-primary text-lg">Mitigation</h3>
+            <div className="pl-4 border-l-4 border-green-500 space-y-2">
+              <h3 className="font-semibold text-green-600 dark:text-green-400 text-lg">Mitigation</h3>
               <p className="text-foreground/80 leading-relaxed">
                 We establish multiple layers of defense to protect your investment:
               </p>
@@ -74,8 +74,8 @@ const RiskMitigation = () => {
               Your deposit is converted to US Dollar stablecoins to earn yield. If the Japanese Yen strengthens when you withdraw, the amount of JPY you receive back may be less than your original deposit. That said, if Yen weakens when you withdraw, you will receive more Yen than your initial deposit.
             </p>
             
-            <div className="pl-4 border-l-4 border-primary/30 space-y-2">
-              <h3 className="font-semibold text-primary text-lg">Mitigation</h3>
+            <div className="pl-4 border-l-4 border-green-500 space-y-2">
+              <h3 className="font-semibold text-green-600 dark:text-green-400 text-lg">Mitigation</h3>
               <p className="text-foreground/80 leading-relaxed">
                 We show you this real-time risk via our Red/Green indicator. You bear this currency risk, but in exchange, you receive the full potential of the high global yield alongside the possibility to gain extra return from currency fluctuations.
               </p>
@@ -91,8 +91,8 @@ const RiskMitigation = () => {
               Although rare, the stablecoins can lose its peg due to reserve insolvency or banking crises, which can result in the loss of your principal.
             </p>
             
-            <div className="pl-4 border-l-4 border-primary/30 space-y-2">
-              <h3 className="font-semibold text-primary text-lg">Mitigation</h3>
+            <div className="pl-4 border-l-4 border-green-500 space-y-2">
+              <h3 className="font-semibold text-green-600 dark:text-green-400 text-lg">Mitigation</h3>
               <p className="text-foreground/80 leading-relaxed">
                 All funds will only be converted to USDC, the single-most secured, compliant, and reputable USD-pegged stablecoin among all, to minimize depegging risks.
               </p>
