@@ -22,7 +22,9 @@ interface AuditLog {
   action_type: string;
   investment_id: string | null;
   details: any;
-  admin_email?: string;
+  admin_profile?: {
+    email: string;
+  };
 }
 
 export default function AuditLogs() {
@@ -40,7 +42,7 @@ export default function AuditLogs() {
 
       if (error) throw error;
       
-      // Fetch admin profiles for all logs
+      // Fetch admin profiles
       const adminIds = logsData?.map(log => log.admin_user_id) || [];
       const { data: profilesData } = await supabase
         .from('profiles')
@@ -51,7 +53,7 @@ export default function AuditLogs() {
       const profileMap = new Map(profilesData?.map(p => [p.user_id, p]) || []);
       const enrichedLogs = logsData?.map(log => ({
         ...log,
-        admin_email: profileMap.get(log.admin_user_id)?.email || 'Unknown',
+        admin_profile: profileMap.get(log.admin_user_id),
       })) || [];
       
       setLogs(enrichedLogs);
@@ -75,7 +77,7 @@ export default function AuditLogs() {
     const headers = ['Timestamp', 'Admin Email', 'Action Type', 'Investment ID', 'Details'];
     const csvData = logs.map((log) => [
       new Date(log.timestamp).toLocaleString(),
-      log.admin_email || 'Unknown',
+      log.admin_profile?.email || 'N/A',
       log.action_type,
       log.investment_id || 'N/A',
       JSON.stringify(log.details),
@@ -159,7 +161,7 @@ export default function AuditLogs() {
                 {logs.map((log) => (
                   <TableRow key={log.id}>
                     <TableCell>{new Date(log.timestamp).toLocaleString()}</TableCell>
-                    <TableCell className="text-sm">{log.admin_email}</TableCell>
+                    <TableCell>{log.admin_profile?.email || 'N/A'}</TableCell>
                     <TableCell>
                       <Badge variant={getActionBadgeVariant(log.action_type)}>
                         {log.action_type}
