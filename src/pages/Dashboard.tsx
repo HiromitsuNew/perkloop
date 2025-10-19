@@ -99,18 +99,18 @@ const Dashboard = () => {
               </AlertDialogTrigger>
               <AlertDialogContent>
                 <AlertDialogHeader>
-                  <AlertDialogTitle>Reset All Investments?</AlertDialogTitle>
+                  <AlertDialogTitle>{t('dashboard.resetTitle')}</AlertDialogTitle>
                   <AlertDialogDescription className="space-y-3">
-                    <p>This will permanently delete all your investments and history. This action cannot be undone.</p>
+                    <p>{t('dashboard.resetDescription')}</p>
                     <p className="text-destructive font-bold text-base border-2 border-destructive rounded-md p-3 bg-destructive/10">
-                      ⚠️ WARNING: do NOT use this function unless strictly authorized by the admin.
+                      {t('dashboard.resetWarning')}
                     </p>
                   </AlertDialogDescription>
                 </AlertDialogHeader>
                 <AlertDialogFooter>
-                  <AlertDialogCancel>Cancel</AlertDialogCancel>
+                  <AlertDialogCancel>{t('dashboard.cancel')}</AlertDialogCancel>
                   <AlertDialogAction onClick={handleReset} className="bg-destructive hover:bg-destructive/90">
-                    Reset
+                    {t('dashboard.reset')}
                   </AlertDialogAction>
                 </AlertDialogFooter>
               </AlertDialogContent>
