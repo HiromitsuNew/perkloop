@@ -14,47 +14,123 @@ export type Database = {
   }
   public: {
     Tables: {
+      audit_logs: {
+        Row: {
+          action_type: string
+          admin_user_id: string | null
+          details: Json | null
+          id: string
+          investment_id: string | null
+          ip_address: string | null
+          timestamp: string | null
+        }
+        Insert: {
+          action_type: string
+          admin_user_id?: string | null
+          details?: Json | null
+          id?: string
+          investment_id?: string | null
+          ip_address?: string | null
+          timestamp?: string | null
+        }
+        Update: {
+          action_type?: string
+          admin_user_id?: string | null
+          details?: Json | null
+          id?: string
+          investment_id?: string | null
+          ip_address?: string | null
+          timestamp?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "audit_logs_investment_id_fkey"
+            columns: ["investment_id"]
+            isOneToOne: false
+            referencedRelation: "investments"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       investments: {
         Row: {
           created_at: string
           deposit_amount: number
+          expected_return_date: string | null
           id: string
           investment_days: number
+          jpy_amount: number | null
+          jpy_received_at: string | null
+          navi_deployed_at: string | null
+          navi_transaction_hash: string | null
           payment_method: string
+          payout_jpy_amount: number | null
+          payout_processed_at: string | null
+          payout_transaction_id: string | null
           product_name: string
+          reference_code: string | null
           returns: number
           status: string
           updated_at: string
+          usdc_amount: number | null
+          usdc_converted_at: string | null
           user_id: string
         }
         Insert: {
           created_at?: string
           deposit_amount: number
+          expected_return_date?: string | null
           id?: string
           investment_days: number
+          jpy_amount?: number | null
+          jpy_received_at?: string | null
+          navi_deployed_at?: string | null
+          navi_transaction_hash?: string | null
           payment_method: string
+          payout_jpy_amount?: number | null
+          payout_processed_at?: string | null
+          payout_transaction_id?: string | null
           product_name: string
+          reference_code?: string | null
           returns?: number
           status?: string
           updated_at?: string
+          usdc_amount?: number | null
+          usdc_converted_at?: string | null
           user_id: string
         }
         Update: {
           created_at?: string
           deposit_amount?: number
+          expected_return_date?: string | null
           id?: string
           investment_days?: number
+          jpy_amount?: number | null
+          jpy_received_at?: string | null
+          navi_deployed_at?: string | null
+          navi_transaction_hash?: string | null
           payment_method?: string
+          payout_jpy_amount?: number | null
+          payout_processed_at?: string | null
+          payout_transaction_id?: string | null
           product_name?: string
+          reference_code?: string | null
           returns?: number
           status?: string
           updated_at?: string
+          usdc_amount?: number | null
+          usdc_converted_at?: string | null
           user_id?: string
         }
         Relationships: []
       }
       profiles: {
         Row: {
+          account_holder_name: string | null
+          account_number: string | null
+          account_type: string | null
+          bank_branch: string | null
+          bank_name: string | null
           created_at: string
           email: string | null
           id: string
@@ -62,6 +138,11 @@ export type Database = {
           user_id: string
         }
         Insert: {
+          account_holder_name?: string | null
+          account_number?: string | null
+          account_type?: string | null
+          bank_branch?: string | null
+          bank_name?: string | null
           created_at?: string
           email?: string | null
           id?: string
@@ -69,10 +150,36 @@ export type Database = {
           user_id: string
         }
         Update: {
+          account_holder_name?: string | null
+          account_number?: string | null
+          account_type?: string | null
+          bank_branch?: string | null
+          bank_name?: string | null
           created_at?: string
           email?: string | null
           id?: string
           updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      user_roles: {
+        Row: {
+          created_at: string | null
+          id: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Insert: {
+          created_at?: string | null
+          id?: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Update: {
+          created_at?: string | null
+          id?: string
+          role?: Database["public"]["Enums"]["app_role"]
           user_id?: string
         }
         Relationships: []
@@ -82,10 +189,24 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      has_role: {
+        Args: {
+          _role: Database["public"]["Enums"]["app_role"]
+          _user_id: string
+        }
+        Returns: boolean
+      }
+      log_admin_action: {
+        Args: {
+          p_action_type: string
+          p_details: Json
+          p_investment_id: string
+        }
+        Returns: undefined
+      }
     }
     Enums: {
-      [_ in never]: never
+      app_role: "admin" | "user"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -212,6 +333,8 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      app_role: ["admin", "user"],
+    },
   },
 } as const
