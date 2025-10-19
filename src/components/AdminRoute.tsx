@@ -9,7 +9,7 @@ interface AdminRouteProps {
 
 const AdminRoute = ({ children }: AdminRouteProps) => {
   const { user, loading } = useAuth();
-  const [isAdmin, setIsAdmin] = useState(false);
+  const [isAdmin, setIsAdmin] = useState<boolean | null>(null);
   const [checking, setChecking] = useState(true);
 
   useEffect(() => {
@@ -61,7 +61,7 @@ const AdminRoute = ({ children }: AdminRouteProps) => {
     return <Navigate to="/auth" replace />;
   }
 
-  if (!isAdmin) {
+  if (isAdmin === false) {
     return <Navigate to="/" replace />;
   }
 
