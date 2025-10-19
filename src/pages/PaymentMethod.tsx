@@ -11,16 +11,22 @@ const PaymentMethod = () => {
   const location = useLocation();
   const { t, language } = useLanguage();
   
-  // Get the deposit details from the previous page, with fallback values
+  // Get the deposit details from the previous page
   const { 
-    depositAmount = 3968.8, 
-    investmentDays = 30,
-    timeString = "1 month", 
-    sliderValue = 100,
-    product = 'netflix',
-    price = 12.99,
-    icon = 'Monitor'
+    depositAmount, 
+    investmentDays,
+    timeString, 
+    sliderValue,
+    product,
+    price,
+    icon
   } = location.state || {};
+  
+  // Redirect to decide-deposit if no state
+  if (!product || !depositAmount || !investmentDays) {
+    navigate('/pick-purchase');
+    return null;
+  }
   
   // Get icon and product name
   const getIconComponent = () => {

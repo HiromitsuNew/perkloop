@@ -29,6 +29,12 @@ const PaymentProcess = () => {
   
   const { paymentMethod, depositAmount, selectedProduct, investmentDays } = location.state || {};
 
+  // Redirect if no state
+  if (!paymentMethod || !depositAmount || !selectedProduct || !investmentDays) {
+    navigate('/pick-purchase');
+    return null;
+  }
+
   useEffect(() => {
     // Check for duplicate investment when component mounts
     if (selectedProduct && investments.length > 0) {

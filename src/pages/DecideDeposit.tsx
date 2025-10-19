@@ -15,7 +15,13 @@ const DecideDeposit = () => {
   const { userAPY, isLoading } = useNaviAPY();
   
   // Get product info from navigation state
-  const { product = 'netflix', price = 12.99, icon = 'Monitor' } = location.state || {};
+  const { product, price, icon } = location.state || {};
+  
+  // Redirect to pick-purchase if no product selected
+  if (!product || !price || !icon) {
+    navigate('/pick-purchase');
+    return null;
+  }
   
   // Standardized day intervals for all items: 6 months down to 1 day
   const dayIntervals = [
