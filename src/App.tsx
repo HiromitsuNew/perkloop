@@ -20,6 +20,7 @@ import PendingDeposits from "./pages/admin/PendingDeposits";
 import Payouts from "./pages/admin/Payouts";
 import AuditLogs from "./pages/admin/AuditLogs";
 import Emergency from "./pages/admin/Emergency";
+import Users from "./pages/admin/Users";
 
 const queryClient = new QueryClient();
 
@@ -42,6 +43,7 @@ const App = () => (
               
               {/* Admin Routes */}
               <Route path="/admin" element={<AdminRoute><AdminDashboard /></AdminRoute>} />
+              <Route path="/admin/users" element={<AdminRoute><Users /></AdminRoute>} />
               <Route path="/admin/pending-deposits" element={<AdminRoute><PendingDeposits /></AdminRoute>} />
               <Route path="/admin/payouts" element={<AdminRoute><Payouts /></AdminRoute>} />
               <Route path="/admin/audit-logs" element={<AdminRoute><AuditLogs /></AdminRoute>} />
