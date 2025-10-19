@@ -20,6 +20,7 @@ const AdminRoute = ({ children }: AdminRouteProps) => {
         return;
       }
 
+      setChecking(true); // Reset checking to true when we have a user
       console.log('AdminRoute: Checking admin role for user:', user.id);
 
       try {
