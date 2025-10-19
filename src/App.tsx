@@ -14,6 +14,12 @@ import PaymentProcess from "./pages/PaymentProcess";
 import RiskMitigation from "./pages/RiskMitigation";
 import NotFound from "./pages/NotFound";
 import ProtectedRoute from "./components/ProtectedRoute";
+import AdminRoute from "./components/AdminRoute";
+import AdminDashboard from "./pages/admin/AdminDashboard";
+import PendingDeposits from "./pages/admin/PendingDeposits";
+import Payouts from "./pages/admin/Payouts";
+import AuditLogs from "./pages/admin/AuditLogs";
+import Emergency from "./pages/admin/Emergency";
 
 const queryClient = new QueryClient();
 
@@ -33,6 +39,14 @@ const App = () => (
               <Route path="/payment-method" element={<ProtectedRoute><PaymentMethod /></ProtectedRoute>} />
               <Route path="/payment-process" element={<ProtectedRoute><PaymentProcess /></ProtectedRoute>} />
               <Route path="/risk-mitigation" element={<ProtectedRoute><RiskMitigation /></ProtectedRoute>} />
+              
+              {/* Admin Routes */}
+              <Route path="/admin" element={<AdminRoute><AdminDashboard /></AdminRoute>} />
+              <Route path="/admin/pending-deposits" element={<AdminRoute><PendingDeposits /></AdminRoute>} />
+              <Route path="/admin/payouts" element={<AdminRoute><Payouts /></AdminRoute>} />
+              <Route path="/admin/audit-logs" element={<AdminRoute><AuditLogs /></AdminRoute>} />
+              <Route path="/admin/emergency" element={<AdminRoute><Emergency /></AdminRoute>} />
+              
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />
             </Routes>
