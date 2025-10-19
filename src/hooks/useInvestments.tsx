@@ -91,17 +91,28 @@ export const useInvestments = () => {
   };
 
   const deleteAllInvestments = async () => {
-    if (!user) throw new Error('User not authenticated');
+    if (!user) {
+      console.error('Delete failed: User not authenticated');
+      throw new Error('User not authenticated');
+    }
 
-    const { error } = await supabase
+    console.log('Attempting to delete all investments for user:', user.id);
+
+    const { error, data } = await supabase
       .from('investments')
       .delete()
-      .eq('user_id', user.id);
+      .eq('user_id', user.id)
+      .select();
 
-    if (error) throw error;
+    if (error) {
+      console.error('Delete error:', error);
+      throw error;
+    }
+    
+    console.log('Deleted investments:', data);
     
     // Refresh investments list
-    fetchInvestments();
+    await fetchInvestments();
   };
 
   useEffect(() => {

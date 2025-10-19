@@ -44,15 +44,18 @@ const Dashboard = () => {
 
   const handleReset = async () => {
     try {
+      console.log('Starting reset...');
       await deleteAllInvestments();
+      console.log('Reset successful');
       toast({
-        title: t('dashboard.resetComplete'),
-        description: t('dashboard.resetSuccess'),
+        title: "Reset Complete",
+        description: "All investments have been cleared.",
       });
     } catch (error) {
+      console.error('Reset error:', error);
       toast({
-        title: t('dashboard.error'),
-        description: t('dashboard.resetFailed'),
+        title: "Error",
+        description: error instanceof Error ? error.message : "Failed to reset investments.",
         variant: "destructive",
       });
     }
@@ -96,14 +99,19 @@ const Dashboard = () => {
               </AlertDialogTrigger>
               <AlertDialogContent>
                 <AlertDialogHeader>
-                  <AlertDialogTitle>{t('dashboard.resetTitle')}</AlertDialogTitle>
-                  <AlertDialogDescription>
-                    {t('dashboard.resetDescription')}
+                  <AlertDialogTitle>Total Reset</AlertDialogTitle>
+                  <AlertDialogDescription className="space-y-2">
+                    <p>Confirm to remove all your active investments.</p>
+                    <p className="text-destructive font-semibold">
+                      WARNING: do NOT use this function unless strictly authorized by the admin.
+                    </p>
                   </AlertDialogDescription>
                 </AlertDialogHeader>
                 <AlertDialogFooter>
-                  <AlertDialogCancel>{t('dashboard.cancel')}</AlertDialogCancel>
-                  <AlertDialogAction onClick={handleReset}>{t('dashboard.reset')}</AlertDialogAction>
+                  <AlertDialogCancel>Cancel</AlertDialogCancel>
+                  <AlertDialogAction onClick={handleReset} className="bg-destructive hover:bg-destructive/90">
+                    Confirm
+                  </AlertDialogAction>
                 </AlertDialogFooter>
               </AlertDialogContent>
             </AlertDialog>
