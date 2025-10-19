@@ -22,6 +22,7 @@ interface AuditLog {
   action_type: string;
   investment_id: string | null;
   details: any;
+  admin_email?: string;
 }
 
 export default function AuditLogs() {
@@ -31,14 +32,29 @@ export default function AuditLogs() {
 
   const fetchLogs = async () => {
     try {
-      const { data, error } = await supabase
+      const { data: logsData, error } = await supabase
         .from('audit_logs')
         .select('*')
         .order('timestamp', { ascending: false })
         .limit(100);
 
       if (error) throw error;
-      setLogs(data || []);
+      
+      // Fetch admin profiles for all logs
+      const adminIds = logsData?.map(log => log.admin_user_id) || [];
+      const { data: profilesData } = await supabase
+        .from('profiles')
+        .select('user_id, email')
+        .in('user_id', adminIds);
+      
+      // Map profiles to logs
+      const profileMap = new Map(profilesData?.map(p => [p.user_id, p]) || []);
+      const enrichedLogs = logsData?.map(log => ({
+        ...log,
+        admin_email: profileMap.get(log.admin_user_id)?.email || 'Unknown',
+      })) || [];
+      
+      setLogs(enrichedLogs);
     } catch (error) {
       console.error('Error fetching audit logs:', error);
       toast({
@@ -56,9 +72,10 @@ export default function AuditLogs() {
   }, []);
 
   const exportToCSV = () => {
-    const headers = ['Timestamp', 'Action Type', 'Investment ID', 'Details'];
+    const headers = ['Timestamp', 'Admin Email', 'Action Type', 'Investment ID', 'Details'];
     const csvData = logs.map((log) => [
       new Date(log.timestamp).toLocaleString(),
+      log.admin_email || 'Unknown',
       log.action_type,
       log.investment_id || 'N/A',
       JSON.stringify(log.details),
@@ -132,6 +149,7 @@ export default function AuditLogs() {
               <TableHeader>
                 <TableRow>
                   <TableHead>Timestamp</TableHead>
+                  <TableHead>Admin Email</TableHead>
                   <TableHead>Action Type</TableHead>
                   <TableHead>Investment ID</TableHead>
                   <TableHead>Details</TableHead>
@@ -141,6 +159,7 @@ export default function AuditLogs() {
                 {logs.map((log) => (
                   <TableRow key={log.id}>
                     <TableCell>{new Date(log.timestamp).toLocaleString()}</TableCell>
+                    <TableCell className="text-sm">{log.admin_email}</TableCell>
                     <TableCell>
                       <Badge variant={getActionBadgeVariant(log.action_type)}>
                         {log.action_type}

@@ -17,10 +17,10 @@ export default function AdminDashboard() {
   useEffect(() => {
     const fetchStats = async () => {
       try {
-        // Get total unique users
+        // Get total unique users from profiles table
         const { count: userCount } = await supabase
-          .from('investments')
-          .select('user_id', { count: 'exact', head: true });
+          .from('profiles')
+          .select('*', { count: 'exact', head: true });
 
         // Get total AUM (pending + active)
         const { data: aumData } = await supabase
