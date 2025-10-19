@@ -15,9 +15,12 @@ const AdminRoute = ({ children }: AdminRouteProps) => {
   useEffect(() => {
     const checkAdmin = async () => {
       if (!user) {
+        console.log('AdminRoute: No user found');
         setChecking(false);
         return;
       }
+
+      console.log('AdminRoute: Checking admin role for user:', user.id);
 
       try {
         const { data, error } = await supabase.rpc('has_role', {
@@ -25,10 +28,13 @@ const AdminRoute = ({ children }: AdminRouteProps) => {
           _role: 'admin'
         });
 
+        console.log('AdminRoute: has_role response:', { data, error });
+
         if (error) {
           console.error('Error checking admin role:', error);
           setIsAdmin(false);
         } else {
+          console.log('AdminRoute: Setting isAdmin to:', data === true);
           setIsAdmin(data === true);
         }
       } catch (error) {
