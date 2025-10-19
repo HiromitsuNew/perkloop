@@ -48,14 +48,29 @@ export default function PendingDeposits() {
 
   const fetchPendingDeposits = async () => {
     try {
-      const { data, error } = await supabase
+      const { data: investmentsData, error } = await supabase
         .from('investments')
-        .select('*, profiles(email)')
+        .select('*')
         .eq('status', 'pending')
         .order('created_at', { ascending: true });
 
       if (error) throw error;
-      setInvestments(data || []);
+      
+      // Fetch profiles for all users
+      const userIds = investmentsData?.map(inv => inv.user_id) || [];
+      const { data: profilesData } = await supabase
+        .from('profiles')
+        .select('user_id, email')
+        .in('user_id', userIds);
+      
+      // Map profiles to investments
+      const profileMap = new Map(profilesData?.map(p => [p.user_id, p]) || []);
+      const enrichedData = investmentsData?.map(inv => ({
+        ...inv,
+        profiles: profileMap.get(inv.user_id) || { email: '' },
+      })) || [];
+      
+      setInvestments(enrichedData);
     } catch (error) {
       console.error('Error fetching pending deposits:', error);
       toast({

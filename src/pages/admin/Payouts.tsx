@@ -53,15 +53,36 @@ export default function Payouts() {
     try {
       const today = new Date().toISOString().split('T')[0];
 
-      const { data, error } = await supabase
+      const { data: investmentsData, error } = await supabase
         .from('investments')
-        .select('*, profiles(email, bank_name, bank_branch, account_number, account_holder_name)')
+        .select('*')
         .eq('status', 'active')
         .lte('expected_return_date', today)
         .order('expected_return_date', { ascending: true });
 
       if (error) throw error;
-      setInvestments(data || []);
+      
+      // Fetch profiles for all users
+      const userIds = investmentsData?.map(inv => inv.user_id) || [];
+      const { data: profilesData } = await supabase
+        .from('profiles')
+        .select('user_id, email, bank_name, bank_branch, account_number, account_holder_name')
+        .in('user_id', userIds);
+      
+      // Map profiles to investments
+      const profileMap = new Map(profilesData?.map(p => [p.user_id, p]) || []);
+      const enrichedData = investmentsData?.map(inv => ({
+        ...inv,
+        profiles: profileMap.get(inv.user_id) || {
+          email: '',
+          bank_name: '',
+          bank_branch: '',
+          account_number: '',
+          account_holder_name: '',
+        },
+      })) || [];
+      
+      setInvestments(enrichedData);
     } catch (error) {
       console.error('Error fetching ready payouts:', error);
       toast({

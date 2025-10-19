@@ -47,20 +47,33 @@ export default function Emergency() {
       // Generate refund CSV data
       const { data: activeInvestments } = await supabase
         .from('investments')
-        .select('*, profiles(email, bank_name, bank_branch, account_number, account_holder_name)')
+        .select('*')
         .in('status', ['active', 'suspended', 'pending']);
+      
+      // Fetch all unique user IDs
+      const userIds = activeInvestments?.map(inv => inv.user_id) || [];
+      const { data: profiles } = await supabase
+        .from('profiles')
+        .select('user_id, email, bank_name, bank_branch, account_number, account_holder_name')
+        .in('user_id', userIds);
+      
+      // Create a map of user_id to profile
+      const profileMap = new Map(profiles?.map(p => [p.user_id, p]) || []);
 
       if (activeInvestments && activeInvestments.length > 0) {
         const csvData = [
           ['Email', 'Bank Name', 'Branch', 'Account Number', 'Holder Name', 'Refund Amount'],
-          ...activeInvestments.map((inv) => [
-            inv.profiles.email,
-            inv.profiles.bank_name || 'N/A',
-            inv.profiles.bank_branch || 'N/A',
-            inv.profiles.account_number || 'N/A',
-            inv.profiles.account_holder_name || 'N/A',
-            Number(inv.deposit_amount) + Number(inv.returns || 0),
-          ]),
+          ...activeInvestments.map((inv) => {
+            const profile = profileMap.get(inv.user_id);
+            return [
+              profile?.email || 'N/A',
+              profile?.bank_name || 'N/A',
+              profile?.bank_branch || 'N/A',
+              profile?.account_number || 'N/A',
+              profile?.account_holder_name || 'N/A',
+              Number(inv.deposit_amount) + Number(inv.returns || 0),
+            ];
+          }),
         ];
 
         const csv = csvData.map((row) => row.map((cell) => `"${cell}"`).join(',')).join('\n');
