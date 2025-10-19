@@ -159,7 +159,7 @@ const PaymentProcess = () => {
           <Button 
             variant="ghost" 
             size="icon"
-            onClick={() => navigate('/payment-method')}
+            onClick={() => navigate(-1)}
             className="text-foreground"
           >
             <ArrowLeft className="w-5 h-5" />
