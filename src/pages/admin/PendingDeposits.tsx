@@ -29,6 +29,7 @@ interface PendingInvestment {
   user_id: string;
   product_name: string;
   deposit_amount: number;
+  investment_days: number;
   reference_code: string;
   created_at: string;
   profiles: {
@@ -102,7 +103,7 @@ export default function PendingDeposits() {
           navi_deployed_at: new Date().toISOString(),
           navi_transaction_hash: txHash,
           expected_return_date: new Date(
-            Date.now() + selectedInvestment.deposit_amount * 24 * 60 * 60 * 1000
+            Date.now() + selectedInvestment.investment_days * 24 * 60 * 60 * 1000
           ).toISOString().split('T')[0],
         })
         .eq('id', selectedInvestment.id);
@@ -215,6 +216,7 @@ export default function PendingDeposits() {
                   <TableHead>User Email</TableHead>
                   <TableHead>Product</TableHead>
                   <TableHead>Amount</TableHead>
+                  <TableHead>Investment Period</TableHead>
                   <TableHead>Reference Code</TableHead>
                   <TableHead>Days Waiting</TableHead>
                   <TableHead>Actions</TableHead>
@@ -226,6 +228,7 @@ export default function PendingDeposits() {
                     <TableCell>{investment.profiles.email}</TableCell>
                     <TableCell>{investment.product_name}</TableCell>
                     <TableCell>¥{Number(investment.deposit_amount).toLocaleString()}</TableCell>
+                    <TableCell className="font-semibold">{investment.investment_days} days</TableCell>
                     <TableCell className="font-mono text-sm">{investment.reference_code}</TableCell>
                     <TableCell>{getDaysWaiting(investment.created_at)} days</TableCell>
                     <TableCell className="space-x-2">
