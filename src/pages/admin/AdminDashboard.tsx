@@ -74,7 +74,7 @@ export default function AdminDashboard() {
     <div className="container mx-auto p-6 space-y-6">
       <div className="flex items-center justify-between">
         <h1 className="text-3xl font-bold text-foreground">Admin Dashboard</h1>
-        <Link to="/dashboard">
+        <Link to="/">
           <Button variant="outline">Back to App</Button>
         </Link>
       </div>
