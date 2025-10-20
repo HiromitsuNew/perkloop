@@ -141,11 +141,12 @@ const Dashboard = () => {
           <div className="flex justify-around gap-4">
             <div className="text-center space-y-2">
               <p className="text-sm text-muted-foreground">{t('dashboard.withdrawable')}</p>
-              <h3 className="text-4xl font-bold">￥{Math.ceil(totalInvestment)}</h3>
+              <h3 className="text-4xl font-bold">${Math.ceil(totalInvestment / 150)}</h3>
+              <p className="text-xs text-muted-foreground">{t('dashboard.byDeposit')} ￥{Math.ceil(totalInvestment)}</p>
             </div>
             <div className="text-center space-y-2">
               <p className="text-sm text-muted-foreground">{t('dashboard.returns')}</p>
-              <h3 className="text-4xl font-bold">￥{Math.ceil(totalReturns)}</h3>
+              <h3 className="text-4xl font-bold">${Math.ceil(totalReturns / 150)}</h3>
             </div>
           </div>
 
