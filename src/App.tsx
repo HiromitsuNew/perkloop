@@ -12,6 +12,7 @@ import DecideDeposit from "./pages/DecideDeposit";
 import PaymentMethod from "./pages/PaymentMethod";
 import PaymentProcess from "./pages/PaymentProcess";
 import RiskMitigation from "./pages/RiskMitigation";
+import Withdraw from "./pages/Withdraw";
 import NotFound from "./pages/NotFound";
 import ProtectedRoute from "./components/ProtectedRoute";
 import AdminRoute from "./components/AdminRoute";
@@ -40,6 +41,7 @@ const App = () => (
               <Route path="/payment-method" element={<ProtectedRoute><PaymentMethod /></ProtectedRoute>} />
               <Route path="/payment-process" element={<ProtectedRoute><PaymentProcess /></ProtectedRoute>} />
               <Route path="/risk-mitigation" element={<ProtectedRoute><RiskMitigation /></ProtectedRoute>} />
+              <Route path="/withdraw" element={<ProtectedRoute><Withdraw /></ProtectedRoute>} />
               
               {/* Admin Routes */}
               <Route path="/admin" element={<AdminRoute><AdminDashboard /></AdminRoute>} />

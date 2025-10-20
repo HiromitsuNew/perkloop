@@ -72,6 +72,22 @@ const translations = {
     'dashboard.returnsDialogTitle': 'Your Returns',
     'dashboard.returnsDialogDescription': 'View your APY and fee structure details',
     
+    // Withdraw page
+    'withdraw.title': 'Withdraw',
+    'withdraw.selectOption': 'Select Withdrawal Option',
+    'withdraw.returns': 'Withdraw Returns',
+    'withdraw.principles': 'Withdraw Principles',
+    'withdraw.frequencyTitle': 'Withdrawal Frequency',
+    'withdraw.frequencyDescription': 'How often would you like to receive returns?',
+    'withdraw.weekly': 'Once a week',
+    'withdraw.biweekly': 'Once every two weeks',
+    'withdraw.monthly': 'Once every month',
+    'withdraw.quarterly': 'Once every 4 months',
+    'withdraw.compoundingNote': '💡 Longer withdrawal periods can lead to more returns due to compounding interest and lower transaction fees.',
+    'withdraw.confirm': 'Confirm',
+    'withdraw.principlesTitle': 'Withdraw Principles',
+    'withdraw.principlesDescription': 'Withdraw your principal investment amount.',
+    
     // Pick Purchase
     'pickPurchase.title1': 'Select a desirable good to',
     'pickPurchase.title2': 'let your',
@@ -250,6 +266,22 @@ const translations = {
     'dashboard.noInvestments': '進行中の投資はありません。お金を働かせるために、希望する商品を選択してください。',
     'dashboard.returnsDialogTitle': 'あなたのリターン',
     'dashboard.returnsDialogDescription': 'APYと手数料体系の詳細を表示',
+    
+    // Withdraw page
+    'withdraw.title': '出金',
+    'withdraw.selectOption': '出金オプションを選択',
+    'withdraw.returns': 'リターンを出金',
+    'withdraw.principles': '元本を出金',
+    'withdraw.frequencyTitle': '出金頻度',
+    'withdraw.frequencyDescription': 'どのくらいの頻度でリターンを受け取りたいですか？',
+    'withdraw.weekly': '週に一度',
+    'withdraw.biweekly': '2週間に一度',
+    'withdraw.monthly': '月に一度',
+    'withdraw.quarterly': '4ヶ月に一度',
+    'withdraw.compoundingNote': '💡 出金期間を長くすると、複利効果と取引手数料の削減により、より多くのリターンが得られます。',
+    'withdraw.confirm': '確認',
+    'withdraw.principlesTitle': '元本の出金',
+    'withdraw.principlesDescription': '元本投資額を出金します。',
     
     // Pick Purchase
     'pickPurchase.title1': '欲しい商品を選んで',
