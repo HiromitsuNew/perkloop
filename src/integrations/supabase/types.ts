@@ -192,6 +192,33 @@ export type Database = {
         }
         Relationships: []
       }
+      withdrawal_preferences: {
+        Row: {
+          created_at: string
+          frequency: string | null
+          id: string
+          updated_at: string
+          user_id: string
+          withdrawal_type: string
+        }
+        Insert: {
+          created_at?: string
+          frequency?: string | null
+          id?: string
+          updated_at?: string
+          user_id: string
+          withdrawal_type: string
+        }
+        Update: {
+          created_at?: string
+          frequency?: string | null
+          id?: string
+          updated_at?: string
+          user_id?: string
+          withdrawal_type?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never

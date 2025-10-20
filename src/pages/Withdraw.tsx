@@ -5,12 +5,18 @@ import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Slider } from '@/components/ui/slider';
 import { useLanguage } from '@/contexts/LanguageContext';
+import { useAuth } from '@/contexts/AuthContext';
+import { supabase } from '@/integrations/supabase/client';
+import { useToast } from '@/hooks/use-toast';
 
 const Withdraw = () => {
   const navigate = useNavigate();
   const { t } = useLanguage();
+  const { user } = useAuth();
+  const { toast } = useToast();
   const [selectedOption, setSelectedOption] = useState<'returns' | 'principles' | null>(null);
   const [frequency, setFrequency] = useState([2]); // Default to monthly (index 2)
+  const [isSaving, setIsSaving] = useState(false);
 
   const frequencyOptions = [
     t('withdraw.weekly'),
@@ -18,12 +24,55 @@ const Withdraw = () => {
     t('withdraw.monthly'),
     t('withdraw.quarterly'),
   ];
+  
+  const frequencyValues = ['weekly', 'biweekly', 'monthly', 'quarterly'];
 
   const handleBack = () => {
     if (selectedOption) {
       setSelectedOption(null);
     } else {
       navigate('/dashboard');
+    }
+  };
+
+  const handleConfirm = async () => {
+    if (!user || !selectedOption) return;
+
+    setIsSaving(true);
+    try {
+      const preferenceData = {
+        user_id: user.id,
+        withdrawal_type: selectedOption,
+        frequency: selectedOption === 'returns' ? frequencyValues[frequency[0]] : null,
+      };
+
+      // Use upsert to insert or update existing preference
+      const { error } = await supabase
+        .from('withdrawal_preferences')
+        .upsert(preferenceData, {
+          onConflict: 'user_id,withdrawal_type'
+        });
+
+      if (error) throw error;
+
+      toast({
+        title: t('withdraw.success'),
+        description: t('withdraw.successDescription'),
+      });
+
+      // Navigate back to dashboard after short delay
+      setTimeout(() => {
+        navigate('/dashboard');
+      }, 1500);
+    } catch (error) {
+      console.error('Error saving withdrawal preference:', error);
+      toast({
+        title: t('withdraw.error'),
+        description: t('withdraw.errorDescription'),
+        variant: 'destructive',
+      });
+    } finally {
+      setIsSaving(false);
     }
   };
 
@@ -101,8 +150,13 @@ const Withdraw = () => {
                 </p>
               </div>
 
-              <Button size="lg" className="w-full">
-                {t('withdraw.confirm')}
+              <Button 
+                size="lg" 
+                className="w-full"
+                onClick={handleConfirm}
+                disabled={isSaving}
+              >
+                {isSaving ? t('withdraw.saving') : t('withdraw.confirm')}
               </Button>
             </div>
           </Card>
@@ -115,8 +169,13 @@ const Withdraw = () => {
                 {t('withdraw.principlesDescription')}
               </p>
             </div>
-            <Button size="lg" className="w-full">
-              {t('withdraw.confirm')}
+            <Button 
+              size="lg" 
+              className="w-full"
+              onClick={handleConfirm}
+              disabled={isSaving}
+            >
+              {isSaving ? t('withdraw.saving') : t('withdraw.confirm')}
             </Button>
           </Card>
         )}

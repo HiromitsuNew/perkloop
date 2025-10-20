@@ -87,6 +87,11 @@ const translations = {
     'withdraw.confirm': 'Confirm',
     'withdraw.principlesTitle': 'Withdraw Principles',
     'withdraw.principlesDescription': 'Withdraw your principal investment amount.',
+    'withdraw.saving': 'Saving...',
+    'withdraw.success': 'Preference Saved',
+    'withdraw.successDescription': 'Your withdrawal preference has been saved successfully.',
+    'withdraw.error': 'Error',
+    'withdraw.errorDescription': 'Failed to save withdrawal preference. Please try again.',
     
     // Pick Purchase
     'pickPurchase.title1': 'Select a desirable good to',
@@ -282,6 +287,11 @@ const translations = {
     'withdraw.confirm': '確認',
     'withdraw.principlesTitle': '元本の出金',
     'withdraw.principlesDescription': '元本投資額を出金します。',
+    'withdraw.saving': '保存中...',
+    'withdraw.success': '設定を保存しました',
+    'withdraw.successDescription': '出金設定が正常に保存されました。',
+    'withdraw.error': 'エラー',
+    'withdraw.errorDescription': '出金設定の保存に失敗しました。もう一度お試しください。',
     
     // Pick Purchase
     'pickPurchase.title1': '欲しい商品を選んで',
