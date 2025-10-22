@@ -116,10 +116,16 @@ export default function Users() {
         .from('withdrawal_preferences')
         .select('withdrawal_type, frequency')
         .eq('user_id', userId)
-        .maybeSingle();
+        .order('created_at', { ascending: false });
 
       if (error) throw error;
-      setWithdrawalPreference(data);
+      
+      // Get the most recent preference with returns type (most relevant for admin)
+      const returnsPreference = data?.find(pref => pref.withdrawal_type === 'returns');
+      const principlesPreference = data?.find(pref => pref.withdrawal_type === 'principles');
+      
+      // Store both for display
+      setWithdrawalPreference(returnsPreference || principlesPreference || null);
     } catch (error) {
       console.error('Error fetching withdrawal preference:', error);
       setWithdrawalPreference(null);
