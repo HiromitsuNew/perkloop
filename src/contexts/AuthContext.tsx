@@ -28,41 +28,67 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
   useEffect(() => {
     let mounted = true;
+    let timeoutId: NodeJS.Timeout;
 
-    // Check for existing session first
-    const initializeAuth = async () => {
-      try {
-        const { data: { session } } = await supabase.auth.getSession();
-        if (mounted) {
-          console.log('Initial session check:', session?.user?.email);
-          setSession(session);
-          setUser(session?.user ?? null);
-          setLoading(false);
-        }
-      } catch (error) {
-        console.error('Error getting session:', error);
-        if (mounted) {
-          setLoading(false);
-        }
+    // Safety timeout - if auth doesn't resolve in 5 seconds, bail out
+    timeoutId = setTimeout(() => {
+      if (mounted && loading) {
+        console.warn('Auth initialization timeout - proceeding without session');
+        setSession(null);
+        setUser(null);
+        setLoading(false);
       }
-    };
+    }, 5000);
 
-    initializeAuth();
-
-    // Set up auth state listener
+    // Set up auth state listener first
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
-      (event, session) => {
-        if (mounted) {
-          console.log('Auth state changed:', event, 'User:', session?.user?.email);
-          setSession(session);
-          setUser(session?.user ?? null);
+      async (event, session) => {
+        if (!mounted) return;
+        
+        console.log('Auth state changed:', event, 'User:', session?.user?.email);
+        setSession(session);
+        setUser(session?.user ?? null);
+        
+        // Only set loading to false after we've processed the auth state
+        if (event === 'INITIAL_SESSION' || event === 'SIGNED_IN' || event === 'SIGNED_OUT') {
           setLoading(false);
+          clearTimeout(timeoutId);
         }
       }
     );
 
+    // Get initial session
+    supabase.auth.getSession()
+      .then(({ data: { session }, error }) => {
+        if (!mounted) return;
+        
+        if (error) {
+          console.error('Error getting session:', error);
+          setSession(null);
+          setUser(null);
+          setLoading(false);
+          clearTimeout(timeoutId);
+          return;
+        }
+        
+        console.log('Initial session check:', session?.user?.email);
+        setSession(session);
+        setUser(session?.user ?? null);
+        setLoading(false);
+        clearTimeout(timeoutId);
+      })
+      .catch((err) => {
+        if (!mounted) return;
+        console.error('Session check failed:', err);
+        setSession(null);
+        setUser(null);
+        setLoading(false);
+        clearTimeout(timeoutId);
+      });
+
     return () => {
       mounted = false;
+      clearTimeout(timeoutId);
       subscription.unsubscribe();
     };
   }, []);
