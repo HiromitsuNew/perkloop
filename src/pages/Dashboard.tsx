@@ -61,13 +61,16 @@ const Dashboard = () => {
     }
   };
 
-  // Calculate progress and remaining days for each investment
+  // Calculate progress and remaining days for each investment (with looping)
   const investmentsWithProgress = investments.map(inv => {
     const createdDate = new Date(inv.created_at);
     const now = new Date();
     const daysPassed = Math.floor((now.getTime() - createdDate.getTime()) / (1000 * 60 * 60 * 24));
-    const remainingDays = Math.max(0, inv.investment_days - daysPassed);
-    const progressPercent = Math.min(100, Math.max(2, (daysPassed / inv.investment_days) * 100));
+    
+    // Loop the progress: when it reaches investment_days, it resets to 0
+    const daysInCurrentCycle = daysPassed % inv.investment_days;
+    const remainingDays = inv.investment_days - daysInCurrentCycle;
+    const progressPercent = Math.max(2, (daysInCurrentCycle / inv.investment_days) * 100);
     
     return {
       ...inv,
