@@ -142,8 +142,11 @@ export type Database = {
           created_at: string
           email: string | null
           id: string
+          jpy_deposit: number | null
+          total_returns: number | null
           updated_at: string
           user_id: string
+          withdrawal_principle_usd: number | null
         }
         Insert: {
           account_holder_name?: string | null
@@ -154,8 +157,11 @@ export type Database = {
           created_at?: string
           email?: string | null
           id?: string
+          jpy_deposit?: number | null
+          total_returns?: number | null
           updated_at?: string
           user_id: string
+          withdrawal_principle_usd?: number | null
         }
         Update: {
           account_holder_name?: string | null
@@ -166,8 +172,11 @@ export type Database = {
           created_at?: string
           email?: string | null
           id?: string
+          jpy_deposit?: number | null
+          total_returns?: number | null
           updated_at?: string
           user_id?: string
+          withdrawal_principle_usd?: number | null
         }
         Relationships: []
       }

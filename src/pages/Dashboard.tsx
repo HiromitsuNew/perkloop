@@ -8,6 +8,8 @@ import { useAuth } from "@/contexts/AuthContext";
 import { useInvestments } from "@/hooks/useInvestments";
 import { useToast } from "@/hooks/use-toast";
 import { useNaviAPY } from "@/hooks/useNaviAPY";
+import { useState, useEffect } from "react";
+import { supabase } from "@/integrations/supabase/client";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -32,10 +34,39 @@ import LanguageSelector from "@/components/LanguageSelector";
 const Dashboard = () => {
   const navigate = useNavigate();
   const { t } = useLanguage();
-  const { signOut } = useAuth();
-  const { investments, totalInvestment, totalReturns, deleteAllInvestments } = useInvestments();
+  const { signOut, user } = useAuth();
+  const { investments, deleteAllInvestments } = useInvestments();
   const { toast } = useToast();
   const { userAPY, naviAPY, managementFee, isLoading: apyLoading } = useNaviAPY();
+  
+  const [withdrawalPrinciple, setWithdrawalPrinciple] = useState(0);
+  const [jpyDeposit, setJpyDeposit] = useState(0);
+  const [totalReturns, setTotalReturns] = useState(0);
+
+  useEffect(() => {
+    const fetchUserProfile = async () => {
+      if (!user) return;
+      
+      const { data, error } = await supabase
+        .from('profiles')
+        .select('withdrawal_principle_usd, jpy_deposit, total_returns')
+        .eq('user_id', user.id)
+        .single();
+      
+      if (error) {
+        console.error('Error fetching profile:', error);
+        return;
+      }
+      
+      if (data) {
+        setWithdrawalPrinciple(Number(data.withdrawal_principle_usd) || 0);
+        setJpyDeposit(Number(data.jpy_deposit) || 0);
+        setTotalReturns(Number(data.total_returns) || 0);
+      }
+    };
+    
+    fetchUserProfile();
+  }, [user]);
 
   const handleSignOut = async () => {
     await signOut();
@@ -144,12 +175,12 @@ const Dashboard = () => {
           <div className="flex justify-around gap-4">
             <div className="text-center space-y-2">
               <p className="text-sm text-muted-foreground">{t('dashboard.withdrawable')}</p>
-              <h3 className="text-4xl font-bold">${Math.ceil(totalInvestment / 150)}</h3>
-              <p className="text-xs text-muted-foreground">{t('dashboard.byDeposit')} ￥{Math.ceil(totalInvestment)}</p>
+              <h3 className="text-4xl font-bold">${withdrawalPrinciple.toFixed(2)}</h3>
+              <p className="text-xs text-muted-foreground">{t('dashboard.byDeposit')} ￥{jpyDeposit.toFixed(0)}</p>
             </div>
             <div className="text-center space-y-2">
               <p className="text-sm text-muted-foreground">{t('dashboard.returns')}</p>
-              <h3 className="text-4xl font-bold">${Math.ceil(totalReturns / 150)}</h3>
+              <h3 className="text-4xl font-bold">${totalReturns.toFixed(2)}</h3>
             </div>
           </div>
 
