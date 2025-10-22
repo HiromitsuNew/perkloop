@@ -110,24 +110,24 @@ export default function AdminDashboard() {
           <CardTitle>Quick Actions</CardTitle>
           <CardDescription>Manage your pilot operations</CardDescription>
         </CardHeader>
-        <CardContent className="space-y-8">
-          <Link to="/admin/pending-deposits">
-            <Button className="w-full" variant={stats.pendingDeposits > 0 ? "default" : "outline"}>
+        <CardContent className="flex flex-col gap-6">
+          <Link to="/admin/pending-deposits" className="mb-2">
+            <Button className="w-full h-14" variant={stats.pendingDeposits > 0 ? "default" : "outline"}>
               Review Pending Deposits {stats.pendingDeposits > 0 && `(${stats.pendingDeposits})`}
             </Button>
           </Link>
-          <Link to="/admin/payouts">
-            <Button className="w-full" variant="outline">
+          <Link to="/admin/payouts" className="mb-2">
+            <Button className="w-full h-14" variant="outline">
               Process Payouts
             </Button>
           </Link>
-          <Link to="/admin/audit-logs">
-            <Button className="w-full" variant="outline">
+          <Link to="/admin/audit-logs" className="mb-2">
+            <Button className="w-full h-14" variant="outline">
               View Audit Logs
             </Button>
           </Link>
           <Link to="/admin/emergency">
-            <Button className="w-full" variant="destructive">
+            <Button className="w-full h-14" variant="destructive">
               <Shield className="mr-2 h-4 w-4" />
               Emergency Controls
             </Button>
