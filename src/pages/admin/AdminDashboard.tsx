@@ -79,7 +79,7 @@ export default function AdminDashboard() {
         </Link>
       </div>
 
-      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+      <div className="grid gap-4 md:grid-cols-2">
         <Link to="/admin/users" className="no-underline">
           <Card className="cursor-pointer hover:bg-accent/50 transition-colors">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
@@ -103,34 +103,6 @@ export default function AdminDashboard() {
             <p className="text-xs text-muted-foreground">/ ¥500,000 limit</p>
           </CardContent>
         </Card>
-
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Pending Deposits</CardTitle>
-            <Clock className="h-4 w-4 text-muted-foreground" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">{stats.pendingDeposits}</div>
-            {stats.pendingDeposits > 0 && (
-              <Link to="/admin/pending-deposits">
-                <Button variant="link" size="sm" className="p-0 h-auto">
-                  Review now
-                </Button>
-              </Link>
-            )}
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Maturing Soon</CardTitle>
-            <AlertCircle className="h-4 w-4 text-muted-foreground" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">{stats.maturingSoon}</div>
-            <p className="text-xs text-muted-foreground">Next 7 days</p>
-          </CardContent>
-        </Card>
       </div>
 
       <Card>
@@ -138,7 +110,7 @@ export default function AdminDashboard() {
           <CardTitle>Quick Actions</CardTitle>
           <CardDescription>Manage your pilot operations</CardDescription>
         </CardHeader>
-        <CardContent className="space-y-2">
+        <CardContent className="space-y-4">
           <Link to="/admin/pending-deposits">
             <Button className="w-full" variant={stats.pendingDeposits > 0 ? "default" : "outline"}>
               Review Pending Deposits {stats.pendingDeposits > 0 && `(${stats.pendingDeposits})`}
