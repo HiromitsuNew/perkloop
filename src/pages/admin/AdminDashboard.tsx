@@ -110,7 +110,7 @@ export default function AdminDashboard() {
           <CardTitle>Quick Actions</CardTitle>
           <CardDescription>Manage your pilot operations</CardDescription>
         </CardHeader>
-        <CardContent className="space-y-6">
+        <CardContent className="space-y-8">
           <Link to="/admin/pending-deposits">
             <Button className="w-full" variant={stats.pendingDeposits > 0 ? "default" : "outline"}>
               Review Pending Deposits {stats.pendingDeposits > 0 && `(${stats.pendingDeposits})`}
