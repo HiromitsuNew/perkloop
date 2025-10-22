@@ -41,11 +41,17 @@ interface Investment {
   created_at: string;
 }
 
+interface WithdrawalPreference {
+  withdrawal_type: string;
+  frequency: string | null;
+}
+
 export default function Users() {
   const [users, setUsers] = useState<UserData[]>([]);
   const [loading, setLoading] = useState(true);
   const [selectedUser, setSelectedUser] = useState<UserData | null>(null);
   const [userInvestments, setUserInvestments] = useState<Investment[]>([]);
+  const [withdrawalPreference, setWithdrawalPreference] = useState<WithdrawalPreference | null>(null);
   const [editValues, setEditValues] = useState({
     withdrawal_principle_usd: '',
     jpy_deposit: '',
@@ -104,6 +110,22 @@ export default function Users() {
     }
   };
 
+  const fetchWithdrawalPreference = async (userId: string) => {
+    try {
+      const { data, error } = await supabase
+        .from('withdrawal_preferences')
+        .select('withdrawal_type, frequency')
+        .eq('user_id', userId)
+        .maybeSingle();
+
+      if (error) throw error;
+      setWithdrawalPreference(data);
+    } catch (error) {
+      console.error('Error fetching withdrawal preference:', error);
+      setWithdrawalPreference(null);
+    }
+  };
+
   const handleSaveEdit = async () => {
     if (!selectedUser) return;
 
@@ -143,7 +165,10 @@ export default function Users() {
       jpy_deposit: user.jpy_deposit.toString(),
       total_returns: user.total_returns.toString(),
     });
-    await fetchUserInvestments(user.user_id);
+    await Promise.all([
+      fetchUserInvestments(user.user_id),
+      fetchWithdrawalPreference(user.user_id)
+    ]);
   };
 
   useEffect(() => {
@@ -261,9 +286,33 @@ export default function Users() {
               </div>
             </div>
 
+            {/* Withdrawal Preference */}
+            <div className="space-y-2 p-4 border rounded-lg bg-muted/30">
+              <h3 className="font-semibold text-sm uppercase tracking-wide">Payment Preference</h3>
+              <div className="space-y-1">
+                <p className="text-sm">
+                  <span className="text-muted-foreground">Withdrawal Type:</span>{' '}
+                  <span className="font-medium">{withdrawalPreference?.withdrawal_type || 'Not set'}</span>
+                </p>
+                {withdrawalPreference?.frequency && (
+                  <p className="text-sm">
+                    <span className="text-muted-foreground">Payment Frequency:</span>{' '}
+                    <span className="font-medium capitalize">{withdrawalPreference.frequency}</span>
+                  </p>
+                )}
+              </div>
+            </div>
+
             {/* Read-only Investment Info */}
             <div className="space-y-4 p-4 border rounded-lg">
-              <h3 className="font-semibold text-sm uppercase tracking-wide">Investment Details (Read-only)</h3>
+              <div className="flex justify-between items-center">
+                <h3 className="font-semibold text-sm uppercase tracking-wide">Investment Details (Read-only)</h3>
+                {userInvestments.length > 0 && (
+                  <Badge variant="secondary" className="text-base font-semibold">
+                    Total: ¥{userInvestments.reduce((sum, inv) => sum + Number(inv.deposit_amount), 0).toLocaleString()}
+                  </Badge>
+                )}
+              </div>
               
               {userInvestments.length === 0 ? (
                 <p className="text-sm text-muted-foreground">No active or pending investments</p>
