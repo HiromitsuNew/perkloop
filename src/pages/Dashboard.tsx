@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
-import { HelpCircle, LogOut, RotateCcw } from "lucide-react";
+import { HelpCircle, LogOut, RotateCcw, Lightbulb, ArrowRight, ArrowLeft, DollarSign, TrendingUp, Shield } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { useAuth } from "@/contexts/AuthContext";
@@ -42,6 +42,8 @@ const Dashboard = () => {
   const [withdrawalPrinciple, setWithdrawalPrinciple] = useState(0);
   const [jpyDeposit, setJpyDeposit] = useState(0);
   const [totalReturns, setTotalReturns] = useState(0);
+  const [howItWorksOpen, setHowItWorksOpen] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {
     const fetchUserProfile = async () => {
@@ -114,6 +116,19 @@ const Dashboard = () => {
   // Sort by remaining days (ascending - least time remaining shows first)
   const sortedInvestments = [...investmentsWithProgress].sort((a, b) => a.remainingDays - b.remainingDays);
 
+  const handleNextPage = () => {
+    if (currentPage < 4) setCurrentPage(currentPage + 1);
+  };
+
+  const handlePrevPage = () => {
+    if (currentPage > 1) setCurrentPage(currentPage - 1);
+  };
+
+  const handleCloseHowItWorks = () => {
+    setHowItWorksOpen(false);
+    setCurrentPage(1);
+  };
+
   return (
     <div className="min-h-screen bg-background text-foreground p-6">
       <div className="max-w-md mx-auto space-y-6">
@@ -169,6 +184,161 @@ const Dashboard = () => {
             {t('dashboard.title2')} <span className="text-accent">{t('dashboard.title2.money')}</span> {t('dashboard.title2.rest')}
           </h2>
         </div>
+
+        {/* How It Works Button */}
+        <Dialog open={howItWorksOpen} onOpenChange={setHowItWorksOpen}>
+          <DialogTrigger asChild>
+            <Button 
+              className="w-full h-14 text-base font-semibold bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary/70 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-[1.02]"
+            >
+              <Lightbulb className="w-5 h-5 mr-2" />
+              How We Generate Profit
+            </Button>
+          </DialogTrigger>
+          <DialogContent className="sm:max-w-md">
+            <DialogHeader>
+              <DialogTitle className="text-xl flex items-center gap-2">
+                <Lightbulb className="w-5 h-5 text-primary" />
+                How It Works
+              </DialogTitle>
+              <DialogDescription className="sr-only">
+                Learn how we generate profit for you
+              </DialogDescription>
+            </DialogHeader>
+            
+            <div className="space-y-6 py-4">
+              {/* Page 1: JPY to USDC Conversion */}
+              {currentPage === 1 && (
+                <div className="space-y-4 animate-fade-in">
+                  <div className="flex justify-center">
+                    <div className="w-20 h-20 rounded-full bg-primary/10 flex items-center justify-center">
+                      <DollarSign className="w-10 h-10 text-primary" />
+                    </div>
+                  </div>
+                  <h3 className="text-lg font-semibold text-center">Step 1: Currency Conversion</h3>
+                  <p className="text-sm text-muted-foreground leading-relaxed">
+                    Your JPY fiat is converted to USD in the form of stablecoin (USDC), where <span className="font-semibold text-foreground">1 stablecoin is always 1 USD</span>.
+                  </p>
+                  <div className="bg-primary/5 border border-primary/20 rounded-lg p-4">
+                    <p className="text-xs text-center text-muted-foreground">
+                      ￥ JPY → $ USDC (1:1 with USD)
+                    </p>
+                  </div>
+                </div>
+              )}
+
+              {/* Page 2: DeFi Lending */}
+              {currentPage === 2 && (
+                <div className="space-y-4 animate-fade-in">
+                  <div className="flex justify-center">
+                    <div className="w-20 h-20 rounded-full bg-primary/10 flex items-center justify-center">
+                      <TrendingUp className="w-10 h-10 text-primary" />
+                    </div>
+                  </div>
+                  <h3 className="text-lg font-semibold text-center">Step 2: DeFi Lending</h3>
+                  <p className="text-sm text-muted-foreground leading-relaxed">
+                    Your USDC is then <span className="font-semibold text-foreground">lent out to different participants</span> through a DeFi protocol on a blockchain.
+                  </p>
+                  <div className="bg-primary/5 border border-primary/20 rounded-lg p-4">
+                    <p className="text-xs text-center text-muted-foreground">
+                      Decentralized Finance (DeFi) Protocol
+                    </p>
+                  </div>
+                </div>
+              )}
+
+              {/* Page 3: Continuous Profit Generation */}
+              {currentPage === 3 && (
+                <div className="space-y-4 animate-fade-in">
+                  <div className="flex justify-center">
+                    <div className="w-20 h-20 rounded-full bg-primary/10 flex items-center justify-center">
+                      <Shield className="w-10 h-10 text-primary" />
+                    </div>
+                  </div>
+                  <h3 className="text-lg font-semibold text-center">Step 3: Safe Profit Generation</h3>
+                  <p className="text-sm text-muted-foreground leading-relaxed">
+                    This lending process <span className="font-semibold text-foreground">continuously generates profit</span>, while ensuring:
+                  </p>
+                  <div className="space-y-3">
+                    <div className="flex items-start gap-3 bg-primary/5 border border-primary/20 rounded-lg p-3">
+                      <div className="w-2 h-2 rounded-full bg-primary mt-1.5 flex-shrink-0" />
+                      <p className="text-sm">Your principle can be withdrawn at any time</p>
+                    </div>
+                    <div className="flex items-start gap-3 bg-primary/5 border border-primary/20 rounded-lg p-3">
+                      <div className="w-2 h-2 rounded-full bg-primary mt-1.5 flex-shrink-0" />
+                      <p className="text-sm">Your principle never decreases</p>
+                    </div>
+                    <div className="flex items-start gap-3 bg-primary/5 border border-primary/20 rounded-lg p-3">
+                      <div className="w-2 h-2 rounded-full bg-primary mt-1.5 flex-shrink-0" />
+                      <p className="text-sm">You start earning interest from day 1</p>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {/* Page 4: Summary */}
+              {currentPage === 4 && (
+                <div className="space-y-4 animate-fade-in">
+                  <div className="flex justify-center">
+                    <div className="w-20 h-20 rounded-full bg-gradient-to-br from-primary to-primary/60 flex items-center justify-center">
+                      <TrendingUp className="w-10 h-10 text-primary-foreground" />
+                    </div>
+                  </div>
+                  <h3 className="text-lg font-semibold text-center">Start Earning Today</h3>
+                  <p className="text-sm text-muted-foreground leading-relaxed text-center">
+                    Your money works for you through secure, transparent blockchain technology, generating returns while keeping your investment safe and accessible.
+                  </p>
+                  <div className="bg-gradient-to-r from-primary/10 to-primary/5 border border-primary/20 rounded-lg p-4">
+                    <p className="text-sm font-semibold text-center text-primary">
+                      Ready to start investing?
+                    </p>
+                  </div>
+                </div>
+              )}
+
+              {/* Page Indicator */}
+              <div className="flex justify-center gap-2 pt-2">
+                {[1, 2, 3, 4].map((page) => (
+                  <div
+                    key={page}
+                    className={`h-2 rounded-full transition-all duration-300 ${
+                      page === currentPage ? 'w-8 bg-primary' : 'w-2 bg-primary/30'
+                    }`}
+                  />
+                ))}
+              </div>
+
+              {/* Navigation Buttons */}
+              <div className="flex justify-between gap-3 pt-2">
+                <Button
+                  variant="outline"
+                  onClick={handlePrevPage}
+                  disabled={currentPage === 1}
+                  className="flex-1"
+                >
+                  <ArrowLeft className="w-4 h-4 mr-2" />
+                  Previous
+                </Button>
+                {currentPage === 4 ? (
+                  <Button
+                    onClick={handleCloseHowItWorks}
+                    className="flex-1"
+                  >
+                    Got It!
+                  </Button>
+                ) : (
+                  <Button
+                    onClick={handleNextPage}
+                    className="flex-1"
+                  >
+                    Next
+                    <ArrowRight className="w-4 h-4 ml-2" />
+                  </Button>
+                )}
+              </div>
+            </div>
+          </DialogContent>
+        </Dialog>
 
         {/* Balance Card */}
         <Card className="bg-card border-border p-6 space-y-4">
