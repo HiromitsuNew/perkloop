@@ -313,8 +313,7 @@ const Dashboard = () => {
           <Dialog open={howItWorksOpen} onOpenChange={setHowItWorksOpen}>
             <DialogTrigger asChild>
               <Button 
-                variant="secondary"
-                className="w-full h-12 text-base font-medium"
+                className="w-full h-12 text-base font-semibold bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary/70 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-[1.02]"
               >
                 <Lightbulb className="w-5 h-5 mr-2" />
                 How We Generate Profit
