@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
-import { HelpCircle, LogOut, RotateCcw, Lightbulb, ArrowRight, ArrowLeft, DollarSign, TrendingUp, Shield } from "lucide-react";
+import { HelpCircle, LogOut, RotateCcw, Lightbulb, ArrowRight, ArrowLeft, DollarSign, TrendingUp, Shield, Coins } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { useAuth } from "@/contexts/AuthContext";
@@ -251,46 +251,46 @@ const Dashboard = () => {
               {currentPage === 3 && (
                 <div className="space-y-4 animate-fade-in">
                   <div className="flex justify-center">
-                    <div className="w-20 h-20 rounded-full bg-primary/10 flex items-center justify-center">
-                      <Shield className="w-10 h-10 text-primary" />
+                    <div className="w-20 h-20 rounded-full bg-gradient-to-br from-green-500/20 to-emerald-500/20 flex items-center justify-center">
+                      <Coins className="w-10 h-10 text-green-600 dark:text-green-400" />
                     </div>
                   </div>
-                  <h3 className="text-lg font-semibold text-center">Step 3: Safe Profit Generation</h3>
+                  <h3 className="text-lg font-semibold text-center">Step 3: Continuous Returns</h3>
                   <p className="text-sm text-muted-foreground leading-relaxed">
                     This lending process <span className="font-semibold text-foreground">continuously generates profit</span>, while ensuring:
                   </p>
                   <div className="space-y-3">
-                    <div className="flex items-start gap-3 bg-primary/5 border border-primary/20 rounded-lg p-3">
-                      <div className="w-2 h-2 rounded-full bg-primary mt-1.5 flex-shrink-0" />
+                    <div className="flex items-start gap-3 bg-green-500/5 border border-green-500/20 rounded-lg p-3">
+                      <div className="w-2 h-2 rounded-full bg-green-600 dark:bg-green-400 mt-1.5 flex-shrink-0" />
                       <p className="text-sm">Your principle can be withdrawn at any time</p>
                     </div>
-                    <div className="flex items-start gap-3 bg-primary/5 border border-primary/20 rounded-lg p-3">
-                      <div className="w-2 h-2 rounded-full bg-primary mt-1.5 flex-shrink-0" />
+                    <div className="flex items-start gap-3 bg-green-500/5 border border-green-500/20 rounded-lg p-3">
+                      <div className="w-2 h-2 rounded-full bg-green-600 dark:bg-green-400 mt-1.5 flex-shrink-0" />
                       <p className="text-sm">Your principle never decreases</p>
                     </div>
-                    <div className="flex items-start gap-3 bg-primary/5 border border-primary/20 rounded-lg p-3">
-                      <div className="w-2 h-2 rounded-full bg-primary mt-1.5 flex-shrink-0" />
+                    <div className="flex items-start gap-3 bg-green-500/5 border border-green-500/20 rounded-lg p-3">
+                      <div className="w-2 h-2 rounded-full bg-green-600 dark:bg-green-400 mt-1.5 flex-shrink-0" />
                       <p className="text-sm">You start earning interest from day 1</p>
                     </div>
                   </div>
                 </div>
               )}
 
-              {/* Page 4: Summary */}
+              {/* Page 4: Security */}
               {currentPage === 4 && (
                 <div className="space-y-4 animate-fade-in">
                   <div className="flex justify-center">
-                    <div className="w-20 h-20 rounded-full bg-gradient-to-br from-primary to-primary/60 flex items-center justify-center">
-                      <TrendingUp className="w-10 h-10 text-primary-foreground" />
+                    <div className="w-20 h-20 rounded-full bg-gradient-to-br from-blue-500/20 to-indigo-500/20 flex items-center justify-center">
+                      <Shield className="w-10 h-10 text-blue-600 dark:text-blue-400" />
                     </div>
                   </div>
-                  <h3 className="text-lg font-semibold text-center">Start Earning Today</h3>
+                  <h3 className="text-lg font-semibold text-center">Your Security is Our Priority</h3>
                   <p className="text-sm text-muted-foreground leading-relaxed text-center">
-                    Your money works for you through secure, transparent blockchain technology, generating returns while keeping your investment safe and accessible.
+                    We take extra precautions to increase the security of your funds and data through advanced blockchain technology and rigorous security protocols.
                   </p>
-                  <div className="bg-gradient-to-r from-primary/10 to-primary/5 border border-primary/20 rounded-lg p-4">
-                    <p className="text-sm font-semibold text-center text-primary">
-                      Ready to start investing?
+                  <div className="bg-gradient-to-r from-blue-500/10 to-indigo-500/10 border border-blue-500/20 rounded-lg p-4">
+                    <p className="text-sm font-semibold text-center text-blue-600 dark:text-blue-400">
+                      Your investment is protected at every step
                     </p>
                   </div>
                 </div>
