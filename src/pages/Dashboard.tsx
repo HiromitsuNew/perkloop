@@ -185,161 +185,6 @@ const Dashboard = () => {
           </h2>
         </div>
 
-        {/* How It Works Button */}
-        <Dialog open={howItWorksOpen} onOpenChange={setHowItWorksOpen}>
-          <DialogTrigger asChild>
-            <Button 
-              className="w-full h-14 text-base font-semibold bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary/70 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-[1.02]"
-            >
-              <Lightbulb className="w-5 h-5 mr-2" />
-              How We Generate Profit
-            </Button>
-          </DialogTrigger>
-          <DialogContent className="sm:max-w-md">
-            <DialogHeader>
-              <DialogTitle className="text-xl flex items-center gap-2">
-                <Lightbulb className="w-5 h-5 text-primary" />
-                How It Works
-              </DialogTitle>
-              <DialogDescription className="sr-only">
-                Learn how we generate profit for you
-              </DialogDescription>
-            </DialogHeader>
-            
-            <div className="space-y-6 py-4">
-              {/* Page 1: JPY to USDC Conversion */}
-              {currentPage === 1 && (
-                <div className="space-y-4 animate-fade-in">
-                  <div className="flex justify-center">
-                    <div className="w-20 h-20 rounded-full bg-primary/10 flex items-center justify-center">
-                      <DollarSign className="w-10 h-10 text-primary" />
-                    </div>
-                  </div>
-                  <h3 className="text-lg font-semibold text-center">Step 1: Currency Conversion</h3>
-                  <p className="text-sm text-muted-foreground leading-relaxed">
-                    Your JPY fiat is converted to USD in the form of stablecoin (USDC), where <span className="font-semibold text-foreground">1 stablecoin is always 1 USD</span>.
-                  </p>
-                  <div className="bg-primary/5 border border-primary/20 rounded-lg p-4">
-                    <p className="text-xs text-center text-muted-foreground">
-                      ￥ JPY → $ USDC (1:1 with USD)
-                    </p>
-                  </div>
-                </div>
-              )}
-
-              {/* Page 2: DeFi Lending */}
-              {currentPage === 2 && (
-                <div className="space-y-4 animate-fade-in">
-                  <div className="flex justify-center">
-                    <div className="w-20 h-20 rounded-full bg-primary/10 flex items-center justify-center">
-                      <TrendingUp className="w-10 h-10 text-primary" />
-                    </div>
-                  </div>
-                  <h3 className="text-lg font-semibold text-center">Step 2: DeFi Lending</h3>
-                  <p className="text-sm text-muted-foreground leading-relaxed">
-                    Your USDC is then <span className="font-semibold text-foreground">lent out to different participants</span> through a DeFi protocol on a blockchain.
-                  </p>
-                  <div className="bg-primary/5 border border-primary/20 rounded-lg p-4">
-                    <p className="text-xs text-center text-muted-foreground">
-                      Decentralized Finance (DeFi) Protocol
-                    </p>
-                  </div>
-                </div>
-              )}
-
-              {/* Page 3: Continuous Profit Generation */}
-              {currentPage === 3 && (
-                <div className="space-y-4 animate-fade-in">
-                  <div className="flex justify-center">
-                    <div className="w-20 h-20 rounded-full bg-gradient-to-br from-green-500/20 to-emerald-500/20 flex items-center justify-center">
-                      <Coins className="w-10 h-10 text-green-600 dark:text-green-400" />
-                    </div>
-                  </div>
-                  <h3 className="text-lg font-semibold text-center">Step 3: Continuous Returns</h3>
-                  <p className="text-sm text-muted-foreground leading-relaxed">
-                    This lending process <span className="font-semibold text-foreground">continuously generates profit</span>, while ensuring:
-                  </p>
-                  <div className="space-y-3">
-                    <div className="flex items-start gap-3 bg-green-500/5 border border-green-500/20 rounded-lg p-3">
-                      <div className="w-2 h-2 rounded-full bg-green-600 dark:bg-green-400 mt-1.5 flex-shrink-0" />
-                      <p className="text-sm">Your principle can be withdrawn at any time</p>
-                    </div>
-                    <div className="flex items-start gap-3 bg-green-500/5 border border-green-500/20 rounded-lg p-3">
-                      <div className="w-2 h-2 rounded-full bg-green-600 dark:bg-green-400 mt-1.5 flex-shrink-0" />
-                      <p className="text-sm">Your principle never decreases</p>
-                    </div>
-                    <div className="flex items-start gap-3 bg-green-500/5 border border-green-500/20 rounded-lg p-3">
-                      <div className="w-2 h-2 rounded-full bg-green-600 dark:bg-green-400 mt-1.5 flex-shrink-0" />
-                      <p className="text-sm">You start earning interest from day 1</p>
-                    </div>
-                  </div>
-                </div>
-              )}
-
-              {/* Page 4: Security */}
-              {currentPage === 4 && (
-                <div className="space-y-4 animate-fade-in">
-                  <div className="flex justify-center">
-                    <div className="w-20 h-20 rounded-full bg-gradient-to-br from-blue-500/20 to-indigo-500/20 flex items-center justify-center">
-                      <Shield className="w-10 h-10 text-blue-600 dark:text-blue-400" />
-                    </div>
-                  </div>
-                  <h3 className="text-lg font-semibold text-center">Your Security is Our Priority</h3>
-                  <p className="text-sm text-muted-foreground leading-relaxed text-center">
-                    We take extra precautions to increase the security of your funds and data through advanced blockchain technology and rigorous security protocols.
-                  </p>
-                  <div className="bg-gradient-to-r from-blue-500/10 to-indigo-500/10 border border-blue-500/20 rounded-lg p-4">
-                    <p className="text-sm font-semibold text-center text-blue-600 dark:text-blue-400">
-                      Your investment is protected at every step
-                    </p>
-                  </div>
-                </div>
-              )}
-
-              {/* Page Indicator */}
-              <div className="flex justify-center gap-2 pt-2">
-                {[1, 2, 3, 4].map((page) => (
-                  <div
-                    key={page}
-                    className={`h-2 rounded-full transition-all duration-300 ${
-                      page === currentPage ? 'w-8 bg-primary' : 'w-2 bg-primary/30'
-                    }`}
-                  />
-                ))}
-              </div>
-
-              {/* Navigation Buttons */}
-              <div className="flex justify-between gap-3 pt-2">
-                <Button
-                  variant="outline"
-                  onClick={handlePrevPage}
-                  disabled={currentPage === 1}
-                  className="flex-1"
-                >
-                  <ArrowLeft className="w-4 h-4 mr-2" />
-                  Previous
-                </Button>
-                {currentPage === 4 ? (
-                  <Button
-                    onClick={handleCloseHowItWorks}
-                    className="flex-1"
-                  >
-                    Got It!
-                  </Button>
-                ) : (
-                  <Button
-                    onClick={handleNextPage}
-                    className="flex-1"
-                  >
-                    Next
-                    <ArrowRight className="w-4 h-4 ml-2" />
-                  </Button>
-                )}
-              </div>
-            </div>
-          </DialogContent>
-        </Dialog>
-
         {/* Balance Card */}
         <Card className="bg-card border-border p-6 space-y-4">
           <div className="flex justify-around gap-4">
@@ -464,6 +309,152 @@ const Dashboard = () => {
 
         {/* Action Buttons */}
         <div className="space-y-3">
+          {/* How It Works Button */}
+          <Dialog open={howItWorksOpen} onOpenChange={setHowItWorksOpen}>
+            <DialogTrigger asChild>
+              <Button 
+                variant="secondary"
+                className="w-full h-12 text-base font-medium"
+              >
+                <Lightbulb className="w-5 h-5 mr-2" />
+                How We Generate Profit
+              </Button>
+            </DialogTrigger>
+            <DialogContent className="sm:max-w-md">
+              <DialogHeader>
+                <DialogTitle className="text-xl flex items-center gap-2">
+                  <Lightbulb className="w-5 h-5 text-primary" />
+                  How It Works
+                </DialogTitle>
+                <DialogDescription className="sr-only">
+                  Learn how we generate profit for you
+                </DialogDescription>
+              </DialogHeader>
+              
+              <div className="space-y-6 py-4">
+                {/* Page 1: JPY to USDC Conversion */}
+                {currentPage === 1 && (
+                  <div className="space-y-4 animate-fade-in">
+                    <div className="flex justify-center">
+                      <div className="w-20 h-20 rounded-full bg-primary/10 flex items-center justify-center">
+                        <DollarSign className="w-10 h-10 text-primary" />
+                      </div>
+                    </div>
+                    <h3 className="text-lg font-semibold text-center">Step 1: Currency Conversion</h3>
+                    <p className="text-sm text-muted-foreground leading-relaxed">
+                      Your JPY fiat is converted to USD in the form of stablecoin (USDC), where <span className="font-semibold text-foreground">1 stablecoin is always 1 USD</span>.
+                    </p>
+                  </div>
+                )}
+
+                {/* Page 2: DeFi Lending */}
+                {currentPage === 2 && (
+                  <div className="space-y-4 animate-fade-in">
+                    <div className="flex justify-center">
+                      <div className="w-20 h-20 rounded-full bg-primary/10 flex items-center justify-center">
+                        <TrendingUp className="w-10 h-10 text-primary" />
+                      </div>
+                    </div>
+                    <h3 className="text-lg font-semibold text-center">Step 2: DeFi Lending</h3>
+                    <p className="text-sm text-muted-foreground leading-relaxed">
+                      Your USDC is then <span className="font-semibold text-foreground">lent out to different participants</span> through a DeFi protocol on a blockchain.
+                    </p>
+                  </div>
+                )}
+
+                {/* Page 3: Continuous Profit Generation */}
+                {currentPage === 3 && (
+                  <div className="space-y-4 animate-fade-in">
+                    <div className="flex justify-center">
+                      <div className="w-20 h-20 rounded-full bg-gradient-to-br from-green-500/20 to-emerald-500/20 flex items-center justify-center">
+                        <Coins className="w-10 h-10 text-green-600 dark:text-green-400" />
+                      </div>
+                    </div>
+                    <h3 className="text-lg font-semibold text-center">Step 3: Continuous Returns</h3>
+                    <p className="text-sm text-muted-foreground leading-relaxed">
+                      This lending process <span className="font-semibold text-foreground">continuously generates profit</span>, while ensuring:
+                    </p>
+                    <div className="space-y-3">
+                      <div className="flex items-start gap-3 bg-green-500/5 border border-green-500/20 rounded-lg p-3">
+                        <div className="w-2 h-2 rounded-full bg-green-600 dark:bg-green-400 mt-1.5 flex-shrink-0" />
+                        <p className="text-sm">Your principle can be withdrawn at any time</p>
+                      </div>
+                      <div className="flex items-start gap-3 bg-green-500/5 border border-green-500/20 rounded-lg p-3">
+                        <div className="w-2 h-2 rounded-full bg-green-600 dark:bg-green-400 mt-1.5 flex-shrink-0" />
+                        <p className="text-sm">Your principle never decreases</p>
+                      </div>
+                      <div className="flex items-start gap-3 bg-green-500/5 border border-green-500/20 rounded-lg p-3">
+                        <div className="w-2 h-2 rounded-full bg-green-600 dark:bg-green-400 mt-1.5 flex-shrink-0" />
+                        <p className="text-sm">You start earning interest from day 1</p>
+                      </div>
+                    </div>
+                  </div>
+                )}
+
+                {/* Page 4: Security */}
+                {currentPage === 4 && (
+                  <div className="space-y-4 animate-fade-in">
+                    <div className="flex justify-center">
+                      <div className="w-20 h-20 rounded-full bg-gradient-to-br from-blue-500/20 to-indigo-500/20 flex items-center justify-center">
+                        <Shield className="w-10 h-10 text-blue-600 dark:text-blue-400" />
+                      </div>
+                    </div>
+                    <h3 className="text-lg font-semibold text-center">Your Security is Our Priority</h3>
+                    <p className="text-sm text-muted-foreground leading-relaxed text-center">
+                      We take extra precautions to increase the security of your funds and data through advanced blockchain technology and rigorous security protocols.
+                    </p>
+                    <div className="bg-gradient-to-r from-blue-500/10 to-indigo-500/10 border border-blue-500/20 rounded-lg p-4">
+                      <p className="text-sm font-semibold text-center text-blue-600 dark:text-blue-400">
+                        Your investment is protected at every step
+                      </p>
+                    </div>
+                  </div>
+                )}
+
+                {/* Page Indicator */}
+                <div className="flex justify-center gap-2 pt-2">
+                  {[1, 2, 3, 4].map((page) => (
+                    <div
+                      key={page}
+                      className={`h-2 rounded-full transition-all duration-300 ${
+                        page === currentPage ? 'w-8 bg-primary' : 'w-2 bg-primary/30'
+                      }`}
+                    />
+                  ))}
+                </div>
+
+                {/* Navigation Buttons */}
+                <div className="flex justify-between gap-3 pt-2">
+                  <Button
+                    variant="outline"
+                    onClick={handlePrevPage}
+                    disabled={currentPage === 1}
+                    className="flex-1"
+                  >
+                    <ArrowLeft className="w-4 h-4 mr-2" />
+                    Previous
+                  </Button>
+                  {currentPage === 4 ? (
+                    <Button
+                      onClick={handleCloseHowItWorks}
+                      className="flex-1"
+                    >
+                      Got It!
+                    </Button>
+                  ) : (
+                    <Button
+                      onClick={handleNextPage}
+                      className="flex-1"
+                    >
+                      Next
+                      <ArrowRight className="w-4 h-4 ml-2" />
+                    </Button>
+                  )}
+                </div>
+              </div>
+            </DialogContent>
+          </Dialog>
+          
           <Button 
             onClick={() => navigate('/pick-purchase')}
             variant="secondary" 
