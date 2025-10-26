@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ArrowLeft } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -8,6 +8,7 @@ import { useToast } from '@/hooks/use-toast';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { useAuth } from '@/contexts/AuthContext';
 import { supabase } from '@/integrations/supabase/client';
+import { useExchangeRate } from '@/hooks/useExchangeRate';
 
 const Withdraw = () => {
   const navigate = useNavigate();
@@ -17,6 +18,34 @@ const Withdraw = () => {
   const [selectedOption, setSelectedOption] = useState<'returns' | 'principals' | null>(null);
   const [frequency, setFrequency] = useState([2]); // Default to monthly (index 2)
   const [isSaving, setIsSaving] = useState(false);
+  const [userProfile, setUserProfile] = useState<{
+    jpy_deposit: number;
+    withdrawal_principal_usd: number;
+  } | null>(null);
+  const { rate: currentRate, loading: rateLoading } = useExchangeRate();
+
+  useEffect(() => {
+    const fetchUserProfile = async () => {
+      if (!user) return;
+      
+      const { data, error } = await supabase
+        .from('profiles')
+        .select('jpy_deposit, withdrawal_principal_usd')
+        .eq('user_id', user.id)
+        .single();
+      
+      if (error) {
+        console.error('Error fetching profile:', error);
+        return;
+      }
+      
+      setUserProfile(data);
+    };
+
+    if (selectedOption === 'principals') {
+      fetchUserProfile();
+    }
+  }, [user, selectedOption]);
 
   const frequencyOptions = [
     t('withdraw.weekly'),
@@ -165,15 +194,54 @@ const Withdraw = () => {
           <Card className="p-6 space-y-6">
             <div>
               <h2 className="text-lg font-semibold mb-2">{t('withdraw.principlesTitle')}</h2>
-              <p className="text-sm text-muted-foreground">
+              <p className="text-sm text-muted-foreground mb-4">
                 {t('withdraw.principlesDescription')}
               </p>
             </div>
+
+            {userProfile && currentRate && !rateLoading && (
+              <div className="space-y-4 bg-muted/30 rounded-lg p-4">
+                <div className="space-y-3">
+                  <div className="flex justify-between items-center">
+                    <span className="text-sm text-muted-foreground">Original Deposit (JPY)</span>
+                    <span className="font-semibold">¥{userProfile.jpy_deposit.toLocaleString()}</span>
+                  </div>
+                  
+                  <div className="flex justify-between items-center">
+                    <span className="text-sm text-muted-foreground">Exchange Rate at Deposit</span>
+                    <span className="font-semibold">
+                      ¥{(userProfile.jpy_deposit / userProfile.withdrawal_principal_usd).toFixed(2)} / USD
+                    </span>
+                  </div>
+                  
+                  <div className="flex justify-between items-center">
+                    <span className="text-sm text-muted-foreground">Current Exchange Rate</span>
+                    <span className="font-semibold">¥{currentRate.toFixed(2)} / USD</span>
+                  </div>
+                  
+                  <div className="h-px bg-border my-2" />
+                  
+                  <div className="flex justify-between items-center">
+                    <span className="text-sm font-medium">Withdrawal Amount (JPY)</span>
+                    <span className="text-lg font-bold text-primary">
+                      ¥{(userProfile.withdrawal_principal_usd * currentRate).toLocaleString(undefined, { maximumFractionDigits: 0 })}
+                    </span>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {rateLoading && (
+              <div className="text-center text-sm text-muted-foreground py-4">
+                Loading exchange rate...
+              </div>
+            )}
+
             <Button 
               size="lg" 
               className="w-full"
               onClick={handleConfirm}
-              disabled={isSaving}
+              disabled={isSaving || rateLoading}
             >
               {isSaving ? t('withdraw.saving') : t('withdraw.confirm')}
             </Button>
