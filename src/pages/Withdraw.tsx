@@ -14,7 +14,7 @@ const Withdraw = () => {
   const { t } = useLanguage();
   const { user } = useAuth();
   const { toast } = useToast();
-  const [selectedOption, setSelectedOption] = useState<'returns' | 'principles' | null>(null);
+  const [selectedOption, setSelectedOption] = useState<'returns' | 'principals' | null>(null);
   const [frequency, setFrequency] = useState([2]); // Default to monthly (index 2)
   const [isSaving, setIsSaving] = useState(false);
 
@@ -110,9 +110,9 @@ const Withdraw = () => {
                   variant="outline"
                   size="lg"
                   className="w-full"
-                  onClick={() => setSelectedOption('principles')}
+                  onClick={() => setSelectedOption('principals')}
                 >
-                  {t('withdraw.principles')}
+                  {t('withdraw.principals')}
                 </Button>
               </div>
             </Card>
@@ -161,7 +161,7 @@ const Withdraw = () => {
             </div>
           </Card>
         ) : (
-          /* Withdraw Principles */
+          /* Withdraw Principal */
           <Card className="p-6 space-y-6">
             <div>
               <h2 className="text-lg font-semibold mb-2">{t('withdraw.principlesTitle')}</h2>

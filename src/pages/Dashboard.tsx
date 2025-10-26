@@ -39,7 +39,7 @@ const Dashboard = () => {
   const { toast } = useToast();
   const { userAPY, naviAPY, managementFee, isLoading: apyLoading } = useNaviAPY();
   
-  const [withdrawalPrinciple, setWithdrawalPrinciple] = useState(0);
+  const [withdrawalPrincipal, setWithdrawalPrincipal] = useState(0);
   const [jpyDeposit, setJpyDeposit] = useState(0);
   const [totalReturns, setTotalReturns] = useState(0);
   const [howItWorksOpen, setHowItWorksOpen] = useState(false);
@@ -61,7 +61,7 @@ const Dashboard = () => {
       }
       
       if (data) {
-        setWithdrawalPrinciple(Number(data.withdrawal_principle_usd) || 0);
+        setWithdrawalPrincipal(Number(data.withdrawal_principle_usd) || 0);
         setJpyDeposit(Number(data.jpy_deposit) || 0);
         setTotalReturns(Number(data.total_returns) || 0);
       }
@@ -190,7 +190,7 @@ const Dashboard = () => {
           <div className="flex justify-around gap-4">
             <div className="text-center space-y-2">
               <p className="text-sm text-muted-foreground">{t('dashboard.withdrawable')}</p>
-              <h3 className="text-4xl font-bold">${withdrawalPrinciple.toFixed(2)}</h3>
+              <h3 className="text-4xl font-bold">${withdrawalPrincipal.toFixed(2)}</h3>
               <p className="text-xs text-muted-foreground">{t('dashboard.byDeposit')} ￥{jpyDeposit.toFixed(0)}</p>
             </div>
             <div className="text-center space-y-2">
@@ -376,11 +376,11 @@ const Dashboard = () => {
                     <div className="space-y-3">
                       <div className="flex items-start gap-3 bg-green-500/5 border border-green-500/20 rounded-lg p-3">
                         <div className="w-2 h-2 rounded-full bg-green-600 dark:bg-green-400 mt-1.5 flex-shrink-0" />
-                        <p className="text-sm">Your principle can be withdrawn at any time</p>
+                        <p className="text-sm">Your principal can be withdrawn at any time</p>
                       </div>
                       <div className="flex items-start gap-3 bg-green-500/5 border border-green-500/20 rounded-lg p-3">
                         <div className="w-2 h-2 rounded-full bg-green-600 dark:bg-green-400 mt-1.5 flex-shrink-0" />
-                        <p className="text-sm">Your principle never decreases</p>
+                        <p className="text-sm">Your principal never decreases</p>
                       </div>
                       <div className="flex items-start gap-3 bg-green-500/5 border border-green-500/20 rounded-lg p-3">
                         <div className="w-2 h-2 rounded-full bg-green-600 dark:bg-green-400 mt-1.5 flex-shrink-0" />

@@ -122,10 +122,10 @@ export default function Users() {
       
       // Get the most recent preference with returns type (most relevant for admin)
       const returnsPreference = data?.find(pref => pref.withdrawal_type === 'returns');
-      const principlesPreference = data?.find(pref => pref.withdrawal_type === 'principles');
+      const principalsPreference = data?.find(pref => pref.withdrawal_type === 'principals');
       
       // Store both for display
-      setWithdrawalPreference(returnsPreference || principlesPreference || null);
+      setWithdrawalPreference(returnsPreference || principalsPreference || null);
     } catch (error) {
       console.error('Error fetching withdrawal preference:', error);
       setWithdrawalPreference(null);
@@ -259,7 +259,7 @@ export default function Users() {
               <h3 className="font-semibold text-sm uppercase tracking-wide">User-Facing Values (Editable)</h3>
               
               <div className="space-y-2">
-                <Label htmlFor="withdrawal_principle_usd">Withdrawal Principle (USD)</Label>
+                <Label htmlFor="withdrawal_principle_usd">Withdrawal Principal (USD)</Label>
                 <Input
                   id="withdrawal_principle_usd"
                   type="number"
