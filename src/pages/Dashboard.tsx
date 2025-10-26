@@ -316,17 +316,17 @@ const Dashboard = () => {
                 className="w-full h-12 text-base font-semibold bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary/70 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-[1.02]"
               >
                 <Lightbulb className="w-5 h-5 mr-2" />
-                How We Generate Profit
+                {t('dashboard.howItWorksButton')}
               </Button>
             </DialogTrigger>
             <DialogContent className="sm:max-w-md">
               <DialogHeader>
                 <DialogTitle className="text-xl flex items-center gap-2">
                   <Lightbulb className="w-5 h-5 text-primary" />
-                  How It Works
+                  {t('dashboard.howItWorksTitle')}
                 </DialogTitle>
                 <DialogDescription className="sr-only">
-                  Learn how we generate profit for you
+                  {t('dashboard.howItWorksDescription')}
                 </DialogDescription>
               </DialogHeader>
               
@@ -339,9 +339,9 @@ const Dashboard = () => {
                         <DollarSign className="w-10 h-10 text-primary" />
                       </div>
                     </div>
-                    <h3 className="text-lg font-semibold text-center">Step 1: Currency Conversion</h3>
+                    <h3 className="text-lg font-semibold text-center">{t('dashboard.step1Title')}</h3>
                     <p className="text-sm text-muted-foreground leading-relaxed">
-                      Your JPY fiat is converted to USD in the form of stablecoin (USDC), where <span className="font-semibold text-foreground">1 stablecoin is always 1 USD</span>.
+                      {t('dashboard.step1Description')} <span className="font-semibold text-foreground">{t('dashboard.step1Bold')}</span>.
                     </p>
                   </div>
                 )}
@@ -354,9 +354,9 @@ const Dashboard = () => {
                         <TrendingUp className="w-10 h-10 text-primary" />
                       </div>
                     </div>
-                    <h3 className="text-lg font-semibold text-center">Step 2: DeFi Lending</h3>
+                    <h3 className="text-lg font-semibold text-center">{t('dashboard.step2Title')}</h3>
                     <p className="text-sm text-muted-foreground leading-relaxed">
-                      Your USDC is then <span className="font-semibold text-foreground">lent out to different participants</span> through a DeFi protocol on a blockchain.
+                      {t('dashboard.step2Description')} <span className="font-semibold text-foreground">{t('dashboard.step2Bold')}</span> {t('dashboard.step2Description2')}
                     </p>
                   </div>
                 )}
@@ -369,22 +369,22 @@ const Dashboard = () => {
                         <Coins className="w-10 h-10 text-green-600 dark:text-green-400" />
                       </div>
                     </div>
-                    <h3 className="text-lg font-semibold text-center">Step 3: Continuous Returns</h3>
+                    <h3 className="text-lg font-semibold text-center">{t('dashboard.step3Title')}</h3>
                     <p className="text-sm text-muted-foreground leading-relaxed">
-                      This lending process <span className="font-semibold text-foreground">continuously generates profit</span>, while ensuring:
+                      {t('dashboard.step3Description')} <span className="font-semibold text-foreground">{t('dashboard.step3Bold')}</span>{t('dashboard.step3Description2')}
                     </p>
                     <div className="space-y-3">
                       <div className="flex items-start gap-3 bg-green-500/5 border border-green-500/20 rounded-lg p-3">
                         <div className="w-2 h-2 rounded-full bg-green-600 dark:bg-green-400 mt-1.5 flex-shrink-0" />
-                        <p className="text-sm">Your principal can be withdrawn at any time</p>
+                        <p className="text-sm">{t('dashboard.step3Point1')}</p>
                       </div>
                       <div className="flex items-start gap-3 bg-green-500/5 border border-green-500/20 rounded-lg p-3">
                         <div className="w-2 h-2 rounded-full bg-green-600 dark:bg-green-400 mt-1.5 flex-shrink-0" />
-                        <p className="text-sm">Your principal never decreases</p>
+                        <p className="text-sm">{t('dashboard.step3Point2')}</p>
                       </div>
                       <div className="flex items-start gap-3 bg-green-500/5 border border-green-500/20 rounded-lg p-3">
                         <div className="w-2 h-2 rounded-full bg-green-600 dark:bg-green-400 mt-1.5 flex-shrink-0" />
-                        <p className="text-sm">You start earning interest from day 1</p>
+                        <p className="text-sm">{t('dashboard.step3Point3')}</p>
                       </div>
                     </div>
                   </div>
@@ -398,13 +398,13 @@ const Dashboard = () => {
                         <Shield className="w-10 h-10 text-blue-600 dark:text-blue-400" />
                       </div>
                     </div>
-                    <h3 className="text-lg font-semibold text-center">Your Security is Our Priority</h3>
+                    <h3 className="text-lg font-semibold text-center">{t('dashboard.step4Title')}</h3>
                     <p className="text-sm text-muted-foreground leading-relaxed text-center">
-                      We take extra precautions to increase the security of your funds and data through advanced blockchain technology and rigorous security protocols.
+                      {t('dashboard.step4Description')}
                     </p>
                     <div className="bg-gradient-to-r from-blue-500/10 to-indigo-500/10 border border-blue-500/20 rounded-lg p-4">
                       <p className="text-sm font-semibold text-center text-blue-600 dark:text-blue-400">
-                        Your investment is protected at every step
+                        {t('dashboard.step4Footer')}
                       </p>
                     </div>
                   </div>
@@ -431,21 +431,21 @@ const Dashboard = () => {
                     className="flex-1"
                   >
                     <ArrowLeft className="w-4 h-4 mr-2" />
-                    Previous
+                    {t('dashboard.previous')}
                   </Button>
                   {currentPage === 4 ? (
                     <Button
                       onClick={handleCloseHowItWorks}
                       className="flex-1"
                     >
-                      Got It!
+                      {t('dashboard.gotIt')}
                     </Button>
                   ) : (
                     <Button
                       onClick={handleNextPage}
                       className="flex-1"
                     >
-                      Next
+                      {t('dashboard.next')}
                       <ArrowRight className="w-4 h-4 ml-2" />
                     </Button>
                   )}
