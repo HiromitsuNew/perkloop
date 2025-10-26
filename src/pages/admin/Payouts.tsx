@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
+import { Checkbox } from '@/components/ui/checkbox';
 import { useToast } from '@/hooks/use-toast';
 import { Link } from 'react-router-dom';
 import { ArrowLeft } from 'lucide-react';
@@ -13,7 +14,6 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
-import { Checkbox } from '@/components/ui/checkbox';
 
 interface WithdrawalRequest {
   id: string;
@@ -25,7 +25,7 @@ interface WithdrawalRequest {
 }
 
 export default function Payouts() {
-  const [requests, setRequests] = useState<WithdrawalRequest[]>([]);
+  const [withdrawalRequests, setWithdrawalRequests] = useState<WithdrawalRequest[]>([]);
   const [loading, setLoading] = useState(true);
   const { toast } = useToast();
 
@@ -38,7 +38,7 @@ export default function Payouts() {
 
       if (error) throw error;
       
-      setRequests(data || []);
+      setWithdrawalRequests(data || []);
     } catch (error) {
       console.error('Error fetching withdrawal requests:', error);
       toast({
@@ -53,9 +53,33 @@ export default function Payouts() {
 
   useEffect(() => {
     fetchWithdrawalRequests();
+    
+    // Set up realtime subscription
+    const channel = supabase
+      .channel('withdrawal-requests-changes')
+      .on(
+        'postgres_changes',
+        {
+          event: 'INSERT',
+          schema: 'public',
+          table: 'principal_withdrawal_requests'
+        },
+        () => {
+          fetchWithdrawalRequests();
+          toast({
+            title: '🔔 New Withdrawal Request',
+            description: 'A user has requested to withdraw their principal',
+          });
+        }
+      )
+      .subscribe();
+
+    return () => {
+      supabase.removeChannel(channel);
+    };
   }, []);
 
-  const handleStatusToggle = async (requestId: string, currentStatus: string) => {
+  const handleStatusChange = async (id: string, currentStatus: string) => {
     const newStatus = currentStatus === 'pending' ? 'done' : 'pending';
     
     try {
@@ -65,7 +89,7 @@ export default function Payouts() {
           status: newStatus,
           processed_at: newStatus === 'done' ? new Date().toISOString() : null,
         })
-        .eq('id', requestId);
+        .eq('id', id);
 
       if (error) throw error;
 
@@ -104,7 +128,7 @@ export default function Payouts() {
         <h1 className="text-3xl font-bold text-foreground">Process Payouts</h1>
       </div>
 
-      {requests.length === 0 ? (
+      {withdrawalRequests.length === 0 ? (
         <Card>
           <CardContent className="py-8 text-center text-muted-foreground">
             No withdrawal requests
@@ -121,25 +145,35 @@ export default function Payouts() {
                 <TableRow>
                   <TableHead>User Email</TableHead>
                   <TableHead>Deposit (USD)</TableHead>
-                  <TableHead>Indicated Withdrawal Amount</TableHead>
+                  <TableHead>Indicated Withdrawal Amount (JPY)</TableHead>
                   <TableHead>Status</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
-                {requests.map((request) => (
+                {withdrawalRequests.map((request) => (
                   <TableRow key={request.id}>
                     <TableCell>{request.user_email}</TableCell>
-                    <TableCell>${Number(request.deposit_usd).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</TableCell>
-                    <TableCell>¥{Number(request.indicated_jpy_amount).toLocaleString(undefined, { maximumFractionDigits: 0 })}</TableCell>
+                    <TableCell className="font-semibold">
+                      ${Number(request.deposit_usd).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                    </TableCell>
+                    <TableCell className="font-semibold text-primary">
+                      ¥{Number(request.indicated_jpy_amount).toLocaleString(undefined, { maximumFractionDigits: 0 })}
+                    </TableCell>
                     <TableCell>
                       <div className="flex items-center gap-2">
                         <Checkbox
+                          id={`status-${request.id}`}
                           checked={request.status === 'done'}
-                          onCheckedChange={() => handleStatusToggle(request.id, request.status)}
+                          onCheckedChange={() => handleStatusChange(request.id, request.status)}
                         />
-                        <span className={request.status === 'done' ? 'text-muted-foreground line-through' : ''}>
+                        <label
+                          htmlFor={`status-${request.id}`}
+                          className={`text-sm font-medium cursor-pointer ${
+                            request.status === 'done' ? 'text-green-600' : 'text-muted-foreground'
+                          }`}
+                        >
                           {request.status === 'done' ? 'Done' : 'Pending'}
-                        </span>
+                        </label>
                       </div>
                     </TableCell>
                   </TableRow>
