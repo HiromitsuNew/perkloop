@@ -244,7 +244,7 @@ const Withdraw = () => {
                 </h3>
                 <div className="space-y-2 text-muted-foreground">
                   <p>
-                    Perkloop converts your JPY into USD stablecoin to generate returns, so your withdraw amount is affected by interest rate fluctuation.
+                    Perkloop converts your JPY into USD stablecoin to generate returns, so your withdrawal amount is affected by interest rate fluctuation.
                   </p>
                   <p>
                     If JPY strengthens after you made your deposit, you will end up withdrawing less than your principal.
