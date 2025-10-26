@@ -195,7 +195,7 @@ const Withdraw = () => {
             <div>
               <h2 className="text-lg font-semibold mb-2">{t('withdraw.principalsTitle')}</h2>
               <p className="text-sm text-muted-foreground mb-4">
-                {t('withdraw.principalsDescription')}
+                Full withdrawal will be initiated within 48 hours.
               </p>
             </div>
 
