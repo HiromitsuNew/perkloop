@@ -57,6 +57,7 @@ export default function Users() {
     jpy_deposit: '',
     total_returns: '',
   });
+  const [investmentDays, setInvestmentDays] = useState<{ [key: string]: number }>({});
   const { toast } = useToast();
 
   const fetchUsers = async () => {
@@ -100,6 +101,7 @@ export default function Users() {
 
       if (error) throw error;
       setUserInvestments(data || []);
+      return data || [];
     } catch (error) {
       console.error('Error fetching user investments:', error);
       toast({
@@ -107,6 +109,7 @@ export default function Users() {
         description: 'Failed to fetch investments',
         variant: 'destructive',
       });
+      return [];
     }
   };
 
@@ -136,7 +139,8 @@ export default function Users() {
     if (!selectedUser) return;
 
     try {
-      const { error } = await supabase
+      // Update profile values
+      const { error: profileError } = await supabase
         .from('profiles')
         .update({
           withdrawal_principal_usd: Number(editValues.withdrawal_principal_usd),
@@ -145,7 +149,22 @@ export default function Users() {
         })
         .eq('user_id', selectedUser.user_id);
 
-      if (error) throw error;
+      if (profileError) throw profileError;
+
+      // Update investment_days for each investment
+      const updatePromises = Object.entries(investmentDays).map(([investmentId, days]) => 
+        supabase
+          .from('investments')
+          .update({ investment_days: days })
+          .eq('id', investmentId)
+      );
+
+      const results = await Promise.all(updatePromises);
+      const errors = results.filter(result => result.error);
+      
+      if (errors.length > 0) {
+        throw new Error('Failed to update some investments');
+      }
 
       toast({
         title: 'Success',
@@ -171,10 +190,17 @@ export default function Users() {
       jpy_deposit: user.jpy_deposit.toString(),
       total_returns: user.total_returns.toString(),
     });
-    await Promise.all([
-      fetchUserInvestments(user.user_id),
-      fetchWithdrawalPreference(user.user_id)
-    ]);
+    const investments = await fetchUserInvestments(user.user_id);
+    await fetchWithdrawalPreference(user.user_id);
+    
+    // Initialize investment days state
+    if (investments) {
+      const daysMap: { [key: string]: number } = {};
+      investments.forEach(inv => {
+        daysMap[inv.id] = inv.investment_days;
+      });
+      setInvestmentDays(daysMap);
+    }
   };
 
   useEffect(() => {
@@ -321,10 +347,10 @@ export default function Users() {
               </div>
             </div>
 
-            {/* Read-only Investment Info */}
-            <div className="space-y-4 p-4 border rounded-lg">
+            {/* Investment Info */}
+            <div className="space-y-4 p-4 border rounded-lg bg-muted/30">
               <div className="flex justify-between items-center">
-                <h3 className="font-semibold text-sm uppercase tracking-wide">Investment Details (Read-only)</h3>
+                <h3 className="font-semibold text-sm uppercase tracking-wide">Investment Details</h3>
                 {userInvestments.length > 0 && (
                   <Badge variant="secondary" className="text-base font-semibold">
                     Total: ¥{userInvestments.reduce((sum, inv) => sum + Number(inv.deposit_amount), 0).toLocaleString()}
@@ -338,19 +364,32 @@ export default function Users() {
                 <div className="space-y-3">
                   {userInvestments.map((inv) => {
                     const createdDate = new Date(inv.created_at);
+                    const currentDays = investmentDays[inv.id] || inv.investment_days;
                     const daysPassed = Math.floor((Date.now() - createdDate.getTime()) / (1000 * 60 * 60 * 24));
-                    const daysInCurrentCycle = daysPassed % inv.investment_days;
-                    const nextMaturityDate = new Date(createdDate.getTime() + (daysPassed - daysInCurrentCycle + inv.investment_days) * 24 * 60 * 60 * 1000);
+                    const daysInCurrentCycle = daysPassed % currentDays;
+                    const nextMaturityDate = new Date(createdDate.getTime() + (daysPassed - daysInCurrentCycle + currentDays) * 24 * 60 * 60 * 1000);
                     
                     return (
-                      <div key={inv.id} className="p-3 border rounded bg-background space-y-1">
+                      <div key={inv.id} className="p-3 border rounded bg-background space-y-2">
                         <div className="flex justify-between items-start">
                           <span className="font-medium">{inv.product_name}</span>
                           <Badge variant="outline">¥{Number(inv.deposit_amount).toLocaleString()}</Badge>
                         </div>
-                        <div className="text-sm text-muted-foreground space-y-0.5">
-                          <p>Time-to-Purchase: {inv.investment_days} days</p>
-                          <p>Next Maturity: {nextMaturityDate.toLocaleDateString()}</p>
+                        <div className="space-y-2">
+                          <div className="space-y-1">
+                            <Label htmlFor={`days-${inv.id}`} className="text-xs text-muted-foreground">Time-to-Purchase (days)</Label>
+                            <Input
+                              id={`days-${inv.id}`}
+                              type="number"
+                              min="1"
+                              value={investmentDays[inv.id] || inv.investment_days}
+                              onChange={(e) => setInvestmentDays({
+                                ...investmentDays,
+                                [inv.id]: Number(e.target.value)
+                              })}
+                            />
+                          </div>
+                          <p className="text-sm text-muted-foreground">Next Maturity: {nextMaturityDate.toLocaleDateString()}</p>
                         </div>
                       </div>
                     );
