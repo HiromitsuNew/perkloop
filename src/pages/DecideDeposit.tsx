@@ -222,32 +222,23 @@ const DecideDeposit = () => {
           </div>
         </div>
 
-        {/* Action Buttons */}
-        <div className="space-y-3">
-          <Button 
-            onClick={() => navigate('/payment-method', { 
-              state: { 
-                depositAmount: currentDeposit,
-                investmentDays: currentDays,
-                timeString: timeString,
-                sliderValue: (sliderValue[0] / (dayIntervals.length - 1)) * 100,
-                product: product,
-                price: price,
-                icon: icon
-              }
-            })}
-            className="w-full h-12 text-base font-medium bg-primary hover:bg-primary/90"
-          >
-            {t('decideDeposit.nextStep')}
-          </Button>
-          
-          <Button 
-            variant="secondary" 
-            className="w-full h-12 text-base font-medium"
-          >
-            {t('decideDeposit.addMore')}
-          </Button>
-        </div>
+        {/* Action Button */}
+        <Button 
+          onClick={() => navigate('/payment-method', { 
+            state: { 
+              depositAmount: currentDeposit,
+              investmentDays: currentDays,
+              timeString: timeString,
+              sliderValue: (sliderValue[0] / (dayIntervals.length - 1)) * 100,
+              product: product,
+              price: price,
+              icon: icon
+            }
+          })}
+          className="w-full h-12 text-base font-medium bg-primary hover:bg-primary/90"
+        >
+          {t('decideDeposit.nextStep')}
+        </Button>
       </div>
     </div>
   );
