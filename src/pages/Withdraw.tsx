@@ -173,8 +173,8 @@ const Withdraw = () => {
                 </div>
               </div>
 
-              <div className="bg-muted/50 rounded-lg p-4">
-                <p className="text-xs text-muted-foreground leading-relaxed">
+              <div className="bg-primary/10 border-2 border-primary/20 rounded-lg p-4 shadow-sm">
+                <p className="text-sm text-foreground leading-relaxed font-medium">
                   {t('withdraw.compoundingNote')}
                 </p>
               </div>
