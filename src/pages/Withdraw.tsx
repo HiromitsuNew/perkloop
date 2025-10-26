@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { ArrowLeft } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
@@ -244,24 +244,30 @@ const Withdraw = () => {
                 </h3>
                 <div className="space-y-2 text-muted-foreground">
                   <p>
-                    Perkloop converts your JPY into USD stablecoin to generate returns, so your withdrawal amount is affected by interest rate fluctuation.
+                    Perkloop converts your JPY into USD stablecoin to generate returns, so your withdrawal amount is affected by exchange rate fluctuations.
                   </p>
                   <p>
-                    If JPY strengthens after you made your deposit, you will end up withdrawing less than your principal.
+                    If JPY strengthens against USD after your deposit, you may withdraw less than your original deposit amount.
                   </p>
                   <p>
-                    If JPY weakens after you made your deposit, you will end up withdrawing more than your principal.
+                    If JPY weakens against USD after your deposit, you may withdraw more than your original deposit amount.
                   </p>
                 </div>
               </div>
 
               <div>
                 <h4 className="font-bold mb-2">
-                  What if my withdrawal of principal is less than my original deposit?
+                  What if my withdrawal amount is less than my original deposit?
                 </h4>
-                <p className="text-muted-foreground">
-                  One option is that you simply wait and delay your withdrawal until JPY weakens against USD. You will be able to withdraw more principal (even higher than your original deposit).
+                <p className="text-muted-foreground mb-2">
+                  You can wait and withdraw later when JPY weakens against USD. Your withdrawal amount may increase and potentially exceed your original deposit.
                 </p>
+                <Link 
+                  to="/risk-mitigation" 
+                  className="text-sm text-primary hover:underline inline-block"
+                >
+                  Read more in Risk and Mitigation
+                </Link>
               </div>
             </div>
 
