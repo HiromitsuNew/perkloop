@@ -237,6 +237,34 @@ const Withdraw = () => {
               </div>
             )}
 
+            <div className="space-y-4 text-sm">
+              <div>
+                <h3 className="text-base font-bold mb-2">
+                  Why is my Withdrawal Amount different from my Original Deposit?
+                </h3>
+                <div className="space-y-2 text-muted-foreground">
+                  <p>
+                    Perkloop converts your JPY into USD stablecoin to generate returns, so your withdraw amount is affected by interest rate fluctuation.
+                  </p>
+                  <p>
+                    If JPY strengthens after you made your deposit, you will end up withdrawing less than your principal.
+                  </p>
+                  <p>
+                    If JPY weakens after you made your deposit, you will end up withdrawing more than your principal.
+                  </p>
+                </div>
+              </div>
+
+              <div>
+                <h4 className="font-bold mb-2">
+                  What if my withdrawal of principal is less than my original deposit?
+                </h4>
+                <p className="text-muted-foreground">
+                  One option is that you simply wait and delay your withdrawal until JPY weakens against USD. You will be able to withdraw more principal (even higher than your original deposit).
+                </p>
+              </div>
+            </div>
+
             <Button 
               size="lg" 
               className="w-full"
