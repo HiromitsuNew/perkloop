@@ -195,7 +195,7 @@ const Withdraw = () => {
             <div>
               <h2 className="text-lg font-semibold mb-2">{t('withdraw.principalsTitle')}</h2>
               <p className="text-sm text-muted-foreground mb-4">
-                Full withdrawal will be initiated within 48 hours.
+                {t('withdraw.fullWithdrawal')}
               </p>
             </div>
 
@@ -203,26 +203,26 @@ const Withdraw = () => {
               <div className="space-y-4 bg-muted/30 rounded-lg p-4">
                 <div className="space-y-3">
                   <div className="flex justify-between items-center">
-                    <span className="text-sm text-muted-foreground">Original Deposit (JPY)</span>
+                    <span className="text-sm text-muted-foreground">{t('withdraw.originalDeposit')}</span>
                     <span className="font-semibold">¥{userProfile.jpy_deposit.toLocaleString()}</span>
                   </div>
                   
                   <div className="flex justify-between items-center">
-                    <span className="text-sm text-muted-foreground">Exchange Rate at Deposit</span>
+                    <span className="text-sm text-muted-foreground">{t('withdraw.exchangeRateAtDeposit')}</span>
                     <span className="font-semibold">
                       ¥{(userProfile.jpy_deposit / userProfile.withdrawal_principal_usd).toFixed(2)} / USD
                     </span>
                   </div>
                   
                   <div className="flex justify-between items-center">
-                    <span className="text-sm text-muted-foreground">Current Exchange Rate</span>
+                    <span className="text-sm text-muted-foreground">{t('withdraw.currentExchangeRate')}</span>
                     <span className="font-semibold">¥{currentRate.toFixed(2)} / USD</span>
                   </div>
                   
                   <div className="h-px bg-border my-2" />
                   
                   <div className="flex justify-between items-center">
-                    <span className="text-sm font-medium">Withdrawal Amount (JPY)</span>
+                    <span className="text-sm font-medium">{t('withdraw.withdrawalAmount')}</span>
                     <span className="text-lg font-bold text-primary">
                       ¥{(userProfile.withdrawal_principal_usd * currentRate).toLocaleString(undefined, { maximumFractionDigits: 0 })}
                     </span>
@@ -233,40 +233,34 @@ const Withdraw = () => {
 
             {rateLoading && (
               <div className="text-center text-sm text-muted-foreground py-4">
-                Loading exchange rate...
+                {t('withdraw.loadingRate')}
               </div>
             )}
 
             <div className="space-y-4 text-sm">
               <div>
                 <h3 className="text-base font-bold mb-2">
-                  Why is my Withdrawal Amount different from my Original Deposit?
+                  {t('withdraw.whyDifferentTitle')}
                 </h3>
                 <div className="space-y-2 text-muted-foreground">
-                  <p>
-                    Perkloop converts your JPY into USD stablecoin to generate returns, so your withdrawal amount is affected by exchange rate fluctuations.
-                  </p>
-                  <p>
-                    If JPY strengthens against USD after your deposit, you may withdraw less than your original deposit amount.
-                  </p>
-                  <p>
-                    If JPY weakens against USD after your deposit, you may withdraw more than your original deposit amount.
-                  </p>
+                  <p>{t('withdraw.whyDifferentText1')}</p>
+                  <p>{t('withdraw.whyDifferentText2')}</p>
+                  <p>{t('withdraw.whyDifferentText3')}</p>
                 </div>
               </div>
 
               <div>
                 <h4 className="font-bold mb-2">
-                  What if my withdrawal amount is less than my original deposit?
+                  {t('withdraw.whatIfLessTitle')}
                 </h4>
                 <p className="text-muted-foreground mb-2">
-                  You can wait and withdraw later when JPY weakens against USD. Your withdrawal amount may increase and potentially exceed your original deposit.
+                  {t('withdraw.whatIfLessText')}
                 </p>
                 <Link 
                   to="/risk-mitigation" 
                   className="text-sm text-primary hover:underline inline-block"
                 >
-                  Read more in Risk and Mitigation
+                  {t('withdraw.readMore')}
                 </Link>
               </div>
             </div>
