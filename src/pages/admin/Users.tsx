@@ -28,7 +28,7 @@ import { Label } from '@/components/ui/label';
 interface UserData {
   user_id: string;
   email: string;
-  withdrawal_principle_usd: number;
+  withdrawal_principal_usd: number;
   jpy_deposit: number;
   total_returns: number;
 }
@@ -53,7 +53,7 @@ export default function Users() {
   const [userInvestments, setUserInvestments] = useState<Investment[]>([]);
   const [withdrawalPreference, setWithdrawalPreference] = useState<WithdrawalPreference | null>(null);
   const [editValues, setEditValues] = useState({
-    withdrawal_principle_usd: '',
+    withdrawal_principal_usd: '',
     jpy_deposit: '',
     total_returns: '',
   });
@@ -63,7 +63,7 @@ export default function Users() {
     try {
       const { data: profiles, error: profilesError } = await supabase
         .from('profiles')
-        .select('user_id, email, withdrawal_principle_usd, jpy_deposit, total_returns')
+        .select('user_id, email, withdrawal_principal_usd, jpy_deposit, total_returns')
         .order('created_at', { ascending: false });
 
       if (profilesError) throw profilesError;
@@ -71,7 +71,7 @@ export default function Users() {
       const userData = profiles?.map(profile => ({
         user_id: profile.user_id,
         email: profile.email || 'N/A',
-        withdrawal_principle_usd: Number(profile.withdrawal_principle_usd) || 0,
+        withdrawal_principal_usd: Number(profile.withdrawal_principal_usd) || 0,
         jpy_deposit: Number(profile.jpy_deposit) || 0,
         total_returns: Number(profile.total_returns) || 0,
       })) || [];
@@ -139,7 +139,7 @@ export default function Users() {
       const { error } = await supabase
         .from('profiles')
         .update({
-          withdrawal_principle_usd: Number(editValues.withdrawal_principle_usd),
+          withdrawal_principal_usd: Number(editValues.withdrawal_principal_usd),
           jpy_deposit: Number(editValues.jpy_deposit),
           total_returns: Number(editValues.total_returns),
         })
@@ -167,7 +167,7 @@ export default function Users() {
   const handleViewUser = async (user: UserData) => {
     setSelectedUser(user);
     setEditValues({
-      withdrawal_principle_usd: user.withdrawal_principle_usd.toString(),
+      withdrawal_principal_usd: user.withdrawal_principal_usd.toString(),
       jpy_deposit: user.jpy_deposit.toString(),
       total_returns: user.total_returns.toString(),
     });
@@ -259,13 +259,13 @@ export default function Users() {
               <h3 className="font-semibold text-sm uppercase tracking-wide">User-Facing Values (Editable)</h3>
               
               <div className="space-y-2">
-                <Label htmlFor="withdrawal_principle_usd">Withdrawal Principal (USD)</Label>
+                <Label htmlFor="withdrawal_principal_usd">Withdrawal Principal (USD)</Label>
                 <Input
-                  id="withdrawal_principle_usd"
+                  id="withdrawal_principal_usd"
                   type="number"
                   step="0.01"
-                  value={editValues.withdrawal_principle_usd}
-                  onChange={(e) => setEditValues({ ...editValues, withdrawal_principle_usd: e.target.value })}
+                  value={editValues.withdrawal_principal_usd}
+                  onChange={(e) => setEditValues({ ...editValues, withdrawal_principal_usd: e.target.value })}
                 />
               </div>
               

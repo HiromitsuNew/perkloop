@@ -51,7 +51,7 @@ const Dashboard = () => {
       
       const { data, error } = await supabase
         .from('profiles')
-        .select('withdrawal_principle_usd, jpy_deposit, total_returns')
+        .select('withdrawal_principal_usd, jpy_deposit, total_returns')
         .eq('user_id', user.id)
         .single();
       
@@ -61,7 +61,7 @@ const Dashboard = () => {
       }
       
       if (data) {
-        setWithdrawalPrincipal(Number(data.withdrawal_principle_usd) || 0);
+        setWithdrawalPrincipal(Number(data.withdrawal_principal_usd) || 0);
         setJpyDeposit(Number(data.jpy_deposit) || 0);
         setTotalReturns(Number(data.total_returns) || 0);
       }

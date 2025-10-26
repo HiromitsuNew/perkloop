@@ -146,7 +146,7 @@ export type Database = {
           total_returns: number | null
           updated_at: string
           user_id: string
-          withdrawal_principle_usd: number | null
+          withdrawal_principal_usd: number | null
         }
         Insert: {
           account_holder_name?: string | null
@@ -161,7 +161,7 @@ export type Database = {
           total_returns?: number | null
           updated_at?: string
           user_id: string
-          withdrawal_principle_usd?: number | null
+          withdrawal_principal_usd?: number | null
         }
         Update: {
           account_holder_name?: string | null
@@ -176,7 +176,7 @@ export type Database = {
           total_returns?: number | null
           updated_at?: string
           user_id?: string
-          withdrawal_principle_usd?: number | null
+          withdrawal_principal_usd?: number | null
         }
         Relationships: []
       }
