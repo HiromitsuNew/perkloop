@@ -193,9 +193,9 @@ const Withdraw = () => {
           /* Withdraw Principal */
           <Card className="p-6 space-y-6">
             <div>
-              <h2 className="text-lg font-semibold mb-2">{t('withdraw.principlesTitle')}</h2>
+              <h2 className="text-lg font-semibold mb-2">{t('withdraw.principalsTitle')}</h2>
               <p className="text-sm text-muted-foreground mb-4">
-                {t('withdraw.principlesDescription')}
+                {t('withdraw.principalsDescription')}
               </p>
             </div>
 
