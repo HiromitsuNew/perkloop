@@ -132,6 +132,39 @@ export type Database = {
           },
         ]
       }
+      principal_withdrawal_requests: {
+        Row: {
+          created_at: string
+          deposit_usd: number
+          id: string
+          indicated_jpy_amount: number
+          processed_at: string | null
+          status: string
+          user_email: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          deposit_usd: number
+          id?: string
+          indicated_jpy_amount: number
+          processed_at?: string | null
+          status?: string
+          user_email: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          deposit_usd?: number
+          id?: string
+          indicated_jpy_amount?: number
+          processed_at?: string | null
+          status?: string
+          user_email?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       profiles: {
         Row: {
           account_holder_name: string | null

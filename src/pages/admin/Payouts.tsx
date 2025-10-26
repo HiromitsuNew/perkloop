@@ -2,16 +2,6 @@ import { useEffect, useState } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-} from '@/components/ui/dialog';
 import { useToast } from '@/hooks/use-toast';
 import { Link } from 'react-router-dom';
 import { ArrowLeft } from 'lucide-react';
@@ -23,71 +13,37 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
+import { Checkbox } from '@/components/ui/checkbox';
 
-interface PayoutInvestment {
+interface WithdrawalRequest {
   id: string;
-  user_id: string;
-  product_name: string;
-  deposit_amount: number;
-  returns: number;
-  investment_days: number;
-  expected_return_date: string;
-  profiles: {
-    email: string;
-    bank_name: string;
-    bank_branch: string;
-    account_number: string;
-    account_holder_name: string;
-  };
+  user_email: string;
+  deposit_usd: number;
+  indicated_jpy_amount: number;
+  status: string;
+  created_at: string;
 }
 
 export default function Payouts() {
-  const [investments, setInvestments] = useState<PayoutInvestment[]>([]);
+  const [requests, setRequests] = useState<WithdrawalRequest[]>([]);
   const [loading, setLoading] = useState(true);
-  const [selectedInvestment, setSelectedInvestment] = useState<PayoutInvestment | null>(null);
-  const [payoutDialogOpen, setPayoutDialogOpen] = useState(false);
-  const [transactionId, setTransactionId] = useState('');
   const { toast } = useToast();
 
-  const fetchReadyPayouts = async () => {
+  const fetchWithdrawalRequests = async () => {
     try {
-      const today = new Date().toISOString().split('T')[0];
-
-      const { data: investmentsData, error } = await supabase
-        .from('investments')
+      const { data, error } = await supabase
+        .from('principal_withdrawal_requests')
         .select('*')
-        .eq('status', 'active')
-        .lte('expected_return_date', today)
-        .order('expected_return_date', { ascending: true });
+        .order('created_at', { ascending: false });
 
       if (error) throw error;
       
-      // Fetch profiles for all users
-      const userIds = investmentsData?.map(inv => inv.user_id) || [];
-      const { data: profilesData } = await supabase
-        .from('profiles')
-        .select('user_id, email, bank_name, bank_branch, account_number, account_holder_name')
-        .in('user_id', userIds);
-      
-      // Map profiles to investments
-      const profileMap = new Map(profilesData?.map(p => [p.user_id, p]) || []);
-      const enrichedData = investmentsData?.map(inv => ({
-        ...inv,
-        profiles: profileMap.get(inv.user_id) || {
-          email: '',
-          bank_name: '',
-          bank_branch: '',
-          account_number: '',
-          account_holder_name: '',
-        },
-      })) || [];
-      
-      setInvestments(enrichedData);
+      setRequests(data || []);
     } catch (error) {
-      console.error('Error fetching ready payouts:', error);
+      console.error('Error fetching withdrawal requests:', error);
       toast({
         title: 'Error',
-        description: 'Failed to fetch payouts',
+        description: 'Failed to fetch withdrawal requests',
         variant: 'destructive',
       });
     } finally {
@@ -96,51 +52,34 @@ export default function Payouts() {
   };
 
   useEffect(() => {
-    fetchReadyPayouts();
+    fetchWithdrawalRequests();
   }, []);
 
-  const handleProcessPayout = async () => {
-    if (!selectedInvestment) return;
-
-    const totalPayout = Number(selectedInvestment.deposit_amount) + Number(selectedInvestment.returns);
-
+  const handleStatusToggle = async (requestId: string, currentStatus: string) => {
+    const newStatus = currentStatus === 'pending' ? 'done' : 'pending';
+    
     try {
-      const { error: updateError } = await supabase
-        .from('investments')
+      const { error } = await supabase
+        .from('principal_withdrawal_requests')
         .update({
-          status: 'completed',
-          payout_jpy_amount: totalPayout,
-          payout_processed_at: new Date().toISOString(),
-          payout_transaction_id: transactionId,
+          status: newStatus,
+          processed_at: newStatus === 'done' ? new Date().toISOString() : null,
         })
-        .eq('id', selectedInvestment.id);
+        .eq('id', requestId);
 
-      if (updateError) throw updateError;
-
-      // Log admin action
-      await supabase.rpc('log_admin_action', {
-        p_action_type: 'PROCESS_PAYOUT',
-        p_investment_id: selectedInvestment.id,
-        p_details: {
-          payout_amount: totalPayout,
-          transaction_id: transactionId,
-        },
-      });
+      if (error) throw error;
 
       toast({
         title: 'Success',
-        description: 'Payout processed successfully',
+        description: `Status updated to ${newStatus}`,
       });
 
-      setPayoutDialogOpen(false);
-      setSelectedInvestment(null);
-      setTransactionId('');
-      fetchReadyPayouts();
+      fetchWithdrawalRequests();
     } catch (error) {
-      console.error('Error processing payout:', error);
+      console.error('Error updating status:', error);
       toast({
         title: 'Error',
-        description: 'Failed to process payout',
+        description: 'Failed to update status',
         variant: 'destructive',
       });
     }
@@ -165,111 +104,51 @@ export default function Payouts() {
         <h1 className="text-3xl font-bold text-foreground">Process Payouts</h1>
       </div>
 
-      {investments.length === 0 ? (
+      {requests.length === 0 ? (
         <Card>
           <CardContent className="py-8 text-center text-muted-foreground">
-            No payouts ready to process
+            No withdrawal requests
           </CardContent>
         </Card>
       ) : (
         <Card>
           <CardHeader>
-            <CardTitle>Investments Ready for Payout</CardTitle>
+            <CardTitle>Principal Withdrawal Requests</CardTitle>
           </CardHeader>
           <CardContent>
             <Table>
               <TableHeader>
                 <TableRow>
                   <TableHead>User Email</TableHead>
-                  <TableHead>Product</TableHead>
-                  <TableHead>Original Deposit</TableHead>
-                  <TableHead>Returns</TableHead>
-                  <TableHead>Total Payout</TableHead>
-                  <TableHead>Bank Details</TableHead>
-                  <TableHead>Actions</TableHead>
+                  <TableHead>Deposit (USD)</TableHead>
+                  <TableHead>Indicated Withdrawal Amount</TableHead>
+                  <TableHead>Status</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
-                {investments.map((investment) => {
-                  const totalPayout = Number(investment.deposit_amount) + Number(investment.returns);
-                  return (
-                    <TableRow key={investment.id}>
-                      <TableCell>{investment.profiles.email}</TableCell>
-                      <TableCell>{investment.product_name}</TableCell>
-                      <TableCell>¥{Number(investment.deposit_amount).toLocaleString()}</TableCell>
-                      <TableCell className="text-green-600">¥{Number(investment.returns).toLocaleString()}</TableCell>
-                      <TableCell className="font-bold">¥{totalPayout.toLocaleString()}</TableCell>
-                      <TableCell>
-                        <div className="text-xs space-y-1">
-                          <div>{investment.profiles.bank_name}</div>
-                          <div>{investment.profiles.bank_branch}</div>
-                          <div className="font-mono">{investment.profiles.account_number}</div>
-                          <div>{investment.profiles.account_holder_name}</div>
-                        </div>
-                      </TableCell>
-                      <TableCell>
-                        <Button
-                          size="sm"
-                          onClick={() => {
-                            setSelectedInvestment(investment);
-                            setPayoutDialogOpen(true);
-                          }}
-                        >
-                          Process Payout
-                        </Button>
-                      </TableCell>
-                    </TableRow>
-                  );
-                })}
+                {requests.map((request) => (
+                  <TableRow key={request.id}>
+                    <TableCell>{request.user_email}</TableCell>
+                    <TableCell>${Number(request.deposit_usd).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</TableCell>
+                    <TableCell>¥{Number(request.indicated_jpy_amount).toLocaleString(undefined, { maximumFractionDigits: 0 })}</TableCell>
+                    <TableCell>
+                      <div className="flex items-center gap-2">
+                        <Checkbox
+                          checked={request.status === 'done'}
+                          onCheckedChange={() => handleStatusToggle(request.id, request.status)}
+                        />
+                        <span className={request.status === 'done' ? 'text-muted-foreground line-through' : ''}>
+                          {request.status === 'done' ? 'Done' : 'Pending'}
+                        </span>
+                      </div>
+                    </TableCell>
+                  </TableRow>
+                ))}
               </TableBody>
             </Table>
           </CardContent>
         </Card>
       )}
-
-      <Dialog open={payoutDialogOpen} onOpenChange={setPayoutDialogOpen}>
-        <DialogContent>
-          <DialogHeader>
-            <DialogTitle>Process Payout</DialogTitle>
-            <DialogDescription>
-              Confirm that you have transferred the payout to the user's bank account.
-            </DialogDescription>
-          </DialogHeader>
-          {selectedInvestment && (
-            <div className="space-y-4">
-              <div className="p-4 bg-muted rounded-lg space-y-2">
-                <div className="text-sm">
-                  <span className="font-semibold">Total to transfer:</span>{' '}
-                  ¥{(Number(selectedInvestment.deposit_amount) + Number(selectedInvestment.returns)).toLocaleString()}
-                </div>
-                <div className="text-sm">
-                  <span className="font-semibold">Bank:</span> {selectedInvestment.profiles.bank_name}
-                </div>
-                <div className="text-sm">
-                  <span className="font-semibold">Account:</span> {selectedInvestment.profiles.account_number}
-                </div>
-              </div>
-              <div>
-                <Label htmlFor="transactionId">Bank Transaction ID</Label>
-                <Input
-                  id="transactionId"
-                  value={transactionId}
-                  onChange={(e) => setTransactionId(e.target.value)}
-                  placeholder="Enter transaction ID from your bank"
-                />
-              </div>
-            </div>
-          )}
-          <DialogFooter>
-            <Button variant="outline" onClick={() => setPayoutDialogOpen(false)}>
-              Cancel
-            </Button>
-            <Button onClick={handleProcessPayout} disabled={!transactionId}>
-              Mark as Paid
-            </Button>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
     </div>
   );
 }

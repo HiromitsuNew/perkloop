@@ -9,6 +9,16 @@ import { useLanguage } from '@/contexts/LanguageContext';
 import { useAuth } from '@/contexts/AuthContext';
 import { supabase } from '@/integrations/supabase/client';
 import { useExchangeRate } from '@/hooks/useExchangeRate';
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from '@/components/ui/alert-dialog';
 
 const Withdraw = () => {
   const navigate = useNavigate();
@@ -18,9 +28,11 @@ const Withdraw = () => {
   const [selectedOption, setSelectedOption] = useState<'returns' | 'principals' | null>(null);
   const [frequency, setFrequency] = useState([2]); // Default to monthly (index 2)
   const [isSaving, setIsSaving] = useState(false);
+  const [showConfirmDialog, setShowConfirmDialog] = useState(false);
   const [userProfile, setUserProfile] = useState<{
     jpy_deposit: number;
     withdrawal_principal_usd: number;
+    email: string;
   } | null>(null);
   const { rate: currentRate, loading: rateLoading } = useExchangeRate();
 
@@ -30,7 +42,7 @@ const Withdraw = () => {
       
       const { data, error } = await supabase
         .from('profiles')
-        .select('jpy_deposit, withdrawal_principal_usd')
+        .select('jpy_deposit, withdrawal_principal_usd, email')
         .eq('user_id', user.id)
         .single();
       
@@ -67,22 +79,55 @@ const Withdraw = () => {
   const handleConfirm = async () => {
     if (!user || !selectedOption) return;
 
+    // Show confirmation dialog for principal withdrawal
+    if (selectedOption === 'principals') {
+      setShowConfirmDialog(true);
+      return;
+    }
+
+    // For returns, proceed directly
+    await saveWithdrawalPreference();
+  };
+
+  const saveWithdrawalPreference = async () => {
+    if (!user || !selectedOption) return;
+
     setIsSaving(true);
     try {
-      const preferenceData = {
-        user_id: user.id,
-        withdrawal_type: selectedOption,
-        frequency: selectedOption === 'returns' ? frequencyValues[frequency[0]] : null,
-      };
+      if (selectedOption === 'principals') {
+        // Create withdrawal request
+        if (!userProfile || !currentRate) {
+          throw new Error('Missing profile or exchange rate data');
+        }
 
-      // Use upsert to insert or update existing preference
-      const { error } = await supabase
-        .from('withdrawal_preferences')
-        .upsert(preferenceData, {
-          onConflict: 'user_id,withdrawal_type'
-        });
+        const indicatedJpyAmount = userProfile.withdrawal_principal_usd * currentRate;
 
-      if (error) throw error;
+        const { error } = await supabase
+          .from('principal_withdrawal_requests')
+          .insert({
+            user_id: user.id,
+            user_email: userProfile.email,
+            deposit_usd: userProfile.withdrawal_principal_usd,
+            indicated_jpy_amount: indicatedJpyAmount,
+          });
+
+        if (error) throw error;
+      } else {
+        // For returns, save preference
+        const preferenceData = {
+          user_id: user.id,
+          withdrawal_type: selectedOption,
+          frequency: frequencyValues[frequency[0]],
+        };
+
+        const { error } = await supabase
+          .from('withdrawal_preferences')
+          .upsert(preferenceData, {
+            onConflict: 'user_id,withdrawal_type'
+          });
+
+        if (error) throw error;
+      }
 
       toast({
         title: t('withdraw.success'),
@@ -102,6 +147,7 @@ const Withdraw = () => {
       });
     } finally {
       setIsSaving(false);
+      setShowConfirmDialog(false);
     }
   };
 
@@ -276,6 +322,31 @@ const Withdraw = () => {
           </Card>
         )}
       </div>
+
+      {/* Confirmation Dialog for Principal Withdrawal */}
+      <AlertDialog open={showConfirmDialog} onOpenChange={setShowConfirmDialog}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Confirm Principal Withdrawal</AlertDialogTitle>
+            <AlertDialogDescription className="space-y-2">
+              <p className="text-destructive font-semibold">
+                You will cease to generate returns. This action cannot be reversed.
+              </p>
+              <p>Are you sure you want to proceed with withdrawing your principal?</p>
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel disabled={isSaving}>Cancel</AlertDialogCancel>
+            <AlertDialogAction
+              onClick={saveWithdrawalPreference}
+              disabled={isSaving}
+              className="bg-destructive hover:bg-destructive/90"
+            >
+              {isSaving ? 'Processing...' : 'Proceed with Withdrawal'}
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </div>
   );
 };
