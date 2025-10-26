@@ -57,7 +57,7 @@ export default function Users() {
     jpy_deposit: '',
     total_returns: '',
   });
-  const [investmentDays, setInvestmentDays] = useState<{ [key: string]: number }>({});
+  const [investmentDays, setInvestmentDays] = useState<{ [key: string]: string }>({});
   const { toast } = useToast();
 
   const fetchUsers = async () => {
@@ -155,7 +155,7 @@ export default function Users() {
       const updatePromises = Object.entries(investmentDays).map(([investmentId, days]) => 
         supabase
           .from('investments')
-          .update({ investment_days: days })
+          .update({ investment_days: Number(days) || 1 })
           .eq('id', investmentId)
       );
 
@@ -195,9 +195,9 @@ export default function Users() {
     
     // Initialize investment days state
     if (investments) {
-      const daysMap: { [key: string]: number } = {};
+      const daysMap: { [key: string]: string } = {};
       investments.forEach(inv => {
-        daysMap[inv.id] = inv.investment_days;
+        daysMap[inv.id] = inv.investment_days.toString();
       });
       setInvestmentDays(daysMap);
     }
@@ -364,7 +364,7 @@ export default function Users() {
                 <div className="space-y-3">
                   {userInvestments.map((inv) => {
                     const createdDate = new Date(inv.created_at);
-                    const currentDays = investmentDays[inv.id] || inv.investment_days;
+                    const currentDays = Number(investmentDays[inv.id]) || inv.investment_days;
                     const daysPassed = Math.floor((Date.now() - createdDate.getTime()) / (1000 * 60 * 60 * 24));
                     const daysInCurrentCycle = daysPassed % currentDays;
                     const nextMaturityDate = new Date(createdDate.getTime() + (daysPassed - daysInCurrentCycle + currentDays) * 24 * 60 * 60 * 1000);
@@ -382,10 +382,10 @@ export default function Users() {
                               id={`days-${inv.id}`}
                               type="number"
                               min="1"
-                              value={investmentDays[inv.id] || inv.investment_days}
+                              value={investmentDays[inv.id] !== undefined ? investmentDays[inv.id] : inv.investment_days}
                               onChange={(e) => setInvestmentDays({
                                 ...investmentDays,
-                                [inv.id]: Number(e.target.value)
+                                [inv.id]: e.target.value
                               })}
                             />
                           </div>
