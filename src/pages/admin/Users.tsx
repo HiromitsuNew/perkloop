@@ -290,6 +290,18 @@ export default function Users() {
                   onChange={(e) => setEditValues({ ...editValues, total_returns: e.target.value })}
                 />
               </div>
+              
+              <div className="space-y-2">
+                <Label>Exchange Rate at Deposit (JPY/USD)</Label>
+                <div className="px-3 py-2 border rounded-md bg-muted/50 text-foreground font-medium">
+                  {(() => {
+                    const jpyDeposit = Number(editValues.jpy_deposit) || 0;
+                    const usdDeposit = Number(editValues.withdrawal_principal_usd) || 0;
+                    if (usdDeposit === 0) return '0.00';
+                    return (jpyDeposit / usdDeposit).toFixed(2);
+                  })()}
+                </div>
+              </div>
             </div>
 
             {/* Withdrawal Preference */}
