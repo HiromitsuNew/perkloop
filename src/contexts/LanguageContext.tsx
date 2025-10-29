@@ -333,7 +333,7 @@ const translations = {
     "dashboard.step1Title": "ステップ1：通貨変換",
     "dashboard.step1Description": "あなたの日本円預金を",
     "dashboard.step1Bold": "ステーブルコイン（USDC）の形で米ドルに換金します",
-    "dashboard.step1Description2": "。USDCは、米ドルと同じ価値を維持するように設計された仮想通貨である",
+    "dashboard.step1Description2": "。USDCは、米ドルと同じ価値を維持するように設計された仮想通貨である。",
     "dashboard.step2Title": "ステップ2：DeFiレンディング",
     "dashboard.step2Description": "あなたのUSDCは",
     "dashboard.step2Bold": "ブロックチェーン上のDeFiプロトコルを通じて",
