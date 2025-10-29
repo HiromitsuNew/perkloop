@@ -116,6 +116,26 @@ const Dashboard = () => {
   // Sort by remaining days (ascending - least time remaining shows first)
   const sortedInvestments = [...investmentsWithProgress].sort((a, b) => a.remainingDays - b.remainingDays);
 
+  // Function to translate product names
+  const getTranslatedProductName = (productName: string) => {
+    const nameMap: { [key: string]: string } = {
+      'Coffee': 'pickPurchase.coffee',
+      'Coffee (Regular)': 'pickPurchase.coffee',
+      'Yogurt': 'pickPurchase.yogurt',
+      'Eggs': 'pickPurchase.eggs',
+      'Eggs (10 units)': 'pickPurchase.eggs',
+      'Milk': 'pickPurchase.milk',
+      'Beer': 'pickPurchase.beer',
+      'Beer (6 cans)': 'pickPurchase.beer',
+      'Rice': 'pickPurchase.rice',
+      'Rice (2 kg)': 'pickPurchase.rice',
+      'Cigarette': 'pickPurchase.cigarette',
+    };
+    
+    const translationKey = nameMap[productName];
+    return translationKey ? t(translationKey) : productName;
+  };
+
   const handleNextPage = () => {
     if (currentPage < 4) setCurrentPage(currentPage + 1);
   };
@@ -284,7 +304,7 @@ const Dashboard = () => {
                           {inv.remainingDays} {t('dashboard.days')}
                         </span>
                         <span className="text-sm text-muted-foreground">
-                          {t('dashboard.until')} <span className="text-accent">{inv.product_name}</span>
+                          {t('dashboard.until')} <span className="text-accent">{getTranslatedProductName(inv.product_name)}</span>
                         </span>
                       </div>
                       {inv.status === 'pending' && (
