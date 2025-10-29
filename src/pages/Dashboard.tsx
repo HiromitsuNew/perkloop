@@ -402,11 +402,6 @@ const Dashboard = () => {
                     <p className="text-sm text-muted-foreground leading-relaxed text-center">
                       {t('dashboard.step4Description')}
                     </p>
-                    <div className="bg-gradient-to-r from-blue-500/10 to-indigo-500/10 border border-blue-500/20 rounded-lg p-4">
-                      <p className="text-sm font-semibold text-center text-blue-600 dark:text-blue-400">
-                        {t('dashboard.step4Footer')}
-                      </p>
-                    </div>
                   </div>
                 )}
 
