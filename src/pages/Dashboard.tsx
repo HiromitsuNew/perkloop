@@ -301,7 +301,7 @@ const Dashboard = () => {
                     <div className="flex items-center justify-between">
                       <div className="flex items-center space-x-2">
                         <span className="text-success font-semibold">
-                          {inv.remainingDays} {t('dashboard.days')}
+                          {t('dashboard.remaining')}{inv.remainingDays} {t('dashboard.days')}
                         </span>
                         <span className="text-sm text-muted-foreground">
                           {t('dashboard.until')} <span className="text-accent">{getTranslatedProductName(inv.product_name)}</span>
