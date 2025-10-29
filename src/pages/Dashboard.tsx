@@ -341,7 +341,7 @@ const Dashboard = () => {
                     </div>
                     <h3 className="text-lg font-semibold text-center">{t('dashboard.step1Title')}</h3>
                     <p className="text-sm text-muted-foreground leading-relaxed">
-                      {t('dashboard.step1Description')} <span className="font-semibold text-foreground">{t('dashboard.step1Bold')}</span>.
+                      {t('dashboard.step1Description')} <span className="font-semibold text-foreground">{t('dashboard.step1Bold')}</span>{t('dashboard.step1Description2')}
                     </p>
                   </div>
                 )}
