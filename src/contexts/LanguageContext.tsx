@@ -41,7 +41,7 @@ const translations = {
     "dashboard.byDeposit": "By a deposit of",
     "dashboard.investment": "Investment Progress",
     "dashboard.days": " days left",
-    "dashboard.remaining": "About",
+    "dashboard.remaining": "About ",
     "dashboard.until": "Until the next free",
     "dashboard.starbucks": "Starbucks",
     "dashboard.startInvesting": "Start Investing",
