@@ -242,7 +242,7 @@ const translations = {
     "riskMitigation.warning": "Your principal is NOT insured by the Japanese government or any bank.",
     "riskMitigation.risk1.title": "1. Protocol Exploit Risk",
     "riskMitigation.risk1.description":
-      "Your money is managed by automated, public software (called smart contracts). Despite significant improvement in security in recent time, flaws in this code can be exploited by hackers, leading to the potential loss of up to 100% of your invested principal.",
+      "Your money is managed by automated, public software (called smart contracts). Despite significant improvement in, and our relentless commitment to, security in recent time, flaws in this code can be exploited by hackers, leading to the potential loss of your invested principal.",
     "riskMitigation.risk1.mitigation": "Mitigation",
     "riskMitigation.risk1.mitigationIntro": "We establish multiple layers of defense to protect your investment:",
     "riskMitigation.risk1.mitigation1.title": "Triple Audited System:",
