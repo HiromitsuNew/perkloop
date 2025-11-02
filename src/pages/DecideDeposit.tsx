@@ -6,13 +6,12 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { useState } from "react";
 import { useLanguage } from "@/contexts/LanguageContext";
 import LanguageSelector from "@/components/LanguageSelector";
-import { useNaviAPY } from "@/hooks/useNaviAPY";
+
 
 const DecideDeposit = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const { t, language } = useLanguage();
-  const { userAPY, isLoading } = useNaviAPY();
   
   // Get product info from navigation state
   const { product, price, icon } = location.state || {};
@@ -36,8 +35,8 @@ const DecideDeposit = () => {
   const defaultIndex = dayIntervals.indexOf(7); // Default to weekly
   const [sliderValue, setSliderValue] = useState([defaultIndex]);
 
-  // Use dynamic APY from dashboard (comes as percentage like 4 for 4%), convert to decimal
-  const APY_percentage = userAPY || 4;
+  // Use fixed 5% APY for all deposit calculations
+  const APY_percentage = 5;
   const APY = APY_percentage / 100;
 
   // Calculate deposit needed for a specific number of days
