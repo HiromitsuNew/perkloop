@@ -345,7 +345,7 @@ const translations = {
     "dashboard.step3Bold": "継続的に利益を生み出し",
     "dashboard.step3Description2": "、いくつかのメリットがあります。",
     "dashboard.step3Point1": "いつでも元本を全額引き出せます",
-    "dashboard.step3Point2": "為替レートの影響を除き、元本が減りません",
+    "dashboard.step3Point2": "為替レートの影響を除き、元本が減少しません",
     "dashboard.step3Point3": "初日から利息が発生します",
     "dashboard.step4Title": "セキュリティを最優先に",
     "dashboard.step4Description":
