@@ -214,6 +214,8 @@ const translations = {
 
     // Payment Process
     "paymentProcess.featureAvailable": "Feature available soon.",
+    "paymentProcess.contactBankWire": "Please contact the administrator to proceed with bank wire payment",
+    "paymentProcess.contactCreditCard": "Please contact the administrator to proceed with credit card payment",
     "paymentProcess.sendUsdc": "Send",
     "paymentProcess.usdcAmount": "amount of USDC to the address below.",
     "paymentProcess.finishPayment": "Finish Payment",
@@ -469,6 +471,8 @@ const translations = {
 
     // Payment Process
     "paymentProcess.featureAvailable": "機能は間もなく利用可能です。",
+    "paymentProcess.contactBankWire": "銀行送金での支払いを進めるには、管理者にお問い合わせください",
+    "paymentProcess.contactCreditCard": "クレジットカード決済を進めるには、管理者にお問い合わせください",
     "paymentProcess.sendUsdc": "",
     "paymentProcess.usdcAmount": "USDCを以下のアドレスに送金してください。",
     "paymentProcess.finishPayment": "支払いを完了",
