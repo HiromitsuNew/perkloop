@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "@/contexts/AuthContext";
 import { Button } from "@/components/ui/button";
-import { Check } from "lucide-react";
+import { CircleDollarSign, Shield, Clock, Zap } from "lucide-react";
 import { useState, useEffect } from "react";
 import heroImage from "@/assets/hero-coffee-barista.jpg";
 
@@ -41,19 +41,23 @@ const Landing = () => {
   const sellingPoints = [
     {
       text: "Enjoy 9% APY on your savings*",
-      disclaimer: "Year-to-date DeFi lending average, subject to change"
+      disclaimer: "Year-to-date DeFi lending average, subject to change",
+      icon: CircleDollarSign
     },
     {
       text: "Principal protection against market conditions",
-      disclaimer: null
+      disclaimer: null,
+      icon: Shield
     },
     {
       text: "Full withdrawal of principal within 24 hours",
-      disclaimer: null
+      disclaimer: null,
+      icon: Clock
     },
     {
       text: "Take profit as soon as one week after deposit",
-      disclaimer: null
+      disclaimer: null,
+      icon: Zap
     }
   ];
 
@@ -114,7 +118,7 @@ const Landing = () => {
       </div>
 
       {/* Intro Section with smooth gradient transition */}
-      <div className="relative bg-gradient-to-b from-background via-background to-card py-16 px-6 -mt-8">
+      <div className="relative bg-gradient-to-b from-background via-background to-card py-12 px-6 -mt-8">
         <div className="max-w-4xl mx-auto text-center">
           <p className="text-xl md:text-2xl text-foreground/90 font-light leading-relaxed">
             Safe, simple, and high-yield saving, powered by Decentralized Finance and AI.
@@ -123,35 +127,38 @@ const Landing = () => {
       </div>
 
       {/* Key Selling Points Section */}
-      <div className="bg-card pt-12 pb-20 px-6">
+      <div className="bg-card pt-6 pb-20 px-6">
         <div className="max-w-4xl mx-auto">
           <div className="grid md:grid-cols-2 gap-8">
-            {sellingPoints.map((point, index) => (
-              <div 
-                key={index}
-                data-index={index}
-                className={`selling-point-card flex flex-col gap-2 p-6 rounded-2xl bg-background/50 border border-border/50 transition-all duration-500 ${
-                  visibleCards.includes(index) 
-                    ? 'opacity-100 translate-y-0' 
-                    : 'opacity-0 translate-y-10'
-                }`}
-                style={{ 
-                  transitionDelay: visibleCards.includes(index) ? `${index * 100}ms` : '0ms'
-                }}
-              >
-                <div className="flex items-start gap-4">
-                  <div className="flex-shrink-0 mt-1">
-                    <div className="w-6 h-6 rounded-full bg-success/20 flex items-center justify-center">
-                      <Check className="w-4 h-4 text-success" />
+            {sellingPoints.map((point, index) => {
+              const IconComponent = point.icon;
+              return (
+                <div 
+                  key={index}
+                  data-index={index}
+                  className={`selling-point-card flex flex-col gap-2 p-6 rounded-2xl bg-background/50 border border-border/50 transition-all duration-500 ${
+                    visibleCards.includes(index) 
+                      ? 'opacity-100 translate-y-0' 
+                      : 'opacity-0 translate-y-10'
+                  }`}
+                  style={{ 
+                    transitionDelay: visibleCards.includes(index) ? `${index * 100}ms` : '0ms'
+                  }}
+                >
+                  <div className="flex items-start gap-4">
+                    <div className="flex-shrink-0 mt-1">
+                      <div className="w-8 h-8 rounded-full bg-success/20 flex items-center justify-center">
+                        <IconComponent className="w-5 h-5 text-success" />
+                      </div>
                     </div>
+                    <p className="text-lg text-foreground">{point.text}</p>
                   </div>
-                  <p className="text-lg text-foreground">{point.text}</p>
+                  {point.disclaimer && (
+                    <p className="text-xs text-muted-foreground ml-12">{point.disclaimer}</p>
+                  )}
                 </div>
-                {point.disclaimer && (
-                  <p className="text-xs text-muted-foreground ml-10">{point.disclaimer}</p>
-                )}
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       </div>
