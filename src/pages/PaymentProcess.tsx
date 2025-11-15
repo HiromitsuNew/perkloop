@@ -139,6 +139,22 @@ const PaymentProcess = () => {
       );
     }
 
+    if (paymentMethod === 'bank_wire') {
+      return (
+        <div className="text-center">
+          <p className="text-base">{t('paymentProcess.contactBankWire')}</p>
+        </div>
+      );
+    }
+
+    if (paymentMethod === 'credit_card') {
+      return (
+        <div className="text-center">
+          <p className="text-base">{t('paymentProcess.contactCreditCard')}</p>
+        </div>
+      );
+    }
+
     return (
       <div className="text-center">
         <p className="text-base">{t('paymentProcess.featureAvailable')}</p>
