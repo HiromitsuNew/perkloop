@@ -48,7 +48,7 @@ const PickPurchase = () => {
         
         {/* Header */}
         <div className="flex items-center space-x-4">
-          <Button variant="ghost" size="icon" onClick={() => navigate('/')} className="text-foreground">
+          <Button variant="ghost" size="icon" onClick={() => navigate('/dashboard')} className="text-foreground">
             <ArrowLeft className="w-5 h-5" />
           </Button>
           <div>

@@ -72,7 +72,7 @@ const Withdraw = () => {
     if (selectedOption) {
       setSelectedOption(null);
     } else {
-      navigate('/');
+      navigate('/dashboard');
     }
   };
 
@@ -136,7 +136,7 @@ const Withdraw = () => {
 
       // Navigate back to dashboard after short delay
       setTimeout(() => {
-        navigate('/');
+        navigate('/dashboard');
       }, 1500);
     } catch (error) {
       console.error('Error saving withdrawal preference:', error);

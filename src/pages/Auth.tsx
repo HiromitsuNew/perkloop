@@ -36,7 +36,7 @@ const Auth = () => {
         });
       } else {
         if (isLogin) {
-          navigate('/');
+          navigate('/dashboard');
         } else {
           toast({
             title: t('auth.success'),
