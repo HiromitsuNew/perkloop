@@ -39,10 +39,22 @@ const Landing = () => {
   }, []);
 
   const sellingPoints = [
-    "Enjoy 9% APY on your savings*",
-    "Principal protection against market conditions",
-    "Full withdrawal of principal within 24 hours",
-    "Take profit as soon as one week after deposit"
+    {
+      text: "Enjoy 9% APY on your savings*",
+      disclaimer: "Year-to-date DeFi lending average, subject to change"
+    },
+    {
+      text: "Principal protection against market conditions",
+      disclaimer: null
+    },
+    {
+      text: "Full withdrawal of principal within 24 hours",
+      disclaimer: null
+    },
+    {
+      text: "Take profit as soon as one week after deposit",
+      disclaimer: null
+    }
   ];
 
   return (
@@ -62,15 +74,25 @@ const Landing = () => {
         {/* Content */}
         <div className="relative z-10 flex h-full flex-col items-center justify-end pb-20 px-6">
           <div className="max-w-4xl w-full text-center space-y-6">
-            {/* Main Headline with fade-in slide-up animation */}
+            {/* Eye-catching Title */}
             <h1 
-              className={`text-4xl md:text-6xl font-bold text-foreground drop-shadow-lg transition-all duration-700 ease-out ${
+              className={`text-5xl md:text-8xl font-bold text-foreground drop-shadow-lg transition-all duration-700 ease-out ${
+                isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+              }`}
+              style={{ transitionDelay: '100ms' }}
+            >
+              Save with Perkloop
+            </h1>
+            
+            {/* Main Headline with fade-in slide-up animation */}
+            <h2 
+              className={`text-3xl md:text-5xl font-bold text-foreground drop-shadow-lg transition-all duration-700 ease-out ${
                 isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
               }`}
               style={{ transitionDelay: '200ms' }}
             >
-              The happiness of a free coffee every week.
-            </h1>
+              The happiness of a free coffee every week
+            </h2>
 
             {/* Subtext with fade-in slide-up animation */}
             <p 
@@ -92,12 +114,21 @@ const Landing = () => {
               <Button 
                 size="lg"
                 onClick={() => navigate(user ? "/dashboard" : "/auth")}
-                className="text-lg px-12 animate-pulse hover:animate-none"
+                className="text-lg px-12"
               >
                 {user ? "Go to Dashboard" : "Get Started"}
               </Button>
             </div>
           </div>
+        </div>
+      </div>
+
+      {/* Intro Section */}
+      <div className="bg-background py-12 px-6">
+        <div className="max-w-4xl mx-auto text-center">
+          <p className="text-xl md:text-2xl text-foreground/80">
+            A safe, simple, and high-yield saving experience, powered by Decentralized Finance and DeFi.
+          </p>
         </div>
       </div>
 
@@ -109,7 +140,7 @@ const Landing = () => {
               <div 
                 key={index}
                 data-index={index}
-                className={`selling-point-card flex items-start gap-4 p-6 rounded-2xl bg-background/50 border border-border/50 hover:border-primary/30 transition-all duration-500 hover:scale-105 hover:shadow-lg ${
+                className={`selling-point-card flex flex-col gap-2 p-6 rounded-2xl bg-background/50 border border-border/50 transition-all duration-500 ${
                   visibleCards.includes(index) 
                     ? 'opacity-100 translate-y-0' 
                     : 'opacity-0 translate-y-10'
@@ -118,12 +149,17 @@ const Landing = () => {
                   transitionDelay: visibleCards.includes(index) ? `${index * 100}ms` : '0ms'
                 }}
               >
-                <div className="flex-shrink-0 mt-1">
-                  <div className="w-6 h-6 rounded-full bg-success/20 flex items-center justify-center transition-transform duration-300 hover:scale-110">
-                    <Check className="w-4 h-4 text-success" />
+                <div className="flex items-start gap-4">
+                  <div className="flex-shrink-0 mt-1">
+                    <div className="w-6 h-6 rounded-full bg-success/20 flex items-center justify-center">
+                      <Check className="w-4 h-4 text-success" />
+                    </div>
                   </div>
+                  <p className="text-lg text-foreground">{point.text}</p>
                 </div>
-                <p className="text-lg text-foreground">{point}</p>
+                {point.disclaimer && (
+                  <p className="text-xs text-muted-foreground ml-10">{point.disclaimer}</p>
+                )}
               </div>
             ))}
           </div>
