@@ -40,22 +40,38 @@ const Landing = () => {
 
   const sellingPoints = [
     {
-      text: "Enjoy 9% APY on your savings*",
+      text: (
+        <>
+          Enjoy <strong>9% APY</strong> on your savings*
+        </>
+      ),
       disclaimer: "Year-to-date DeFi lending average, subject to change",
       icon: CircleDollarSign
     },
     {
-      text: "Principal protection against market conditions",
+      text: (
+        <>
+          Principal <strong>protection</strong> against market conditions
+        </>
+      ),
       disclaimer: null,
       icon: Shield
     },
     {
-      text: "Full withdrawal of principal within 24 hours",
+      text: (
+        <>
+          Full withdrawal of principal within <strong>24 hours</strong>
+        </>
+      ),
       disclaimer: null,
       icon: Clock
     },
     {
-      text: "Take profit as soon as one week after deposit",
+      text: (
+        <>
+          Take profit as soon as <strong>one week</strong> after deposit
+        </>
+      ),
       disclaimer: null,
       icon: Zap
     }
