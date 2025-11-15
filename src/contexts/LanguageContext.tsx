@@ -271,7 +271,7 @@ const translations = {
     
     // Landing Page
     "landing.hero": "The happiness of a free coffee every week",
-    "landing.subtitle": "Depositing ￥147000 of savings covers a coffee every 7 days with interests alone",
+    "landing.subtitle": "Depositing ￥147000 of savings covers a coffee every 7 days* with interests alone",
     "landing.ctaEnter": "Enter Perkloop",
     "landing.ctaDashboard": "Go to Dashboard",
     "landing.intro": "Safe, simple, and high-yield saving, powered by Decentralized Finance and AI.",
@@ -284,6 +284,7 @@ const translations = {
     "landing.card3.bold": "24 hours",
     "landing.card4": "Take profit as soon as one week after deposit",
     "landing.card4.bold": "one week",
+    "landing.disclaimer": "*The number is based on the year-to-date DeFi lending APY and not guaranteed.",
   },
   ja: {
     // Auth
@@ -544,7 +545,7 @@ const translations = {
     
     // Landing Page
     "landing.hero": "毎週無料でコーヒーが飲める幸せ",
-    "landing.subtitle": "￥147000の貯蓄で、利息だけで7日ごとにコーヒーが1杯",
+    "landing.subtitle": "￥147000の貯蓄で、利息だけで7日*ごとにコーヒーが1杯",
     "landing.ctaEnter": "Perkloopに入る",
     "landing.ctaDashboard": "ダッシュボードへ",
     "landing.intro": "分散型金融とAIによる、安全でシンプルな高利回り貯蓄。",
@@ -557,6 +558,7 @@ const translations = {
     "landing.card3.bold": "24時間",
     "landing.card4": "預金後わずか1週間で利益を受け取る",
     "landing.card4.bold": "1週間",
+    "landing.disclaimer": "*この数字は年初来のDeFi貸付APYに基づいており、保証されていません。",
   },
 };
 
