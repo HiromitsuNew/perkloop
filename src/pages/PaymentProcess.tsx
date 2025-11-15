@@ -62,7 +62,7 @@ const PaymentProcess = () => {
         });
       }
       
-      navigate('/');
+      navigate('/dashboard');
     } catch (error) {
       toast({
         title: t('paymentProcess.error'),
@@ -105,7 +105,7 @@ const PaymentProcess = () => {
         });
       }
       
-      navigate('/');
+      navigate('/dashboard');
     } catch (error) {
       toast({
         title: t('paymentProcess.error'),
@@ -209,7 +209,7 @@ const PaymentProcess = () => {
               </AlertDialogDescription>
             </AlertDialogHeader>
             <AlertDialogFooter>
-              <AlertDialogCancel onClick={() => navigate('/')}>{t('paymentProcess.cancel')}</AlertDialogCancel>
+              <AlertDialogCancel onClick={() => navigate('/dashboard')}>{t('paymentProcess.cancel')}</AlertDialogCancel>
               <AlertDialogAction onClick={handleUpdateExisting}>{t('paymentProcess.update')}</AlertDialogAction>
             </AlertDialogFooter>
           </AlertDialogContent>

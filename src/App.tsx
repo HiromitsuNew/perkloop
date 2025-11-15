@@ -5,6 +5,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { LanguageProvider } from "@/contexts/LanguageContext";
 import { AuthProvider } from "@/contexts/AuthContext";
+import Landing from "./pages/Landing";
 import Dashboard from "./pages/Dashboard";
 import Auth from "./pages/Auth";
 import PickPurchase from "./pages/PickPurchase";
@@ -34,8 +35,9 @@ const App = () => (
           <Sonner />
           <BrowserRouter>
             <Routes>
+              <Route path="/" element={<Landing />} />
               <Route path="/auth" element={<Auth />} />
-              <Route path="/" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
+              <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
               <Route path="/pick-purchase" element={<ProtectedRoute><PickPurchase /></ProtectedRoute>} />
               <Route path="/decide-deposit" element={<ProtectedRoute><DecideDeposit /></ProtectedRoute>} />
               <Route path="/payment-method" element={<ProtectedRoute><PaymentMethod /></ProtectedRoute>} />

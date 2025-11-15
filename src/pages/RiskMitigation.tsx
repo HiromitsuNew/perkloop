@@ -17,7 +17,7 @@ const RiskMitigation = () => {
             <Button
               variant="ghost"
               size="icon"
-              onClick={() => navigate('/')}
+              onClick={() => navigate('/dashboard')}
             >
               <ArrowLeft className="h-5 w-5" />
             </Button>
