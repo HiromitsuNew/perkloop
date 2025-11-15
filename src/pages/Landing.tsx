@@ -5,10 +5,12 @@ import { CircleDollarSign, Shield, Clock, Zap } from "lucide-react";
 import { useState, useEffect } from "react";
 import heroImage from "@/assets/hero-coffee-barista.jpg";
 import LanguageSelector from "@/components/LanguageSelector";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const Landing = () => {
   const navigate = useNavigate();
   const { user } = useAuth();
+  const { t } = useLanguage();
   const [isVisible, setIsVisible] = useState(false);
   const [visibleCards, setVisibleCards] = useState<number[]>([]);
 
@@ -41,38 +43,26 @@ const Landing = () => {
 
   const sellingPoints = [
     {
-      text: (
-        <>
-          Enjoy <strong>9% APY</strong> on your savings*
-        </>
-      ),
-      disclaimer: "Year-to-date DeFi lending average, subject to change",
+      text: t('landing.card1'),
+      textBold: t('landing.card1.bold'),
+      disclaimer: t('landing.card1.disclaimer'),
       icon: CircleDollarSign
     },
     {
-      text: (
-        <>
-          Principal <strong>protection</strong> against market conditions
-        </>
-      ),
+      text: t('landing.card2'),
+      textBold: t('landing.card2.bold'),
       disclaimer: null,
       icon: Shield
     },
     {
-      text: (
-        <>
-          Full withdrawal of principal within <strong>24 hours</strong>
-        </>
-      ),
+      text: t('landing.card3'),
+      textBold: t('landing.card3.bold'),
       disclaimer: null,
       icon: Clock
     },
     {
-      text: (
-        <>
-          Take profit as soon as <strong>one week</strong> after deposit
-        </>
-      ),
+      text: t('landing.card4'),
+      textBold: t('landing.card4.bold'),
       disclaimer: null,
       icon: Zap
     }
@@ -107,7 +97,7 @@ const Landing = () => {
               }`}
               style={{ transitionDelay: '200ms' }}
             >
-              The happiness of a free coffee every week
+              {t('landing.hero')}
             </h1>
 
             {/* Subtext with fade-in slide-up animation */}
@@ -117,7 +107,7 @@ const Landing = () => {
               }`}
               style={{ transitionDelay: '400ms' }}
             >
-              Depositing ￥147000 of savings covers a coffee every 7 days with interests alone
+              {t('landing.subtitle')}
             </p>
 
             {/* CTA Button with fade-in scale animation */}
@@ -132,7 +122,7 @@ const Landing = () => {
                 onClick={() => navigate(user ? "/dashboard" : "/auth")}
                 className="text-lg px-12"
               >
-                {user ? "Go to Dashboard" : "Enter Perkloop"}
+                {user ? t('landing.ctaDashboard') : t('landing.ctaEnter')}
               </Button>
             </div>
           </div>
@@ -143,7 +133,7 @@ const Landing = () => {
       <div className="relative bg-gradient-to-b from-background via-background to-card py-12 px-6 -mt-8">
         <div className="max-w-4xl mx-auto text-center">
           <p className="text-xl md:text-2xl text-foreground/90 font-light leading-relaxed">
-            Safe, simple, and high-yield saving, powered by Decentralized Finance and AI.
+            {t('landing.intro')}
           </p>
         </div>
       </div>
@@ -154,6 +144,9 @@ const Landing = () => {
           <div className="grid md:grid-cols-2 gap-8">
             {sellingPoints.map((point, index) => {
               const IconComponent = point.icon;
+              // Split text at the bold part and render with bold
+              const textParts = point.text.split(point.textBold);
+              
               return (
                 <div 
                   key={index}
@@ -173,7 +166,9 @@ const Landing = () => {
                         <IconComponent className="w-5 h-5 text-success" />
                       </div>
                     </div>
-                    <p className="text-lg text-foreground">{point.text}</p>
+                    <p className="text-lg text-foreground">
+                      {textParts[0]}<strong>{point.textBold}</strong>{textParts[1]}
+                    </p>
                   </div>
                   {point.disclaimer && (
                     <p className="text-xs text-muted-foreground ml-12">{point.disclaimer}</p>
