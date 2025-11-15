@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { CircleDollarSign, Shield, Clock, Zap } from "lucide-react";
 import { useState, useEffect } from "react";
 import heroImage from "@/assets/hero-coffee-barista.jpg";
+import LanguageSelector from "@/components/LanguageSelector";
 
 const Landing = () => {
   const navigate = useNavigate();
@@ -79,6 +80,11 @@ const Landing = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      {/* Language Selector */}
+      <div className="fixed top-6 left-6 z-50">
+        <LanguageSelector />
+      </div>
+
       {/* Hero Section */}
       <div className="relative h-screen w-full overflow-hidden">
         {/* Background Image with zoom animation */}
