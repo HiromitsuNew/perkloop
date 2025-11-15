@@ -122,7 +122,7 @@ const Landing = () => {
                 onClick={() => navigate(user ? "/dashboard" : "/auth")}
                 className="text-lg px-12"
               >
-                {user ? t('landing.ctaDashboard') : t('landing.ctaEnter')}
+                {t('landing.ctaEnter')}
               </Button>
             </div>
           </div>
