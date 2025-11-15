@@ -74,25 +74,15 @@ const Landing = () => {
         {/* Content */}
         <div className="relative z-10 flex h-full flex-col items-center justify-end pb-20 px-6">
           <div className="max-w-4xl w-full text-center space-y-6">
-            {/* Eye-catching Title */}
-            <h1 
-              className={`text-5xl md:text-8xl font-bold text-foreground drop-shadow-lg transition-all duration-700 ease-out ${
-                isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
-              }`}
-              style={{ transitionDelay: '100ms' }}
-            >
-              Save with Perkloop
-            </h1>
-            
             {/* Main Headline with fade-in slide-up animation */}
-            <h2 
-              className={`text-3xl md:text-5xl font-bold text-foreground drop-shadow-lg transition-all duration-700 ease-out ${
+            <h1 
+              className={`text-5xl md:text-7xl font-bold text-foreground drop-shadow-lg transition-all duration-700 ease-out ${
                 isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
               }`}
               style={{ transitionDelay: '200ms' }}
             >
               The happiness of a free coffee every week
-            </h2>
+            </h1>
 
             {/* Subtext with fade-in slide-up animation */}
             <p 
@@ -116,24 +106,24 @@ const Landing = () => {
                 onClick={() => navigate(user ? "/dashboard" : "/auth")}
                 className="text-lg px-12"
               >
-                {user ? "Go to Dashboard" : "Get Started"}
+                {user ? "Go to Dashboard" : "Enter Perkloop"}
               </Button>
             </div>
           </div>
         </div>
       </div>
 
-      {/* Intro Section */}
-      <div className="bg-background py-12 px-6">
+      {/* Intro Section with smooth gradient transition */}
+      <div className="relative bg-gradient-to-b from-background via-background to-card py-16 px-6 -mt-8">
         <div className="max-w-4xl mx-auto text-center">
-          <p className="text-xl md:text-2xl text-foreground/80">
-            A safe, simple, and high-yield saving experience, powered by Decentralized Finance and DeFi.
+          <p className="text-xl md:text-2xl text-foreground/90 font-light leading-relaxed">
+            Safe, simple, and high-yield saving, powered by Decentralized Finance and AI.
           </p>
         </div>
       </div>
 
       {/* Key Selling Points Section */}
-      <div className="bg-card py-20 px-6">
+      <div className="bg-card pt-12 pb-20 px-6">
         <div className="max-w-4xl mx-auto">
           <div className="grid md:grid-cols-2 gap-8">
             {sellingPoints.map((point, index) => (
