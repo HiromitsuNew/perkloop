@@ -129,7 +129,7 @@ const Landing = () => {
           
           {/* Disclaimer at bottom right */}
           <p 
-            className={`absolute bottom-6 right-6 text-xs text-foreground/70 drop-shadow transition-all duration-700 ease-out ${
+            className={`absolute bottom-10 right-6 text-xs text-foreground/70 drop-shadow transition-all duration-700 ease-out ${
               isVisible ? 'opacity-100' : 'opacity-0'
             }`}
             style={{ transitionDelay: '800ms' }}
