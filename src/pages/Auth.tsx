@@ -110,19 +110,12 @@ const Auth = () => {
             onClick={() => setIsLogin(!isLogin)}
             className="text-sm"
           >
-            {isLogin 
-              ? t('auth.noAccount')
-              : t('auth.haveAccount')}
-          </Button>
-        </div>
-
-        {/* Test Account Info */}
-        <div className="text-center p-4 bg-muted rounded-lg">
-          <p className="text-xs text-muted-foreground mb-2">{t('auth.testAccount')}</p>
-          <p className="text-xs font-mono">test@perkloop.io</p>
-          <p className="text-xs font-mono">123456</p>
-        </div>
-      </Card>
+        {isLogin 
+          ? t('auth.noAccount')
+          : t('auth.haveAccount')}
+      </Button>
+    </div>
+  </Card>
     </div>
   );
 };
