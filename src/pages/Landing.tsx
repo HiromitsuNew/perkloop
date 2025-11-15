@@ -95,7 +95,7 @@ const Landing = () => {
               }`}
               style={{ transitionDelay: '400ms' }}
             >
-              *Depositing ￥147000 of savings covers a coffee every 7 days with interests alone
+              Depositing ￥147000 of savings covers a coffee every 7 days with interests alone
             </p>
 
             {/* CTA Button with fade-in scale animation */}
