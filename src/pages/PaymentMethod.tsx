@@ -2,6 +2,7 @@ import React from "react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
+import { Input } from "@/components/ui/input";
 import { ArrowLeft, Monitor, Coffee, Egg, Milk, Container, Beer, Wheat, Cigarette, Coins } from "lucide-react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useLanguage } from "@/contexts/LanguageContext";
@@ -100,13 +101,13 @@ const PaymentMethod = () => {
             <div className="space-y-2">
               <label className="text-sm font-medium">{t('paymentMethod.enterAmount')}</label>
               <div className="relative">
-                <span className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground">￥</span>
-                <input
+                <span className="absolute left-5 top-1/2 -translate-y-1/2 text-muted-foreground z-10">￥</span>
+                <Input
                   type="number"
                   value={customAmount}
                   onChange={(e) => setCustomAmount(e.target.value)}
                   placeholder="10000"
-                  className="w-full pl-8 pr-4 py-3 rounded-lg bg-background border-2 border-border focus:border-primary focus:outline-none text-foreground"
+                  className="pl-10"
                 />
               </div>
             </div>
