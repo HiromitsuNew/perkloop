@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
@@ -28,10 +28,11 @@ const PaymentMethod = () => {
   
   // For justSave mode, we don't need product details
   // For regular mode, redirect if no product
-  if (!justSave && (!product || !depositAmount || !investmentDays)) {
-    navigate('/pick-purchase');
-    return null;
-  }
+  useEffect(() => {
+    if (!justSave && (!product || !depositAmount || !investmentDays)) {
+      navigate('/pick-purchase');
+    }
+  }, [justSave, product, depositAmount, investmentDays, navigate]);
   
   // Get icon and product name (only for regular mode)
   const getIconComponent = () => {
