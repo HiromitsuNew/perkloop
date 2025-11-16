@@ -137,6 +137,27 @@ const Landing = () => {
               {slides[currentSlide].subtitle}
             </p>
 
+            {/* Navigation Dots */}
+            <div 
+              className={`flex gap-2 justify-center transition-all duration-700 ease-out ${
+                isVisible ? 'opacity-100' : 'opacity-0'
+              }`}
+              style={{ transitionDelay: '500ms' }}
+            >
+              {slides.map((_, index) => (
+                <button
+                  key={index}
+                  onClick={() => setCurrentSlide(index)}
+                  className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                    currentSlide === index 
+                      ? 'bg-foreground w-6' 
+                      : 'bg-foreground/40 hover:bg-foreground/60'
+                  }`}
+                  aria-label={`Go to slide ${index + 1}`}
+                />
+              ))}
+            </div>
+
             {/* CTA Button with fade-in scale animation */}
             <div 
               className={`pt-4 transition-all duration-700 ease-out ${
