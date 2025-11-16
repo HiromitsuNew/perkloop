@@ -281,7 +281,7 @@ const translations = {
     "landing.card1.bold": "9% APY",
     "landing.card1.disclaimer": "Year-to-date DeFi lending average, subject to change",
     "landing.card2": "Never lose your principal regardless of market conditions",
-    "landing.card2.bold": "Never love",
+    "landing.card2.bold": "Never lose",
     "landing.card3": "Full withdrawal of principal within 24 hours",
     "landing.card3.bold": "24 hours",
     "landing.card4": "Take profit as soon as one week after deposit",
