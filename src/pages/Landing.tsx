@@ -5,6 +5,7 @@ import { CircleDollarSign, Shield, Clock, Zap } from "lucide-react";
 import { useState, useEffect } from "react";
 import heroImageCoffee from "@/assets/hero-coffee-barista.jpg";
 import heroImageNetflix from "@/assets/hero-netflix.jpg";
+import heroImageFamily from "@/assets/hero-family.jpg";
 import LanguageSelector from "@/components/LanguageSelector";
 import { useLanguage } from "@/contexts/LanguageContext";
 
@@ -26,6 +27,11 @@ const Landing = () => {
       image: heroImageNetflix,
       hero: t('landing.hero2'),
       subtitle: t('landing.subtitle2')
+    },
+    {
+      image: heroImageFamily,
+      hero: t('landing.hero3'),
+      subtitle: t('landing.subtitle3')
     }
   ];
 
