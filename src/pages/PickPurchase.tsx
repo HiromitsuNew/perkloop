@@ -1,4 +1,4 @@
-import React from "react";
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { ArrowLeft, Egg, Milk, Container, Beer, Wheat, Cigarette, Coffee } from "lucide-react";
@@ -11,7 +11,7 @@ import sevenElevenLogo from "@/assets/seven-eleven-logo.png";
 const PickPurchase = () => {
   const navigate = useNavigate();
   const { t } = useLanguage();
-  const [selectedStore, setSelectedStore] = React.useState<string | null>('life');
+  const [selectedStore, setSelectedStore] = useState<string | null>('life');
 
   // Define products with their store associations
   const allProducts = [
@@ -122,6 +122,21 @@ const PickPurchase = () => {
               );
             })
           )}
+        </div>
+
+        {/* Just Save Button */}
+        <div className="pt-4">
+          <Button 
+            variant="outline" 
+            className="w-full"
+            onClick={() => navigate('/payment-method', { 
+              state: { 
+                justSave: true
+              }
+            })}
+          >
+            {t('pickPurchase.justSave')}
+          </Button>
         </div>
       </div>
     </div>;

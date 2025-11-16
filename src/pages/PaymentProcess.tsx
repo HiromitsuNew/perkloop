@@ -27,7 +27,7 @@ const PaymentProcess = () => {
   const [showDuplicateDialog, setShowDuplicateDialog] = useState(false);
   const [existingInvestment, setExistingInvestment] = useState<any>(null);
   
-  const { paymentMethod, depositAmount, selectedProduct, investmentDays } = location.state || {};
+  const { paymentMethod, depositAmount, selectedProduct, investmentDays, justSave } = location.state || {};
 
   // Redirect if no state
   if (!paymentMethod || !depositAmount || !selectedProduct || !investmentDays) {
@@ -36,15 +36,15 @@ const PaymentProcess = () => {
   }
 
   useEffect(() => {
-    // Check for duplicate investment when component mounts
-    if (selectedProduct && investments.length > 0) {
+    // Check for duplicate investment when component mounts (skip for justSave mode)
+    if (!justSave && selectedProduct && investments.length > 0) {
       const existing = investments.find(inv => inv.product_name === selectedProduct);
       if (existing) {
         setExistingInvestment(existing);
         setShowDuplicateDialog(true);
       }
     }
-  }, [selectedProduct, investments]);
+  }, [selectedProduct, investments, justSave]);
 
   const handleCreateNewInvestment = async () => {
     try {

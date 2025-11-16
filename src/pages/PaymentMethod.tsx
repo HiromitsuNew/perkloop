@@ -1,7 +1,8 @@
+import React from "react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
-import { ArrowLeft, Monitor, Coffee, Egg, Milk, Container, Beer, Wheat, Cigarette } from "lucide-react";
+import { ArrowLeft, Monitor, Coffee, Egg, Milk, Container, Beer, Wheat, Cigarette, Coins } from "lucide-react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useLanguage } from "@/contexts/LanguageContext";
 import LanguageSelector from "@/components/LanguageSelector";
@@ -10,6 +11,7 @@ const PaymentMethod = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const { t, language } = useLanguage();
+  const [customAmount, setCustomAmount] = React.useState("");
   
   // Get the deposit details from the previous page
   const { 
@@ -19,17 +21,20 @@ const PaymentMethod = () => {
     sliderValue,
     product,
     price,
-    icon
+    icon,
+    justSave
   } = location.state || {};
   
-  // Redirect to decide-deposit if no state
-  if (!product || !depositAmount || !investmentDays) {
+  // For justSave mode, we don't need product details
+  // For regular mode, redirect if no product
+  if (!justSave && (!product || !depositAmount || !investmentDays)) {
     navigate('/pick-purchase');
     return null;
   }
   
-  // Get icon and product name
+  // Get icon and product name (only for regular mode)
   const getIconComponent = () => {
+    if (!icon) return null;
     switch(icon) {
       case 'Coffee': return Coffee;
       case 'Monitor': return Monitor;
@@ -43,8 +48,8 @@ const PaymentMethod = () => {
     }
   };
   const IconComponent = getIconComponent();
-  const productName = product.charAt(0).toUpperCase() + product.slice(1);
-  const selectedProduct = productName;
+  const productName = product ? product.charAt(0).toUpperCase() + product.slice(1) : "Just Save";
+  const selectedProduct = justSave ? "Just Save" : productName;
 
   return (
     <div className="min-h-screen bg-background text-foreground p-6">
@@ -78,39 +83,71 @@ const PaymentMethod = () => {
           <h3 className="text-base font-medium">{t('paymentMethod.selectPayment')}</h3>
         </div>
 
-        {/* Selected Item */}
-        <Card className="bg-card border-border p-6">
-          <div className="text-center space-y-3">
-            <IconComponent className="w-8 h-8 mx-auto text-foreground" />
-            <div>
-              <p className="font-medium">{productName}</p>
-              <p className="text-sm text-muted-foreground">￥{price.toLocaleString()}</p>
+        {justSave ? (
+          // Just Save Mode
+          <>
+            <Card className="bg-card border-border p-6">
+              <div className="text-center space-y-3">
+                <Coins className="w-12 h-12 mx-auto text-accent" />
+                <div>
+                  <p className="font-medium text-lg">{t('paymentMethod.justSaveMode')}</p>
+                  <p className="text-sm text-muted-foreground mt-2">{t('paymentMethod.justSaveDescription')}</p>
+                </div>
+              </div>
+            </Card>
+
+            {/* Custom Amount Input */}
+            <div className="space-y-2">
+              <label className="text-sm font-medium">{t('paymentMethod.enterAmount')}</label>
+              <div className="relative">
+                <span className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground">￥</span>
+                <input
+                  type="number"
+                  value={customAmount}
+                  onChange={(e) => setCustomAmount(e.target.value)}
+                  placeholder="10000"
+                  className="w-full pl-8 pr-4 py-3 rounded-lg bg-background border-2 border-border focus:border-primary focus:outline-none text-foreground"
+                />
+              </div>
             </div>
-          </div>
-        </Card>
+          </>
+        ) : (
+          // Regular Item Mode
+          <>
+            <Card className="bg-card border-border p-6">
+              <div className="text-center space-y-3">
+                {IconComponent && <IconComponent className="w-8 h-8 mx-auto text-foreground" />}
+                <div>
+                  <p className="font-medium">{productName}</p>
+                  <p className="text-sm text-muted-foreground">￥{price.toLocaleString()}</p>
+                </div>
+              </div>
+            </Card>
 
-        {/* Progress */}
-        <div className="space-y-2">
-          <Progress value={sliderValue} className="h-2" />
-        </div>
+            {/* Progress */}
+            <div className="space-y-2">
+              <Progress value={sliderValue} className="h-2" />
+            </div>
 
-        {/* Summary */}
-        <div className="text-center space-y-2">
-          {language === 'ja' ? (
-            <p className="text-sm">
-              {t('paymentMethod.today')}￥{Math.ceil(depositAmount).toLocaleString()}を預けて{timeString}{t('paymentMethod.free')}の{productName}を1つ手に入れる
-            </p>
-          ) : (
-            <>
-              <p className="text-sm">
-                {t('paymentMethod.get')} <span className="text-accent">"{t('paymentMethod.free')}"</span> {productName} {timeString} {t('paymentMethod.by')}
-              </p>
-              <p className="text-sm">
-                {t('paymentMethod.depositing')} <span className="text-accent">￥{Math.ceil(depositAmount).toLocaleString()}</span> {t('paymentMethod.today')}
-              </p>
-            </>
-          )}
-        </div>
+            {/* Summary */}
+            <div className="text-center space-y-2">
+              {language === 'ja' ? (
+                <p className="text-sm">
+                  {t('paymentMethod.today')}￥{Math.ceil(depositAmount).toLocaleString()}を預けて{timeString}{t('paymentMethod.free')}の{productName}を1つ手に入れる
+                </p>
+              ) : (
+                <>
+                  <p className="text-sm">
+                    {t('paymentMethod.get')} <span className="text-accent">"{t('paymentMethod.free')}"</span> {productName} {timeString} {t('paymentMethod.by')}
+                  </p>
+                  <p className="text-sm">
+                    {t('paymentMethod.depositing')} <span className="text-accent">￥{Math.ceil(depositAmount).toLocaleString()}</span> {t('paymentMethod.today')}
+                  </p>
+                </>
+              )}
+            </div>
+          </>
+        )}
 
         {/* Payment Methods */}
         <div className="space-y-3">
