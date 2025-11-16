@@ -154,14 +154,21 @@ const PaymentMethod = () => {
           <Button 
             variant="secondary" 
             className="w-full h-12 text-base font-medium justify-center"
-            onClick={() => navigate('/payment-process', { 
-              state: { 
-                paymentMethod: 'bank_wire',
-                depositAmount,
-                selectedProduct,
-                investmentDays
-              } 
-            })}
+            disabled={justSave && !customAmount}
+            onClick={() => {
+              const finalAmount = justSave ? parseFloat(customAmount) : depositAmount;
+              const finalDays = justSave ? 365 : investmentDays;
+              
+              navigate('/payment-process', { 
+                state: { 
+                  paymentMethod: 'bank_wire',
+                  depositAmount: finalAmount,
+                  selectedProduct,
+                  investmentDays: finalDays,
+                  justSave
+                } 
+              });
+            }}
           >
             {t('paymentMethod.bankWire')}
           </Button>
@@ -169,14 +176,21 @@ const PaymentMethod = () => {
           <Button 
             variant="secondary" 
             className="w-full h-12 text-base font-medium justify-center"
-            onClick={() => navigate('/payment-process', { 
-              state: { 
-                paymentMethod: 'stablecoin',
-                depositAmount,
-                selectedProduct,
-                investmentDays
-              } 
-            })}
+            disabled={justSave && !customAmount}
+            onClick={() => {
+              const finalAmount = justSave ? parseFloat(customAmount) : depositAmount;
+              const finalDays = justSave ? 365 : investmentDays;
+              
+              navigate('/payment-process', { 
+                state: { 
+                  paymentMethod: 'stablecoin',
+                  depositAmount: finalAmount,
+                  selectedProduct,
+                  investmentDays: finalDays,
+                  justSave
+                } 
+              });
+            }}
           >
             {t('paymentMethod.stablecoin')}
           </Button>
@@ -184,14 +198,21 @@ const PaymentMethod = () => {
           <Button 
             variant="secondary" 
             className="w-full h-12 text-base font-medium justify-center"
-            onClick={() => navigate('/payment-process', { 
-              state: { 
-                paymentMethod: 'credit_card',
-                depositAmount,
-                selectedProduct,
-                investmentDays
-              } 
-            })}
+            disabled={justSave && !customAmount}
+            onClick={() => {
+              const finalAmount = justSave ? parseFloat(customAmount) : depositAmount;
+              const finalDays = justSave ? 365 : investmentDays;
+              
+              navigate('/payment-process', { 
+                state: { 
+                  paymentMethod: 'credit_card',
+                  depositAmount: finalAmount,
+                  selectedProduct,
+                  investmentDays: finalDays,
+                  justSave
+                } 
+              });
+            }}
           >
             {t('paymentMethod.creditCard')}
           </Button>
