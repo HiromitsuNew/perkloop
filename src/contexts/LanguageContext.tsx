@@ -272,7 +272,7 @@ const translations = {
     // Landing Page
     "landing.hero": "The happiness of a free coffee every week",
     "landing.subtitle": "Depositing ￥147,000 of savings covers a coffee every 7 days* with interests alone",
-    "landing.hero2": "Imagine a life with free Netflix, Spotify, and more",
+    "landing.hero2": "Imagine a life with free Netflix and Spotify",
     "landing.subtitle2":
       "Depositing ￥129,000 of savings covers the Netflix subscription every month* with interests alone",
     "landing.ctaEnter": "Enter Perkloop",
