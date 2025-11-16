@@ -271,9 +271,10 @@ const translations = {
 
     // Landing Page
     "landing.hero": "The happiness of a free coffee every week",
-    "landing.subtitle": "Depositing ￥147000 of savings covers a coffee every 7 days* with interests alone",
-    "landing.hero2": "Enjoy a life of free Netflix",
-    "landing.subtitle2": "Depositing ￥118,670 of savings covers the Netflix subscription every month* with interests alone",
+    "landing.subtitle": "Depositing ￥147,000 of savings covers a coffee every 7 days* with interests alone",
+    "landing.hero2": "Imagine a life with free Netflix, Spotify, and more",
+    "landing.subtitle2":
+      "Depositing ￥129,000 of savings covers the Netflix subscription every month* with interests alone",
     "landing.ctaEnter": "Enter Perkloop",
     "landing.ctaDashboard": "Go to Dashboard",
     "landing.intro": "Safe, simple, and high-yield saving, powered by Decentralized Finance and AI.",
