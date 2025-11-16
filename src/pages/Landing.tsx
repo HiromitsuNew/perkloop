@@ -236,7 +236,7 @@ const Landing = () => {
                       </div>
                     </div>
                     <p className="text-lg text-foreground">
-                      {point.text}<strong>{point.textBold}</strong>{point.textSuffix}
+                      {point.text}<strong>{point.textBold}</strong>{point.textSuffix && !point.textSuffix.includes('landing.card') ? point.textSuffix : ''}
                     </p>
                   </div>
                   {point.disclaimer && (
