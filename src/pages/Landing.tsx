@@ -3,7 +3,8 @@ import { useAuth } from "@/contexts/AuthContext";
 import { Button } from "@/components/ui/button";
 import { CircleDollarSign, Shield, Clock, Zap } from "lucide-react";
 import { useState, useEffect } from "react";
-import heroImage from "@/assets/hero-coffee-barista.jpg";
+import heroImageCoffee from "@/assets/hero-coffee-barista.jpg";
+import heroImageNetflix from "@/assets/hero-netflix.jpg";
 import LanguageSelector from "@/components/LanguageSelector";
 import { useLanguage } from "@/contexts/LanguageContext";
 
@@ -13,6 +14,20 @@ const Landing = () => {
   const { t } = useLanguage();
   const [isVisible, setIsVisible] = useState(false);
   const [visibleCards, setVisibleCards] = useState<number[]>([]);
+  const [currentSlide, setCurrentSlide] = useState(0);
+
+  const slides = [
+    {
+      image: heroImageCoffee,
+      hero: t('landing.hero'),
+      subtitle: t('landing.subtitle')
+    },
+    {
+      image: heroImageNetflix,
+      hero: t('landing.hero2'),
+      subtitle: t('landing.subtitle2')
+    }
+  ];
 
   useEffect(() => {
     // Trigger hero animations on mount
@@ -40,6 +55,15 @@ const Landing = () => {
 
     return () => observer.disconnect();
   }, []);
+
+  useEffect(() => {
+    // Auto-rotate slides every 3 seconds
+    const interval = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % slides.length);
+    }, 3000);
+
+    return () => clearInterval(interval);
+  }, [slides.length]);
 
   const sellingPoints = [
     {
@@ -77,15 +101,18 @@ const Landing = () => {
 
       {/* Hero Section */}
       <div className="relative h-screen w-full overflow-hidden">
-        {/* Background Image with zoom animation */}
-        <div 
-          className={`absolute inset-0 bg-cover bg-center transition-transform duration-[2000ms] ease-out ${
-            isVisible ? 'scale-100' : 'scale-105'
-          }`}
-          style={{ backgroundImage: `url(${heroImage})` }}
-        >
-          <div className="absolute inset-0 bg-gradient-to-b from-background/20 via-background/40 to-background/90" />
-        </div>
+        {/* Background Images with crossfade animation */}
+        {slides.map((slide, index) => (
+          <div 
+            key={index}
+            className={`absolute inset-0 bg-cover bg-center transition-all duration-1000 ease-out ${
+              currentSlide === index ? 'opacity-100 scale-100' : 'opacity-0 scale-105'
+            }`}
+            style={{ backgroundImage: `url(${slide.image})` }}
+          >
+            <div className="absolute inset-0 bg-gradient-to-b from-background/20 via-background/40 to-background/90" />
+          </div>
+        ))}
 
         {/* Content */}
         <div className="relative z-10 flex h-full flex-col items-center justify-end pb-20 px-6">
@@ -97,7 +124,7 @@ const Landing = () => {
               }`}
               style={{ transitionDelay: '200ms' }}
             >
-              {t('landing.hero')}
+              {slides[currentSlide].hero}
             </h1>
 
             {/* Subtext with fade-in slide-up animation */}
@@ -107,7 +134,7 @@ const Landing = () => {
               }`}
               style={{ transitionDelay: '400ms' }}
             >
-              {t('landing.subtitle')}
+              {slides[currentSlide].subtitle}
             </p>
 
             {/* CTA Button with fade-in scale animation */}
