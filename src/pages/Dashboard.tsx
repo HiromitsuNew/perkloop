@@ -296,26 +296,58 @@ const Dashboard = () => {
             
             {sortedInvestments.length > 0 ? (
               <div className="space-y-4">
-                {sortedInvestments.map((inv) => (
-                  <div key={inv.id} className="space-y-2">
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center space-x-2">
-                        <span className="text-success font-semibold">
-                          {t('dashboard.remaining')}{inv.remainingDays}{t('dashboard.days')}
-                        </span>
-                        <span className="text-sm text-muted-foreground">
-                          {t('dashboard.until')} <span className="text-accent">{getTranslatedProductName(inv.product_name)}</span>
-                        </span>
+                {sortedInvestments.map((inv) => {
+                  // Check if this is a Just Save investment
+                  const isJustSave = inv.product_name === "Just Save";
+                  
+                  if (isJustSave) {
+                    // Just Save Mode Display
+                    return (
+                      <div key={inv.id} className="space-y-2 p-4 bg-accent/10 rounded-lg border border-accent/20">
+                        <div className="flex items-center justify-between">
+                          <div className="flex items-center space-x-3">
+                            <Coins className="w-6 h-6 text-accent" />
+                            <div>
+                              <p className="font-medium">{t('dashboard.justSaveMode')}</p>
+                              <p className="text-xs text-muted-foreground">{t('dashboard.justSaveDescription')}</p>
+                            </div>
+                          </div>
+                          {inv.status === 'pending' && (
+                            <span className="px-2 py-1 text-xs rounded-full bg-yellow-500/20 text-yellow-600 dark:text-yellow-400 border border-yellow-500/30">
+                              {t('dashboard.pending')}
+                            </span>
+                          )}
+                        </div>
+                        <div className="flex justify-between text-sm pt-2">
+                          <span className="text-muted-foreground">{t('paymentMethod.deposit')}</span>
+                          <span className="font-medium">￥{Math.ceil(inv.deposit_amount).toLocaleString()}</span>
+                        </div>
                       </div>
-                      {inv.status === 'pending' && (
-                        <span className="px-2 py-1 text-xs rounded-full bg-yellow-500/20 text-yellow-600 dark:text-yellow-400 border border-yellow-500/30">
-                          {t('dashboard.pending')}
-                        </span>
-                      )}
+                    );
+                  }
+                  
+                  // Regular investment display
+                  return (
+                    <div key={inv.id} className="space-y-2">
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center space-x-2">
+                          <span className="text-success font-semibold">
+                            {t('dashboard.remaining')}{inv.remainingDays}{t('dashboard.days')}
+                          </span>
+                          <span className="text-sm text-muted-foreground">
+                            {t('dashboard.until')} <span className="text-accent">{getTranslatedProductName(inv.product_name)}</span>
+                          </span>
+                        </div>
+                        {inv.status === 'pending' && (
+                          <span className="px-2 py-1 text-xs rounded-full bg-yellow-500/20 text-yellow-600 dark:text-yellow-400 border border-yellow-500/30">
+                            {t('dashboard.pending')}
+                          </span>
+                        )}
+                      </div>
+                      <Progress value={inv.progressPercent} className="h-2" />
                     </div>
-                    <Progress value={inv.progressPercent} className="h-2" />
-                  </div>
-                ))}
+                  );
+                })}
               </div>
             ) : (
               <div className="py-4">

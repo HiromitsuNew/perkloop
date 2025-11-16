@@ -78,6 +78,10 @@ const translations = {
     "dashboard.howItWorksButton": "How We Generate Profit",
     "dashboard.howItWorksTitle": "How It Works",
     "dashboard.howItWorksDescription": "Learn how we generate profit for you",
+    "dashboard.addNewInvestment": "Add New Investment",
+    "dashboard.checkInvestment": "Check Investment",
+    "dashboard.justSaveMode": "Just Save Mode",
+    "dashboard.justSaveDescription": "Your deposit is generating profit",
     "dashboard.step1Title": "Step 1: Currency Conversion",
     "dashboard.step1Description": "Your JPY fiat is converted to USD in the form of stablecoin (USDC), where",
     "dashboard.step1Bold": "1 stablecoin is always 1 USD",
@@ -151,6 +155,7 @@ const translations = {
     "pickPurchase.rice": "Rice (2 kg)",
     "pickPurchase.cigarette": "Cigarette",
     "pickPurchase.coffee": "Coffee (Regular)",
+    "pickPurchase.justSave": "No item preference, just save.",
 
     // Decide Deposit
     "decideDeposit.title1": "Select a desirable good to",
@@ -197,6 +202,9 @@ const translations = {
     "paymentMethod.title2.money": "money",
     "paymentMethod.title2.rest": "work for you",
     "paymentMethod.selectPayment": "Select payment method",
+    "paymentMethod.justSaveMode": "Just Save Mode",
+    "paymentMethod.justSaveDescription": "Your deposit will generate profit without being tied to any specific item.",
+    "paymentMethod.enterAmount": "Enter deposit amount",
     "paymentMethod.selected": "Selected Item",
     "paymentMethod.netflix": "Netflix",
     "paymentMethod.deposit": "Deposit",
