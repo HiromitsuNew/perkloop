@@ -270,12 +270,12 @@ const translations = {
       "All funds will only be converted to USDC, the single-most secured, compliant, and reputable USD-pegged stablecoin among all, to minimize depegging risks.",
 
     // Landing Page
-    "landing.hero": "The happiness of a free coffee every week",
-    "landing.subtitle": "￥147,000 of savings cover a coffee every 7 days* with interests alone",
+    "landing.hero": "The happiness of a free coffee each week",
+    "landing.subtitle": "￥147,000 of savings cover a coffee every 7 days with interests alone*",
     "landing.hero2": "Imagine a life with free Netflix and Spotify",
-    "landing.subtitle2": "￥165,000 of savings cover your monthly* Netflix subscription with interests alone",
+    "landing.subtitle2": "￥165,000 of savings cover your monthly Netflix subscription with interests alone*",
     "landing.hero3": "Immediate relief for rising costs and low interest",
-    "landing.subtitle3": "￥452,000 of savings cover 2 cartons of milk next week* with interests alone",
+    "landing.subtitle3": "￥452,000 of savings cover 2 cartons of milk next week with interests alone*",
     "landing.ctaEnter": "Enter Perkloop",
     "landing.ctaDashboard": "Go to Dashboard",
     "landing.intro": "Safe, simple, and high-yield saving, powered by Decentralized Finance and AI.",
