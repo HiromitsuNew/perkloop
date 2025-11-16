@@ -570,7 +570,7 @@ const translations = {
     "landing.card1.bold": "年利9%",
     "landing.card1.suffix": "の貯蓄",
     "landing.card1.disclaimer": "DeFiレンディングの年初来平均値であり、変化する可能性がある",
-    "landing.card2": "市場動向に関わらず、元本を",
+    "landing.card2": "市場動向に関わらず、元本は",
     "landing.card2.bold": "絶対に失わない",
     "landing.card2.suffix": "",
     "landing.card2.disclaimer": "元本は減少しない。サイバーリスクに対し最大100万円返済",
