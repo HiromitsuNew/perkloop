@@ -57,10 +57,10 @@ const Landing = () => {
   }, []);
 
   useEffect(() => {
-    // Auto-rotate slides every 3 seconds
+    // Auto-rotate slides every 4 seconds
     const interval = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % slides.length);
-    }, 3000);
+    }, 4000);
 
     return () => clearInterval(interval);
   }, [slides.length]);
