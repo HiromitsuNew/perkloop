@@ -268,14 +268,14 @@ const translations = {
     "riskMitigation.risk3.mitigation": "Mitigation",
     "riskMitigation.risk3.mitigationText":
       "All funds will only be converted to USDC, the single-most secured, compliant, and reputable USD-pegged stablecoin among all, to minimize depegging risks.",
-    
+
     // Landing Page
     "landing.hero": "The happiness of a free coffee every week",
     "landing.subtitle": "Depositing ￥147000 of savings covers a coffee every 7 days* with interests alone",
     "landing.ctaEnter": "Enter Perkloop",
     "landing.ctaDashboard": "Go to Dashboard",
     "landing.intro": "Safe, simple, and high-yield saving, powered by Decentralized Finance and AI.",
-    "landing.card1": "Enjoy 9% APY on your savings*",
+    "landing.card1": "Enjoy on-average 9% APY on your savings*",
     "landing.card1.bold": "9% APY",
     "landing.card1.disclaimer": "Year-to-date DeFi lending average, subject to change",
     "landing.card2": "Principal protection against market conditions",
@@ -542,23 +542,23 @@ const translations = {
     "riskMitigation.risk3.mitigation": "緩和策",
     "riskMitigation.risk3.mitigationText":
       "すべての資金はUSDCのみに換金されます。USDCは最も安全で、最も使われている評判の高い米ドルペッグステーブルコインであり、ペッグ解除リスクを最小限に抑えます。",
-    
+
     // Landing Page
-    "landing.hero": "毎週無料でコーヒーが飲める幸せ",
-    "landing.subtitle": "￥147000の貯蓄で、利息だけで7日*ごとにコーヒーが1杯",
-    "landing.ctaEnter": "Perkloopに入る",
+    "landing.hero": "週一回、コーヒーが無料で飲める幸せ",
+    "landing.subtitle": "￥147000の貯金で、利息だけで7日*ごとにコーヒーが1杯",
+    "landing.ctaEnter": "Perkloopをスタート",
     "landing.ctaDashboard": "ダッシュボードへ",
-    "landing.intro": "分散型金融とAIによる、安全でシンプルな高利回り貯蓄。",
-    "landing.card1": "貯蓄に対して9%のAPY*",
+    "landing.intro": "分散型金融とAIのパワーを活かす、安全・シンプルな高金利貯蓄",
+    "landing.card1": "平均9%のAPY*",
     "landing.card1.bold": "9%のAPY",
-    "landing.card1.disclaimer": "DeFi貸付の年初来平均、変更される可能性があります",
-    "landing.card2": "市場状況から元本を保護",
+    "landing.card1.disclaimer": "DeFiレンディングの年初来平均値であり、変化する可能性があります",
+    "landing.card2": "市場状況に関わらず、元本を100%保護",
     "landing.card2.bold": "保護",
     "landing.card3": "24時間以内に元本の全額引き出し",
     "landing.card3.bold": "24時間",
     "landing.card4": "預金後わずか1週間で利益を受け取る",
     "landing.card4.bold": "1週間",
-    "landing.disclaimer": "*この数字は年初来のDeFi貸付APYに基づいており、保証されていません。",
+    "landing.disclaimer": "*年初来のDeFiレンディングAPYに基づいており、保証されていません。",
   },
 };
 
