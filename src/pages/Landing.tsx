@@ -75,25 +75,29 @@ const Landing = () => {
     {
       text: t('landing.card1'),
       textBold: t('landing.card1.bold'),
+      textSuffix: t('landing.card1.bold.suffix'),
       disclaimer: t('landing.card1.disclaimer'),
       icon: CircleDollarSign
     },
     {
       text: t('landing.card2'),
       textBold: t('landing.card2.bold'),
-      disclaimer: null,
+      textSuffix: '',
+      disclaimer: t('landing.card2.disclaimer'),
       icon: Shield
     },
     {
       text: t('landing.card3'),
       textBold: t('landing.card3.bold'),
-      disclaimer: null,
+      textSuffix: '',
+      disclaimer: t('landing.card3.disclaimer'),
       icon: Clock
     },
     {
       text: t('landing.card4'),
       textBold: t('landing.card4.bold'),
-      disclaimer: null,
+      textSuffix: t('landing.card4.bold.suffix') || '',
+      disclaimer: t('landing.card4.disclaimer'),
       icon: Zap
     }
   ];
@@ -195,9 +199,12 @@ const Landing = () => {
 
       {/* Intro Section with smooth gradient transition */}
       <div className="relative bg-gradient-to-b from-background via-background to-card py-12 px-6 -mt-8">
-        <div className="max-w-4xl mx-auto text-center">
+        <div className="max-w-4xl mx-auto text-center space-y-4">
           <p className="text-xl md:text-2xl text-foreground/90 font-light leading-relaxed">
             {t('landing.intro')}
+          </p>
+          <p className="text-xl md:text-2xl text-foreground/90 font-light leading-relaxed">
+            {t('landing.intro2')}
           </p>
         </div>
       </div>
@@ -208,8 +215,6 @@ const Landing = () => {
           <div className="grid md:grid-cols-2 gap-8">
             {sellingPoints.map((point, index) => {
               const IconComponent = point.icon;
-              // Split text at the bold part and render with bold
-              const textParts = point.text.split(point.textBold);
               
               return (
                 <div 
@@ -231,7 +236,7 @@ const Landing = () => {
                       </div>
                     </div>
                     <p className="text-lg text-foreground">
-                      {textParts[0]}<strong>{point.textBold}</strong>{textParts[1]}
+                      {point.text}<strong>{point.textBold}</strong>{point.textSuffix}
                     </p>
                   </div>
                   {point.disclaimer && (
