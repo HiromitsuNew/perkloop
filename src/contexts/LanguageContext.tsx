@@ -371,6 +371,10 @@ const translations = {
     "dashboard.howItWorksButton": "収益を生み出す仕組み",
     "dashboard.howItWorksTitle": "仕組みについて",
     "dashboard.howItWorksDescription": "収益を生み出す仕組みを学ぶ",
+    "dashboard.addNewInvestment": "新しい投資を追加",
+    "dashboard.checkInvestment": "投資を確認",
+    "dashboard.justSaveMode": "ただ貯金モード",
+    "dashboard.justSaveDescription": "あなたの預金は利益を生み出しています",
     "dashboard.step1Title": "ステップ1：通貨変換",
     "dashboard.step1Description": "あなたの日本円預金を",
     "dashboard.step1Bold": "ステーブルコイン（USDC）の形で米ドルに換金します",
@@ -445,6 +449,7 @@ const translations = {
     "pickPurchase.rice": "米（2kg）",
     "pickPurchase.cigarette": "タバコ",
     "pickPurchase.coffee": "コーヒー（レギュラー）",
+    "pickPurchase.justSave": "特定のアイテムの希望なし、ただ貯金する。",
 
     // Decide Deposit
     "decideDeposit.title1": "欲しい商品を選んで",
@@ -491,6 +496,9 @@ const translations = {
     "paymentMethod.title2.money": "お金",
     "paymentMethod.title2.rest": "を働かせましょう",
     "paymentMethod.selectPayment": "決済方法を選択",
+    "paymentMethod.justSaveMode": "ただ貯金モード",
+    "paymentMethod.justSaveDescription": "あなたの預金は特定のアイテムに紐付かずに利益を生み出します。",
+    "paymentMethod.enterAmount": "預金額を入力",
     "paymentMethod.selected": "選択されたアイテム",
     "paymentMethod.netflix": "ネットフリックス",
     "paymentMethod.deposit": "預金",
