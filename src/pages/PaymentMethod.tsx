@@ -26,6 +26,8 @@ const PaymentMethod = () => {
     justSave
   } = location.state || {};
   
+  console.log('PaymentMethod state:', { justSave, depositAmount, product, customAmount });
+  
   // For justSave mode, we don't need product details
   // For regular mode, redirect if no product
   useEffect(() => {
@@ -101,16 +103,21 @@ const PaymentMethod = () => {
             {/* Custom Amount Input */}
             <div className="space-y-2">
               <label className="text-sm font-medium">{t('paymentMethod.enterAmount')}</label>
-              <div className="relative">
-                <span className="absolute left-5 top-1/2 -translate-y-1/2 text-muted-foreground z-10">￥</span>
-                <Input
-                  type="number"
-                  value={customAmount}
-                  onChange={(e) => setCustomAmount(e.target.value)}
-                  placeholder="10000"
-                  className="pl-10"
-                />
-              </div>
+              <Input
+                type="number"
+                value={customAmount}
+                onChange={(e) => {
+                  console.log('Input changed:', e.target.value);
+                  setCustomAmount(e.target.value);
+                }}
+                placeholder="10000"
+                className="text-base"
+              />
+              {customAmount && (
+                <p className="text-sm text-muted-foreground">
+                  ￥{parseFloat(customAmount).toLocaleString()}
+                </p>
+              )}
             </div>
           </>
         ) : (
@@ -156,8 +163,9 @@ const PaymentMethod = () => {
           <Button 
             variant="secondary" 
             className="w-full h-12 text-base font-medium justify-center"
-            disabled={justSave && !customAmount}
+            disabled={justSave && (!customAmount || parseFloat(customAmount) <= 0)}
             onClick={() => {
+              console.log('Bank Wire clicked', { justSave, customAmount, depositAmount });
               const finalAmount = justSave ? parseFloat(customAmount) : depositAmount;
               const finalDays = justSave ? 365 : investmentDays;
               
@@ -178,8 +186,9 @@ const PaymentMethod = () => {
           <Button 
             variant="secondary" 
             className="w-full h-12 text-base font-medium justify-center"
-            disabled={justSave && !customAmount}
+            disabled={justSave && (!customAmount || parseFloat(customAmount) <= 0)}
             onClick={() => {
+              console.log('Stablecoin clicked', { justSave, customAmount, depositAmount });
               const finalAmount = justSave ? parseFloat(customAmount) : depositAmount;
               const finalDays = justSave ? 365 : investmentDays;
               
@@ -200,8 +209,9 @@ const PaymentMethod = () => {
           <Button 
             variant="secondary" 
             className="w-full h-12 text-base font-medium justify-center"
-            disabled={justSave && !customAmount}
+            disabled={justSave && (!customAmount || parseFloat(customAmount) <= 0)}
             onClick={() => {
+              console.log('Credit Card clicked', { justSave, customAmount, depositAmount });
               const finalAmount = justSave ? parseFloat(customAmount) : depositAmount;
               const finalDays = justSave ? 365 : investmentDays;
               
