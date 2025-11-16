@@ -549,11 +549,11 @@ const translations = {
 
     // Landing Page
     "landing.hero": "週一回、コーヒーが無料で飲める幸せ",
-    "landing.subtitle": "￥147000の貯金で、利息だけで7日*ごとにコーヒーが1杯",
-    "landing.hero2": "無料のNetflixがある生活を楽しむ",
-    "landing.subtitle2": "￥118,670の貯金で、利息だけで毎月*Netflixのサブスクリプションをカバー",
-    "landing.hero3": "増加する費用と低い利子率から即座の救い",
-    "landing.subtitle3": "￥452,000の貯金で、利息だけで毎週*牛乳を2パック",
+    "landing.subtitle": "￥147000の貯金で、利息だけで7日ごとにコーヒーを1杯*",
+    "landing.hero2": "無料のNetflixやSpotifyを楽しむ",
+    "landing.subtitle2": "￥118,670の貯金で、利息だけでNetflixのサブスクリプションをカバー*",
+    "landing.hero3": "物価高と低金利に解決策",
+    "landing.subtitle3": "￥452,000の貯金で、利息だけで週牛乳を2パック*",
     "landing.ctaEnter": "Perkloopをスタート",
     "landing.ctaDashboard": "ダッシュボードへ",
     "landing.intro": "分散型金融とAIのパワーを活かす、安全・シンプルな高金利貯蓄",
