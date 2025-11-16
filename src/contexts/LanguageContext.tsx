@@ -271,11 +271,11 @@ const translations = {
 
     // Landing Page
     "landing.hero": "The happiness of a free coffee every week",
-    "landing.subtitle": "￥147,000 of savings covers a coffee every 7 days* with interests alone",
+    "landing.subtitle": "￥147,000 of savings cover a coffee every 7 days* with interests alone",
     "landing.hero2": "Imagine a life with free Netflix and Spotify",
-    "landing.subtitle2": "￥165,000 of savings covers the Netflix subscription every month* with interests alone",
-    "landing.hero3": "Immediate relief for rising cost and low interest",
-    "landing.subtitle3": "￥452,000 of savings cover 2 cartons of milk each week* with interests alone",
+    "landing.subtitle2": "￥165,000 of savings cover your monthly* Netflix subscription with interests alone",
+    "landing.hero3": "Immediate relief for rising costs and low interest",
+    "landing.subtitle3": "￥452,000 of savings cover 2 cartons of milk next week* with interests alone",
     "landing.ctaEnter": "Enter Perkloop",
     "landing.ctaDashboard": "Go to Dashboard",
     "landing.intro": "Safe, simple, and high-yield saving, powered by Decentralized Finance and AI.",
