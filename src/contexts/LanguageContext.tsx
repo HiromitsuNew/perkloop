@@ -577,7 +577,7 @@ const translations = {
     "landing.card3": "元本全額を",
     "landing.card3.bold": "24時間以内",
     "landing.card3.suffix": "に引き出せる",
-    "landing.card3.disclaimer": "流動性を徹底する。簡単な操作で銀行に振り替える",
+    "landing.card3.disclaimer": "流動性を徹底し、簡単な操作で銀行に出金",
     "landing.card4": "預入後わずか",
     "landing.card4.bold": "1週間",
     "landing.card4.suffix": "で収益を受け取る",
