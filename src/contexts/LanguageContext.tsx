@@ -557,7 +557,7 @@ const translations = {
 
     // Landing Page
     "landing.hero": "週一回、コーヒーが無料で飲める幸福感",
-    "landing.subtitle": "￥147000の貯金で、利息だけで7日ごとにコーヒーを1杯*",
+    "landing.subtitle": "￥147,000の貯金で、利息だけで7日ごとにコーヒーを1杯*",
     "landing.hero2": "毎月、無料のNetflixやSpotifyを楽しむ",
     "landing.subtitle2": "￥118,670の貯金で、利息だけでNetflixのサブスクリプションをカバー*",
     "landing.hero3": "物価高と低金利に対し、即効性のある緩和策",
