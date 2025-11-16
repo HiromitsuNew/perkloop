@@ -75,28 +75,28 @@ const Landing = () => {
     {
       text: t('landing.card1'),
       textBold: t('landing.card1.bold'),
-      textSuffix: t('landing.card1.bold.suffix'),
+      textSuffix: t('landing.card1.suffix'),
       disclaimer: t('landing.card1.disclaimer'),
       icon: CircleDollarSign
     },
     {
       text: t('landing.card2'),
       textBold: t('landing.card2.bold'),
-      textSuffix: '',
+      textSuffix: t('landing.card2.suffix'),
       disclaimer: t('landing.card2.disclaimer'),
       icon: Shield
     },
     {
       text: t('landing.card3'),
       textBold: t('landing.card3.bold'),
-      textSuffix: '',
+      textSuffix: t('landing.card3.suffix'),
       disclaimer: t('landing.card3.disclaimer'),
       icon: Clock
     },
     {
       text: t('landing.card4'),
       textBold: t('landing.card4.bold'),
-      textSuffix: t('landing.card4.bold.suffix') || '',
+      textSuffix: t('landing.card4.suffix'),
       disclaimer: t('landing.card4.disclaimer'),
       icon: Zap
     }
