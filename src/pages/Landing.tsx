@@ -124,9 +124,8 @@ const Landing = () => {
           <div className="relative bg-gradient-to-r from-primary via-primary/90 to-primary flex items-center gap-3 px-6 py-4 rounded-full shadow-lg border-2 border-primary-foreground/20 transition-all duration-300 group-hover:scale-110 group-hover:shadow-2xl">
             <Gift className="w-6 h-6 text-primary-foreground animate-bounce" />
             <div className="text-left">
-              <div className="text-sm font-bold text-primary-foreground flex items-center gap-1">
+              <div className="text-sm font-bold text-primary-foreground">
                 {t('landing.launchBonus')}
-                <Sparkles className="w-4 h-4 animate-pulse" />
               </div>
             </div>
           </div>
