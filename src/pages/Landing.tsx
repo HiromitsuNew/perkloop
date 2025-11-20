@@ -167,18 +167,18 @@ const Landing = () => {
             </div>
 
             {/* First Deposit Bonus */}
-            <div className="bg-secondary/5 p-6 rounded-lg border border-secondary/20">
+            <div className="bg-accent/10 p-6 rounded-lg border border-accent/30">
               <h3 className="text-lg font-semibold mb-4 flex items-center gap-2">
-                <Zap className="w-5 h-5 text-secondary" />
+                <Zap className="w-5 h-5 text-accent" />
                 {t('landing.bonusFirstDeposit')}
               </h3>
               <ul className="space-y-3">
                 <li className="flex items-start gap-3">
-                  <div className="w-2 h-2 rounded-full bg-secondary mt-2 flex-shrink-0" />
+                  <div className="w-2 h-2 rounded-full bg-accent mt-2 flex-shrink-0" />
                   <span className="text-foreground">{t('landing.bonusBoost')}</span>
                 </li>
                 <li className="flex items-start gap-3">
-                  <div className="w-2 h-2 rounded-full bg-secondary mt-2 flex-shrink-0" />
+                  <div className="w-2 h-2 rounded-full bg-accent mt-2 flex-shrink-0" />
                   <span className="text-foreground">{t('landing.bonusConversion')}</span>
                 </li>
               </ul>
