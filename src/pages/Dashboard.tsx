@@ -152,18 +152,23 @@ const Dashboard = () => {
   return (
     <div className="min-h-screen bg-background text-foreground p-6">
       <div className="max-w-md mx-auto space-y-6">
-        {/* Header with Language Selector and Actions */}
-        <div className="flex justify-between items-center">
-          <LanguageSelector />
-          <div className="flex gap-2 items-center">
-            {/* Launch Bonus Badge */}
+        {/* Header with Language Selector, Centered Launch Bonus, and Actions */}
+        <div className="grid grid-cols-3 items-center gap-2">
+          <div className="flex justify-start">
+            <LanguageSelector />
+          </div>
+          
+          {/* Centered Launch Bonus Badge */}
+          <div className="flex justify-center">
             <div className="relative animate-pulse">
               <div className="absolute inset-0 bg-gradient-to-r from-primary to-accent blur-md opacity-75"></div>
               <div className="relative bg-gradient-to-r from-primary to-accent text-primary-foreground text-xs font-bold px-3 py-1.5 rounded-full shadow-lg whitespace-nowrap">
                 🎉 Launch Bonus Active
               </div>
             </div>
-            
+          </div>
+          
+          <div className="flex justify-end gap-2">
             <AlertDialog>
               <AlertDialogTrigger asChild>
                 <Button
