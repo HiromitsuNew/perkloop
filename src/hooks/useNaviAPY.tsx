@@ -47,16 +47,16 @@ export const useNaviAPY = () => {
     return () => clearInterval(interval);
   }, []);
 
-  // Calculate user APY: NAVI APY - 15% flat fee
+  // Calculate user APY: NAVI APY - 5% flat fee
   const calculateUserAPY = (naviAPY: number): number => {
-    const managementFee = naviAPY * 0.15;
+    const managementFee = naviAPY * 0.05;
     return Math.max(0, naviAPY - managementFee);
   };
 
   return {
     naviAPY: usdcAPY,
     userAPY: usdcAPY ? calculateUserAPY(usdcAPY) : null,
-    managementFee: usdcAPY ? usdcAPY * 0.15 : null,
+    managementFee: usdcAPY ? usdcAPY * 0.05 : null,
     isLoading,
     error,
   };
