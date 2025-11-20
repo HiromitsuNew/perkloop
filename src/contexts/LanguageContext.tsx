@@ -309,13 +309,15 @@ const translations = {
     "landing.bonusNewAccount": "Any new account registrations",
     "landing.bonusCash": "JPY 1,000 cash bonus directly into the deposit",
     "landing.bonusFees": "Full coverage of deposit and withdrawal fees from bank wire*",
-    "landing.bonusZeroFees": "ZERO management fees",
+    "landing.bonusZeroFees": "No management fees for the first 60 days",
     "landing.bonusFirstDeposit": "After depositing the first JPY 20,000",
     "landing.bonusBoost": "Bonus 1% APY boosting: Enjoy up to 10% on your savings!",
     "landing.bonusConversion":
-      "Full coverage of potential currency conversion loss between JPY and USD upon withdrawal",
+      "Full coverage of potential currency conversion loss between JPY and USD upon withdrawal**",
     "landing.bonusDisclaimer":
       "*The deposit and withdrawal fees are charged by your bank. Perkloop never charges deposit or withdrawal fees.",
+    "landing.bonusConversionDisclaimer":
+      "**Perkloop converts your JPY into USD to generate yields. If JPY becomes stronger after conversion, you will end up withdrawing less than your original principal. Conversely, if JPY becomes weaker, you will end up withdrawing more. Our coverage will cover any potential differences to protect your principal against currency fluctuations. Read more in the \"Risks and Mitigation\" section inside the app.",
   },
   ja: {
     // Auth
@@ -614,11 +616,13 @@ const translations = {
     "landing.bonusNewAccount": "新規アカウント登録で",
     "landing.bonusCash": "1,000円のキャッシュボーナス",
     "landing.bonusFees": "銀行振込手数料の全額カバー*",
-    "landing.bonusZeroFees": "管理手数料ゼロ",
+    "landing.bonusZeroFees": "最初の60日間は管理手数料無料",
     "landing.bonusFirstDeposit": "初回20,000円の入金後",
     "landing.bonusBoost": "ボーナス1% APYブースト：最大10%のAPYを楽しもう！",
-    "landing.bonusConversion": "JPYとUSD間の通貨換算損失の全額カバー",
+    "landing.bonusConversion": "JPYとUSD間の通貨換算損失の全額カバー**",
     "landing.bonusDisclaimer": "*入出金手数料は銀行が請求するものです。Perkloopは入出金手数料を一切請求しません。",
+    "landing.bonusConversionDisclaimer":
+      "**Perkloopは収益を生み出すためにJPYをUSDに換算します。換算後にJPYが強くなった場合、元本よりも少ない金額を引き出すことになります。逆に、JPYが弱くなった場合、より多くの金額を引き出すことになります。当社の保証は、通貨変動に対してお客様の元本を保護するために、潜在的な差額をカバーします。詳細はアプリ内の「リスクと緩和策」セクションをご覧ください。",
   },
 };
 

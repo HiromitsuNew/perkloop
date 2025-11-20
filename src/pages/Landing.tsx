@@ -184,10 +184,15 @@ const Landing = () => {
               </ul>
             </div>
 
-            {/* Disclaimer */}
-            <p className="text-xs text-muted-foreground italic border-t pt-4">
-              {t('landing.bonusDisclaimer')}
-            </p>
+            {/* Disclaimers */}
+            <div className="space-y-2 border-t pt-4">
+              <p className="text-xs text-muted-foreground italic">
+                {t('landing.bonusDisclaimer')}
+              </p>
+              <p className="text-xs text-muted-foreground italic">
+                {t('landing.bonusConversionDisclaimer')}
+              </p>
+            </div>
           </div>
         </DialogContent>
       </Dialog>
