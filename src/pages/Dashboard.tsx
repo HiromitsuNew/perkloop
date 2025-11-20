@@ -155,7 +155,15 @@ const Dashboard = () => {
         {/* Header with Language Selector and Actions */}
         <div className="flex justify-between items-center">
           <LanguageSelector />
-          <div className="flex gap-2">
+          <div className="flex gap-2 items-center">
+            {/* Launch Bonus Badge */}
+            <div className="relative animate-pulse">
+              <div className="absolute inset-0 bg-gradient-to-r from-primary to-accent blur-md opacity-75"></div>
+              <div className="relative bg-gradient-to-r from-primary to-accent text-primary-foreground text-xs font-bold px-3 py-1.5 rounded-full shadow-lg whitespace-nowrap">
+                🎉 Launch Bonus Active
+              </div>
+            </div>
+            
             <AlertDialog>
               <AlertDialogTrigger asChild>
                 <Button
@@ -268,12 +276,12 @@ const Dashboard = () => {
                             <h4 className="font-semibold text-sm uppercase tracking-wide text-muted-foreground">{t('dashboard.feeStructure')}</h4>
                             <p className="text-sm leading-relaxed">
                               {t('dashboard.feeDescription')}
-                              {naviAPY && managementFee && (
-                                <span className="block mt-2 text-muted-foreground">
-                                  {t('dashboard.feeExample')} {naviAPY.toFixed(2)}% - {t('dashboard.managementFee')} {managementFee.toFixed(2)}% = {t('dashboard.yourAPY')} {userAPY.toFixed(2)}%
-                                </span>
-                              )}
                             </p>
+                            <div className="mt-3 p-3 bg-gradient-to-r from-primary/10 to-accent/10 rounded-lg border border-primary/20">
+                              <p className="text-sm font-semibold text-primary">
+                                🎉 {t('dashboard.launchBonusActive')}
+                              </p>
+                            </div>
                           </div>
                           
                           <div className="space-y-2">
