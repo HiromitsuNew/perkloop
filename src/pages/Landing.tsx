@@ -1,13 +1,14 @@
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "@/contexts/AuthContext";
 import { Button } from "@/components/ui/button";
-import { CircleDollarSign, Shield, Clock, Zap } from "lucide-react";
+import { CircleDollarSign, Shield, Clock, Zap, Gift, Sparkles } from "lucide-react";
 import { useState, useEffect } from "react";
 import heroImageCoffee from "@/assets/hero-coffee-barista.jpg";
 import heroImageNetflix from "@/assets/hero-netflix.jpg";
 import heroImageFamily from "@/assets/hero-family.jpg";
 import LanguageSelector from "@/components/LanguageSelector";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 
 const Landing = () => {
   const navigate = useNavigate();
@@ -16,6 +17,7 @@ const Landing = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [visibleCards, setVisibleCards] = useState<number[]>([]);
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [bonusDialogOpen, setBonusDialogOpen] = useState(false);
 
   const slides = [
     {
@@ -108,6 +110,83 @@ const Landing = () => {
       <div className="fixed top-6 left-6 z-50">
         <LanguageSelector />
       </div>
+
+      {/* Launch Bonus Button - Eye-catching animated */}
+      <button
+        onClick={() => setBonusDialogOpen(true)}
+        className="fixed top-6 right-6 z-50 group"
+      >
+        <div className="relative">
+          {/* Pulsing glow effect */}
+          <div className="absolute inset-0 bg-primary rounded-full blur-xl opacity-75 group-hover:opacity-100 animate-pulse" />
+          
+          {/* Main button */}
+          <div className="relative bg-gradient-to-r from-primary via-primary/90 to-primary flex items-center gap-3 px-6 py-4 rounded-full shadow-lg border-2 border-primary-foreground/20 transition-all duration-300 group-hover:scale-110 group-hover:shadow-2xl">
+            <Gift className="w-6 h-6 text-primary-foreground animate-bounce" />
+            <div className="text-left">
+              <div className="text-sm font-bold text-primary-foreground flex items-center gap-1">
+                {t('landing.launchBonus')}
+                <Sparkles className="w-4 h-4 animate-pulse" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </button>
+
+      {/* Launch Bonus Dialog */}
+      <Dialog open={bonusDialogOpen} onOpenChange={setBonusDialogOpen}>
+        <DialogContent className="max-w-2xl">
+          <DialogHeader>
+            <DialogTitle className="text-2xl font-bold flex items-center gap-2">
+              <Gift className="w-6 h-6 text-primary" />
+              {t('landing.launchBonus')}
+            </DialogTitle>
+          </DialogHeader>
+          
+          <div className="space-y-6 py-4">
+            {/* New Account Registration */}
+            <div className="bg-primary/5 p-6 rounded-lg border border-primary/20">
+              <h3 className="text-lg font-semibold mb-4 flex items-center gap-2">
+                <Sparkles className="w-5 h-5 text-primary" />
+                {t('landing.bonusNewAccount')}
+              </h3>
+              <ul className="space-y-3">
+                <li className="flex items-start gap-3">
+                  <div className="w-2 h-2 rounded-full bg-primary mt-2 flex-shrink-0" />
+                  <span className="text-foreground">{t('landing.bonusCash')}</span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <div className="w-2 h-2 rounded-full bg-primary mt-2 flex-shrink-0" />
+                  <span className="text-foreground">{t('landing.bonusFees')}</span>
+                </li>
+              </ul>
+            </div>
+
+            {/* First Deposit Bonus */}
+            <div className="bg-secondary/5 p-6 rounded-lg border border-secondary/20">
+              <h3 className="text-lg font-semibold mb-4 flex items-center gap-2">
+                <Zap className="w-5 h-5 text-secondary" />
+                {t('landing.bonusFirstDeposit')}
+              </h3>
+              <ul className="space-y-3">
+                <li className="flex items-start gap-3">
+                  <div className="w-2 h-2 rounded-full bg-secondary mt-2 flex-shrink-0" />
+                  <span className="text-foreground">{t('landing.bonusBoost')}</span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <div className="w-2 h-2 rounded-full bg-secondary mt-2 flex-shrink-0" />
+                  <span className="text-foreground">{t('landing.bonusConversion')}</span>
+                </li>
+              </ul>
+            </div>
+
+            {/* Disclaimer */}
+            <p className="text-xs text-muted-foreground italic border-t pt-4">
+              {t('landing.bonusDisclaimer')}
+            </p>
+          </div>
+        </DialogContent>
+      </Dialog>
 
       {/* Hero Section */}
       <div className="relative h-screen w-full overflow-hidden">
