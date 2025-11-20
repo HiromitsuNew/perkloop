@@ -47,16 +47,15 @@ export const useNaviAPY = () => {
     return () => clearInterval(interval);
   }, []);
 
-  // Calculate user APY: NAVI APY - 5% flat fee
+  // Calculate user APY: Launch bonus - no management fees
   const calculateUserAPY = (naviAPY: number): number => {
-    const managementFee = naviAPY * 0.05;
-    return Math.max(0, naviAPY - managementFee);
+    return naviAPY;
   };
 
   return {
     naviAPY: usdcAPY,
     userAPY: usdcAPY ? calculateUserAPY(usdcAPY) : null,
-    managementFee: usdcAPY ? usdcAPY * 0.05 : null,
+    managementFee: 0, // Launch bonus: no management fees
     isLoading,
     error,
   };
