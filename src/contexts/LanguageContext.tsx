@@ -307,12 +307,14 @@ const translations = {
     "landing.disclaimer": "*The number is based on the year-to-date DeFi lending APY and not guaranteed.",
     "landing.launchBonus": "Launch Bonus!",
     "landing.bonusNewAccount": "Any new account registrations",
-    "landing.bonusCash": "JPY 1,000 cash bonus into the deposit",
+    "landing.bonusCash": "JPY 1,000 cash bonus directly into the deposit",
     "landing.bonusFees": "Full coverage of deposit and withdrawal fees from bank wire*",
     "landing.bonusFirstDeposit": "After depositing the first JPY 20,000",
-    "landing.bonusBoost": "Bonus 1% boosting",
-    "landing.bonusConversion": "Full coverage of potential currency conversion loss between JPY and USD",
-    "landing.bonusDisclaimer": "*The deposit and withdrawal fees are charged by your bank. Perkloop never charges deposit or withdrawal fees.",
+    "landing.bonusBoost": "Bonus 1% APY boosting: Enjoy up to 10% on your savings!",
+    "landing.bonusConversion":
+      "Full coverage of potential currency conversion loss between JPY and USD upon withdrawal",
+    "landing.bonusDisclaimer":
+      "*The deposit and withdrawal fees are charged by your bank. Perkloop never charges deposit or withdrawal fees.",
   },
   ja: {
     // Auth
@@ -609,10 +611,10 @@ const translations = {
     "landing.disclaimer": "*年初来のDeFiレンディングAPYに基づいており、保証されていません。",
     "landing.launchBonus": "ローンチキャンペーン！",
     "landing.bonusNewAccount": "新規アカウント登録で",
-    "landing.bonusCash": "JPY 1,000のキャッシュボーナス",
+    "landing.bonusCash": "1,000円のキャッシュボーナス",
     "landing.bonusFees": "銀行振込手数料の全額カバー*",
-    "landing.bonusFirstDeposit": "初回JPY 20,000の入金後",
-    "landing.bonusBoost": "ボーナス1%ブースト",
+    "landing.bonusFirstDeposit": "初回20,000円の入金後",
+    "landing.bonusBoost": "ボーナス1% APYブースト：最大10%のAPYを楽しもう！",
     "landing.bonusConversion": "JPYとUSD間の通貨換算損失の全額カバー",
     "landing.bonusDisclaimer": "*入出金手数料は銀行が請求するものです。Perkloopは入出金手数料を一切請求しません。",
   },
