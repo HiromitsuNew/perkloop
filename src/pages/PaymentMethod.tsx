@@ -104,11 +104,13 @@ const PaymentMethod = () => {
             <div className="space-y-2">
               <label className="text-sm font-medium">{t('paymentMethod.enterAmount')}</label>
               <Input
-                type="number"
+                type="text"
+                inputMode="numeric"
                 value={customAmount}
                 onChange={(e) => {
-                  console.log('Input changed:', e.target.value);
-                  setCustomAmount(e.target.value);
+                  const value = e.target.value.replace(/[^0-9]/g, '');
+                  console.log('Input changed:', value);
+                  setCustomAmount(value);
                 }}
                 placeholder="10000"
                 className="text-base"
