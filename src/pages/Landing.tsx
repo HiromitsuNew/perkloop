@@ -159,6 +159,10 @@ const Landing = () => {
                   <div className="w-2 h-2 rounded-full bg-primary mt-2 flex-shrink-0" />
                   <span className="text-foreground">{t('landing.bonusFees')}</span>
                 </li>
+                <li className="flex items-start gap-3">
+                  <div className="w-2 h-2 rounded-full bg-primary mt-2 flex-shrink-0" />
+                  <span className="text-foreground">{t('landing.bonusZeroFees')}</span>
+                </li>
               </ul>
             </div>
 

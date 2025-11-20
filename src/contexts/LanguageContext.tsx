@@ -309,6 +309,7 @@ const translations = {
     "landing.bonusNewAccount": "Any new account registrations",
     "landing.bonusCash": "JPY 1,000 cash bonus directly into the deposit",
     "landing.bonusFees": "Full coverage of deposit and withdrawal fees from bank wire*",
+    "landing.bonusZeroFees": "ZERO management fees",
     "landing.bonusFirstDeposit": "After depositing the first JPY 20,000",
     "landing.bonusBoost": "Bonus 1% APY boosting: Enjoy up to 10% on your savings!",
     "landing.bonusConversion":
@@ -613,6 +614,7 @@ const translations = {
     "landing.bonusNewAccount": "新規アカウント登録で",
     "landing.bonusCash": "1,000円のキャッシュボーナス",
     "landing.bonusFees": "銀行振込手数料の全額カバー*",
+    "landing.bonusZeroFees": "管理手数料ゼロ",
     "landing.bonusFirstDeposit": "初回20,000円の入金後",
     "landing.bonusBoost": "ボーナス1% APYブースト：最大10%のAPYを楽しもう！",
     "landing.bonusConversion": "JPYとUSD間の通貨換算損失の全額カバー",
